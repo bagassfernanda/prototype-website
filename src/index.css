@@ -1,0 +1,2677 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Sora", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-accent: "Instrument Serif", Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 11rem;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #ffffff;
+  color: #172536;
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: #36699c;
+  color: #ffffff;
+}
+
+@keyframes artavel-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) rotate(1.5deg);
+  }
+}
+
+@keyframes artavel-pulse-line {
+  0% {
+    transform: translateX(-42%);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(42%);
+    opacity: 0.2;
+  }
+}
+
+@keyframes artavel-phone-ring {
+  0%,
+  30%,
+  58%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  34% {
+    transform: rotate(-7deg) scale(1.035);
+  }
+  38% {
+    transform: rotate(7deg) scale(1.035);
+  }
+  42% {
+    transform: rotate(-5deg) scale(1.025);
+  }
+  46% {
+    transform: rotate(5deg) scale(1.025);
+  }
+  52% {
+    transform: rotate(-2deg) scale(1.01);
+  }
+}
+
+@keyframes artavel-phone-glow {
+  0%,
+  28%,
+  60%,
+  100% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  36%,
+  48% {
+    opacity: 0.68;
+    transform: scale(1.22);
+  }
+}
+
+@keyframes artavel-tech-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-artavel-float {
+  animation: artavel-float 7s ease-in-out infinite;
+}
+
+.animate-artavel-float-delay {
+  animation: artavel-float 8s ease-in-out infinite;
+  animation-delay: -2.5s;
+}
+
+.animate-artavel-pulse-line {
+  animation: artavel-pulse-line 5.5s ease-in-out infinite;
+}
+
+.artavel-tech-marquee {
+  animation: artavel-tech-marquee 30s linear infinite;
+}
+
+.artavel-tech-marquee:hover {
+  animation-play-state: paused;
+}
+
+.artavel-profile-video-media {
+  filter: brightness(1.18) saturate(1.08) contrast(1.04);
+}
+
+.artavel-cta-phone-link {
+  position: relative;
+  isolation: isolate;
+  transform-origin: 50% 50%;
+  animation: artavel-phone-ring 2.8s ease-in-out infinite;
+  box-shadow:
+    0 0 0 1px rgba(125, 188, 94, 0.12),
+    0 16px 34px rgba(7, 25, 39, 0.18);
+}
+
+.artavel-cta-phone-link::before {
+  content: "";
+  position: absolute;
+  inset: -0.45rem;
+  z-index: -1;
+  border-radius: 1.35rem;
+  border: 1px solid rgba(168, 224, 143, 0.42);
+  box-shadow: 0 0 24px rgba(125, 188, 94, 0.24);
+  animation: artavel-phone-glow 2.8s ease-in-out infinite;
+}
+
+.artavel-cta-phone-link:hover,
+.artavel-cta-phone-link:focus-visible {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .artavel-tech-marquee {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .artavel-cta-phone-link,
+  .artavel-cta-phone-link::before {
+    animation: none !important;
+  }
+
+  .artavel-faq-section .artavel-faq-accordion button,
+  .artavel-faq-section .artavel-faq-accordion button::before {
+    transform: none !important;
+    transition-duration: 0ms !important;
+  }
+
+  .artavel-security-card,
+  .artavel-security-card::before,
+  .artavel-security-card-icon,
+  .artavel-capability-card,
+  .artavel-capability-card::before,
+  .artavel-capability-card-icon,
+  .artavel-problem-card,
+  .artavel-problem-card::before,
+  .artavel-problem-card-icon,
+  .artavel-work-step-card,
+  .artavel-work-step-card::before,
+  .artavel-work-step-card-icon,
+  .artavel-inline-action-link,
+  .artavel-inline-action-link span,
+  .artavel-inline-action-link svg,
+  .artavel-featured-case-link,
+  .artavel-featured-case-link span,
+  .artavel-featured-case-link svg,
+  .artavel-contact-submit-button,
+  .artavel-contact-submit-button::before,
+  .artavel-contact-submit-button svg,
+  .artavel-contact-whatsapp-button,
+  .artavel-contact-whatsapp-button::before,
+  .artavel-contact-whatsapp-button svg,
+  .artavel-whatsapp-response-card,
+  .artavel-whatsapp-response-card::before,
+  .artavel-whatsapp-response-icon,
+  .artavel-social-link,
+  .artavel-social-link::before,
+  .artavel-social-link svg,
+  .artavel-social-link span,
+  .artavel-map-navigation-link,
+  .artavel-map-navigation-link::before,
+  .artavel-map-navigation-icon,
+  .artavel-google-maps-button,
+  .artavel-google-maps-button::before,
+  .artavel-google-maps-button svg,
+  .artavel-workflow-sim-button,
+  .artavel-workflow-sim-button::before,
+  .artavel-workflow-sim-icon,
+  .artavel-readiness-question-card,
+  .artavel-readiness-option,
+  .artavel-readiness-option::before,
+  .artavel-profile-info-card,
+  .artavel-profile-info-card::before,
+  .artavel-profile-info-card-icon,
+  .artavel-solution-hero-primary-button,
+  .artavel-solution-hero-primary-button::before,
+  .artavel-solution-hero-outline-button,
+  .artavel-solution-hero-outline-button::before,
+  .artavel-capability-detail-action,
+  .artavel-capability-detail-action::before {
+    transform: none !important;
+    transition-duration: 0ms !important;
+  }
+}
+
+.artavel-dot-grid {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.18) 1px, transparent 1.2px);
+  background-size: 44px 44px;
+}
+
+.artavel-text-balance {
+  text-wrap: balance;
+}
+
+.artavel-scroll-reveal {
+  transform: translate3d(0, 1.4rem, 0) scale(0.985);
+  transition:
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: transform;
+}
+
+.artavel-scroll-reveal[data-reveal-direction="down"] {
+  transform: translate3d(0, -1.1rem, 0) scale(0.985);
+}
+
+.artavel-scroll-reveal[data-reveal-direction="left"] {
+  transform: translate3d(-1.6rem, 0, 0) scale(0.985);
+}
+
+.artavel-scroll-reveal[data-reveal-direction="right"] {
+  transform: translate3d(1.6rem, 0, 0) scale(0.985);
+}
+
+.artavel-scroll-reveal[data-reveal-direction="scale"] {
+  transform: translate3d(0, 0.7rem, 0) scale(0.955);
+}
+
+.artavel-scroll-reveal[data-reveal-direction="none"] {
+  transform: none;
+}
+
+.artavel-scroll-reveal.is-visible {
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.artavel-scroll-reveal.artavel-reveal-card {
+  transform-origin: 50% 58%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .artavel-scroll-reveal,
+  .artavel-scroll-reveal.is-visible {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+:root {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+:root[data-theme="dark"] body {
+  background: #071927;
+  color: #eaf2f8;
+}
+
+:root[data-theme="dark"] .bg-white {
+  background-color: #0d2233 !important;
+}
+
+:root[data-theme="dark"] [class*="bg-[#F7F9FB]"] {
+  background-color: #0a1d2c !important;
+}
+
+:root[data-theme="dark"] [class*="bg-[#F2F7FB]"] {
+  background-color: #102a3d !important;
+}
+
+:root[data-theme="dark"] [class*="bg-[#EAF2F8]"] {
+  background-color: #143b55 !important;
+}
+
+:root[data-theme="dark"] [class*="bg-[#EFF8EA]"] {
+  background-color: #123423 !important;
+}
+
+:root[data-theme="dark"] [class*="text-[#172536]"] {
+  color: #f7fbff !important;
+}
+
+:root[data-theme="dark"] [class*="text-[#5C6B79]"],
+:root[data-theme="dark"] [class*="text-[#7A8792]"] {
+  color: #b8c8d6 !important;
+}
+
+:root[data-theme="dark"] [class*="text-[#244F78]"],
+:root[data-theme="dark"] [class*="text-[#36699C]"] {
+  color: #8bc4ff !important;
+}
+
+:root[data-theme="dark"] [class*="border-[#DBE4EB]"] {
+  border-color: rgba(139, 196, 255, 0.18) !important;
+}
+
+:root[data-theme="dark"] [class*="border-[#36699C]"] {
+  border-color: rgba(139, 196, 255, 0.38) !important;
+}
+
+:root[data-theme="dark"] [data-accent-border="blue"] {
+  border-top-color: #4f8fca !important;
+  box-shadow:
+    0 16px 42px rgba(0, 0, 0, 0.20),
+    0 -1px 0 rgba(139, 196, 255, 0.18) !important;
+}
+
+:root[data-theme="dark"] [data-accent-border="green"] {
+  border-top-color: #7dbc5e !important;
+  box-shadow:
+    0 16px 42px rgba(0, 0, 0, 0.20),
+    0 -1px 0 rgba(168, 224, 143, 0.18) !important;
+}
+
+:root[data-theme="dark"] [data-accent-border="yellow"] {
+  border-top-color: #daa761 !important;
+}
+
+:root[data-theme="dark"] [data-accent-border="orange"] {
+  border-top-color: #d26353 !important;
+}
+
+:root[data-theme="dark"] .artavel-header-shell {
+  background-color: rgba(8, 24, 38, 0.9) !important;
+  border-color: rgba(139, 196, 255, 0.22) !important;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34) !important;
+}
+
+:root[data-theme="dark"] .artavel-theme-toggle,
+:root[data-theme="dark"] .artavel-language-toggle {
+  background: rgba(8, 24, 38, 0.96) !important;
+  border-color: rgba(184, 221, 255, 0.52) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 10px 28px rgba(0, 0, 0, 0.3) !important;
+}
+
+:root[data-theme="dark"] .artavel-theme-toggle button,
+:root[data-theme="dark"] .artavel-language-toggle button {
+  color: #ddecff !important;
+}
+
+:root[data-theme="dark"] .artavel-theme-toggle button:not([aria-pressed="true"]),
+:root[data-theme="dark"] .artavel-language-toggle button:not([aria-pressed="true"]) {
+  color: #ddecff !important;
+}
+
+:root[data-theme="dark"] .artavel-theme-toggle button:not([aria-pressed="true"]):hover,
+:root[data-theme="dark"] .artavel-language-toggle button:not([aria-pressed="true"]):hover {
+  background-color: rgba(139, 196, 255, 0.16) !important;
+  color: #f7fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-theme-toggle button[aria-pressed="true"],
+:root[data-theme="dark"] .artavel-language-toggle button[aria-pressed="true"] {
+  background: linear-gradient(135deg, #8bc4ff 0%, #a8e08f 100%) !important;
+  color: #061827 !important;
+  box-shadow:
+    0 0 0 2px rgba(139, 196, 255, 0.22),
+    0 0 24px rgba(139, 196, 255, 0.34) !important;
+}
+
+:root[data-theme="dark"] .artavel-theme-toggle button[aria-pressed="true"] svg {
+  color: #061827 !important;
+  stroke-width: 2.5;
+}
+
+:root[data-theme="dark"] .artavel-language-toggle button[aria-pressed="true"] {
+  font-weight: 900;
+}
+
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] textarea,
+:root[data-theme="dark"] select {
+  background-color: #081b2a !important;
+  border-color: rgba(139, 196, 255, 0.22) !important;
+  color: #f7fbff !important;
+}
+
+:root[data-theme="dark"] input::placeholder,
+:root[data-theme="dark"] textarea::placeholder {
+  color: rgba(184, 200, 214, 0.72) !important;
+}
+
+:root[data-theme="dark"] .shadow-xs,
+:root[data-theme="dark"] .shadow-sm,
+:root[data-theme="dark"] .shadow-md,
+:root[data-theme="dark"] .shadow-lg {
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.26) !important;
+}
+
+.artavel-section-white,
+.artavel-section-surface,
+.artavel-section-surface-blue,
+.artavel-section-dark,
+.artavel-solution-capabilities,
+.artavel-solution-faq-section {
+  scroll-margin-top: 11rem;
+}
+
+.artavel-nav-item {
+  color: #172536;
+}
+
+.artavel-nav-item-active {
+  color: #173955 !important;
+}
+
+.artavel-header-shell {
+  isolation: isolate;
+  border-color: transparent !important;
+}
+
+.artavel-header-brand-edge {
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: calc(1.7rem + 1px);
+  padding: 2.5px;
+  background: linear-gradient(90deg, #36699c 0%, #36699c 18%, #2f79b7 42%, #7dbc5e 70%, #7dbc5e 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.artavel-header-brand-edge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 4.5px;
+  background:
+    linear-gradient(90deg, #36699c 0%, #36699c 20%, #2f79b7 48%, #7dbc5e 78%, #7dbc5e 100%);
+  clip-path: inset(0 0 calc(100% - 2.7rem) 0);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.artavel-header-brand-edge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 3.5px;
+  background:
+    linear-gradient(180deg, rgba(54, 105, 156, 0.92) 0%, rgba(54, 105, 156, 0.58) 44%, rgba(54, 105, 156, 0) 100%) left top / 4.5px 4rem no-repeat,
+    linear-gradient(180deg, rgba(125, 188, 94, 0.92) 0%, rgba(125, 188, 94, 0.58) 44%, rgba(125, 188, 94, 0) 100%) right top / 4.5px 4rem no-repeat;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.artavel-header-scroll-edge {
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: calc(1.7rem + 1px);
+  padding: 3px;
+  background: rgba(219, 228, 235, 0.46);
+  clip-path: inset(calc(100% - 2.1rem) 0 0 0);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.artavel-header-scroll-edge-progress {
+  position: absolute;
+  inset: -1px;
+  border-radius: calc(1.7rem + 1px);
+  padding: 3px;
+  transform-origin: left;
+  background: linear-gradient(90deg, #36699c 0%, #2f79b7 44%, #7dbc5e 100%);
+  transition: transform 150ms ease-out;
+  clip-path: inset(calc(100% - 2.1rem) 0 0 0);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.artavel-nav-active-surface {
+  background: #eaf2f8;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.artavel-nav-text-marker {
+  display: block !important;
+  position: absolute !important;
+  bottom: 0.25rem !important;
+  left: 1.25rem !important;
+  right: 1.25rem !important;
+  width: auto !important;
+  height: 0.1875rem !important;
+  transform: none !important;
+  z-index: 3 !important;
+  box-shadow: 0 0 14px rgba(125, 188, 94, 0.24);
+}
+
+.artavel-nav-item > span:not(.artavel-nav-active-surface),
+.artavel-nav-item > svg {
+  position: relative;
+  z-index: 2;
+}
+
+.artavel-button-outline:hover,
+.artavel-dark-outline-button:hover {
+  background: #eaf2f8 !important;
+  border-color: #eaf2f8 !important;
+  color: #071927 !important;
+}
+
+.artavel-button-outline:hover > span,
+.artavel-dark-outline-button:hover > span,
+.artavel-button-outline:active > span,
+.artavel-dark-outline-button:active > span,
+.artavel-button-outline:focus-visible > span,
+.artavel-dark-outline-button:focus-visible > span {
+  color: #071927 !important;
+}
+
+.artavel-button-outline:hover svg,
+.artavel-dark-outline-button:hover svg {
+  color: currentColor !important;
+}
+
+.artavel-hero-secondary-button:hover,
+.artavel-hero-secondary-button:active,
+.artavel-hero-secondary-button:focus-visible {
+  background: rgba(23, 57, 85, 0.82) !important;
+  border-color: #8bc4ff !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 0 0 1px rgba(139, 196, 255, 0.22),
+    0 0 28px rgba(139, 196, 255, 0.26),
+    inset 0 0 18px rgba(139, 196, 255, 0.12) !important;
+}
+
+.artavel-hero-secondary-button:active {
+  background: rgba(13, 38, 58, 0.96) !important;
+  border-color: #a8d7ff !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 0 0 1px rgba(168, 215, 255, 0.34),
+    0 0 34px rgba(139, 196, 255, 0.32),
+    inset 0 0 22px rgba(139, 196, 255, 0.18) !important;
+}
+
+.artavel-contact-submit-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow:
+    0 12px 26px rgba(54, 105, 156, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    color 220ms ease !important;
+}
+
+.artavel-contact-submit-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(120deg, transparent 18%, rgba(255, 255, 255, 0.22) 44%, transparent 68%),
+    radial-gradient(circle at 18% 16%, rgba(139, 196, 255, 0.30), transparent 34%);
+  opacity: 0;
+  transform: translateX(-80%);
+  transition:
+    opacity 220ms ease,
+    transform 420ms ease;
+}
+
+.artavel-contact-submit-button svg {
+  transition:
+    transform 220ms ease,
+    filter 220ms ease;
+}
+
+.artavel-contact-submit-button:hover,
+.artavel-contact-submit-button:focus-visible {
+  transform: translateY(-0.15rem);
+  background: #315f90 !important;
+  box-shadow:
+    0 16px 34px rgba(54, 105, 156, 0.30),
+    0 0 24px rgba(139, 196, 255, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+}
+
+.artavel-contact-submit-button:hover::before,
+.artavel-contact-submit-button:focus-visible::before {
+  opacity: 1;
+  transform: translateX(80%);
+}
+
+.artavel-contact-submit-button:hover svg,
+.artavel-contact-submit-button:focus-visible svg {
+  transform: translate(0.16rem, -0.12rem) rotate(-8deg);
+  filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.20));
+}
+
+.artavel-contact-submit-button:active {
+  transform: translateY(0) scale(0.99);
+  box-shadow:
+    0 8px 18px rgba(54, 105, 156, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+.artavel-contact-whatsapp-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #568f3e !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 12px 26px rgba(86, 143, 62, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    color 220ms ease !important;
+}
+
+.artavel-contact-whatsapp-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(120deg, transparent 18%, rgba(255, 255, 255, 0.22) 44%, transparent 68%),
+    radial-gradient(circle at 18% 16%, rgba(168, 224, 143, 0.34), transparent 34%);
+  opacity: 0;
+  transform: translateX(-80%);
+  transition:
+    opacity 220ms ease,
+    transform 420ms ease;
+}
+
+.artavel-contact-whatsapp-button svg {
+  transition:
+    transform 220ms ease,
+    filter 220ms ease;
+}
+
+.artavel-contact-whatsapp-button:hover,
+.artavel-contact-whatsapp-button:focus-visible {
+  transform: translateY(-0.15rem);
+  background: #4f8b37 !important;
+  box-shadow:
+    0 16px 34px rgba(86, 143, 62, 0.30),
+    0 0 24px rgba(125, 188, 94, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+}
+
+.artavel-contact-whatsapp-button:hover::before,
+.artavel-contact-whatsapp-button:focus-visible::before {
+  opacity: 1;
+  transform: translateX(80%);
+}
+
+.artavel-contact-whatsapp-button:hover svg,
+.artavel-contact-whatsapp-button:focus-visible svg {
+  transform: translate(0.16rem, -0.08rem) scale(1.08);
+  filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.20));
+}
+
+.artavel-contact-whatsapp-button:active {
+  transform: translateY(0) scale(0.99);
+  box-shadow:
+    0 8px 18px rgba(86, 143, 62, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+.artavel-whatsapp-response-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.artavel-whatsapp-response-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(125, 188, 94, 0.22), transparent 35%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.62), transparent 50%);
+  opacity: 0;
+  transform: scale(0.985);
+  transition:
+    opacity 220ms ease,
+    transform 240ms ease;
+}
+
+.artavel-whatsapp-response-card h3,
+.artavel-whatsapp-response-card p {
+  transition: color 220ms ease;
+}
+
+.artavel-whatsapp-response-icon {
+  transition:
+    transform 220ms ease,
+    color 220ms ease,
+    filter 220ms ease;
+}
+
+.artavel-whatsapp-response-card:hover,
+.artavel-whatsapp-response-card:focus-visible {
+  transform: translateY(-0.18rem);
+  border-color: rgba(86, 143, 62, 0.70) !important;
+  background: #f3fbef !important;
+  box-shadow:
+    0 16px 34px rgba(86, 143, 62, 0.14),
+    0 0 26px rgba(125, 188, 94, 0.16);
+  outline: none;
+}
+
+.artavel-whatsapp-response-card:hover::before,
+.artavel-whatsapp-response-card:focus-visible::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.artavel-whatsapp-response-card:hover .artavel-whatsapp-response-icon,
+.artavel-whatsapp-response-card:focus-visible .artavel-whatsapp-response-icon {
+  transform: translateY(-0.08rem) scale(1.04);
+  color: #4f8b37 !important;
+  filter: drop-shadow(0 6px 12px rgba(86, 143, 62, 0.24));
+}
+
+.artavel-whatsapp-response-card:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.artavel-social-panel {
+  position: relative;
+}
+
+.artavel-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.artavel-social-links-with-labels {
+  gap: 0.75rem;
+}
+
+.artavel-social-link {
+  --social-accent: #36699c;
+  --social-soft: rgba(54, 105, 156, 0.12);
+  --social-icon-x: 0rem;
+  --social-icon-y: 0rem;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.48rem;
+  width: 2.65rem;
+  height: 2.65rem;
+  border-radius: 999px;
+  color: var(--social-accent);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(219, 228, 235, 0.95);
+  text-decoration: none;
+  appearance: none;
+  cursor: pointer;
+  box-shadow:
+    0 10px 24px rgba(23, 37, 54, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+  transition:
+    transform 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    opacity 220ms ease;
+}
+
+.artavel-social-links-with-labels .artavel-social-link {
+  width: auto;
+  min-width: 7.15rem;
+  padding: 0 0.9rem;
+}
+
+.artavel-social-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 24% 18%, var(--social-soft), transparent 38%),
+    linear-gradient(120deg, transparent 18%, rgba(255, 255, 255, 0.48) 48%, transparent 76%);
+  opacity: 0;
+  transform: translateX(-38%) scale(0.96);
+  transition:
+    opacity 220ms ease,
+    transform 360ms ease;
+}
+
+.artavel-social-link svg,
+.artavel-social-link span {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  transition:
+    transform 220ms ease,
+    filter 220ms ease,
+    color 220ms ease;
+}
+
+.artavel-social-link svg {
+  display: block;
+  width: 1.26rem;
+  height: 1.26rem;
+  transform: translate(var(--social-icon-x), var(--social-icon-y));
+}
+
+.artavel-social-link[data-social="tiktok"] svg {
+  width: 1.48rem;
+  height: 1.48rem;
+}
+
+.artavel-social-link[data-social="facebook"] {
+  --social-accent: #36699c;
+  --social-soft: rgba(54, 105, 156, 0.20);
+  --social-icon-x: 0.03rem;
+  --social-icon-y: 0.02rem;
+}
+
+.artavel-social-link[data-social="instagram"] {
+  --social-accent: #d26353;
+  --social-soft: rgba(210, 99, 83, 0.20);
+  --social-icon-x: 0.07rem;
+  --social-icon-y: 0.045rem;
+}
+
+.artavel-social-link[data-social="tiktok"] {
+  --social-accent: #172536;
+  --social-soft: rgba(23, 37, 54, 0.16);
+  --social-icon-x: 0.015rem;
+  --social-icon-y: 0.04rem;
+}
+
+.artavel-social-link[data-social="linkedin"] {
+  --social-accent: #2f74a8;
+  --social-soft: rgba(47, 116, 168, 0.20);
+  --social-icon-x: 0.02rem;
+  --social-icon-y: 0.01rem;
+}
+
+.artavel-social-link:hover,
+.artavel-social-link:focus-visible {
+  transform: translateY(-0.16rem);
+  color: var(--social-accent);
+  border-color: color-mix(in srgb, var(--social-accent) 48%, transparent);
+  background: #ffffff;
+  box-shadow:
+    0 15px 30px rgba(23, 37, 54, 0.12),
+    0 0 24px var(--social-soft),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+  outline: none;
+}
+
+.artavel-social-link:hover::before,
+.artavel-social-link:focus-visible::before {
+  opacity: 1;
+  transform: translateX(34%) scale(1);
+}
+
+.artavel-social-link:hover svg,
+.artavel-social-link:focus-visible svg {
+  transform: translate(var(--social-icon-x), calc(var(--social-icon-y) - 0.06rem)) scale(1.08);
+  filter: drop-shadow(0 5px 10px var(--social-soft));
+}
+
+.artavel-social-link:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.artavel-social-link-placeholder {
+  opacity: 0.82;
+  filter: saturate(0.88);
+}
+
+.artavel-social-panel-footer .artavel-social-link {
+  width: 3.1rem;
+  height: 3.1rem;
+  color: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.artavel-social-panel-footer .artavel-social-links {
+  gap: 0.85rem;
+}
+
+.artavel-social-panel-footer .artavel-social-link svg {
+  width: 1.55rem;
+  height: 1.55rem;
+}
+
+.artavel-social-panel-footer .artavel-social-link[data-social="tiktok"] svg {
+  width: 1.82rem;
+  height: 1.82rem;
+}
+
+.artavel-social-panel-footer .artavel-social-link:hover,
+.artavel-social-panel-footer .artavel-social-link:focus-visible {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.13);
+  border-color: color-mix(in srgb, var(--social-accent) 64%, rgba(255, 255, 255, 0.28));
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.16),
+    0 0 24px var(--social-soft),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.artavel-social-panel-footer .artavel-social-link-placeholder {
+  color: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.artavel-map-navigation-link {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  text-decoration: none;
+  color: #b9f09e !important;
+  background: rgba(125, 188, 94, 0.14) !important;
+  border-color: rgba(125, 188, 94, 0.30) !important;
+  box-shadow:
+    0 0 0 1px rgba(168, 224, 143, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    color 220ms ease;
+}
+
+.artavel-map-navigation-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 24% 48%, rgba(168, 224, 143, 0.28), transparent 34%),
+    linear-gradient(110deg, transparent 18%, rgba(255, 255, 255, 0.13) 48%, transparent 74%);
+  opacity: 0;
+  transform: translateX(-42%) scale(0.96);
+  transition:
+    opacity 220ms ease,
+    transform 360ms ease;
+}
+
+.artavel-map-navigation-icon {
+  color: currentColor !important;
+  stroke: currentColor !important;
+  transition:
+    transform 220ms ease,
+    filter 220ms ease;
+}
+
+.artavel-map-navigation-link:hover,
+.artavel-map-navigation-link:focus-visible {
+  transform: translateY(-0.1rem);
+  border-color: rgba(168, 224, 143, 0.62) !important;
+  background: rgba(125, 188, 94, 0.22) !important;
+  color: #d9ffc8 !important;
+  box-shadow:
+    0 0 0 1px rgba(168, 224, 143, 0.12),
+    0 0 24px rgba(125, 188, 94, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  outline: none;
+}
+
+.artavel-map-navigation-link:hover::before,
+.artavel-map-navigation-link:focus-visible::before {
+  opacity: 1;
+  transform: translateX(42%) scale(1);
+}
+
+.artavel-map-navigation-link:hover .artavel-map-navigation-icon,
+.artavel-map-navigation-link:focus-visible .artavel-map-navigation-icon {
+  transform: translate(0.08rem, -0.08rem) rotate(-10deg);
+  filter: drop-shadow(0 0 8px rgba(168, 224, 143, 0.36));
+}
+
+.artavel-map-navigation-link:active {
+  transform: translateY(0) scale(0.985);
+  box-shadow:
+    0 0 0 1px rgba(168, 224, 143, 0.18),
+    0 0 18px rgba(125, 188, 94, 0.16),
+    inset 0 2px 8px rgba(7, 25, 39, 0.18);
+}
+
+.artavel-google-maps-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow:
+    0 12px 26px rgba(54, 105, 156, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    color 220ms ease !important;
+}
+
+.artavel-google-maps-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(120deg, transparent 18%, rgba(255, 255, 255, 0.20) 46%, transparent 72%),
+    radial-gradient(circle at 82% 20%, rgba(168, 224, 143, 0.20), transparent 34%);
+  opacity: 0;
+  transform: translateX(-74%);
+  transition:
+    opacity 220ms ease,
+    transform 420ms ease;
+}
+
+.artavel-google-maps-button svg {
+  transition:
+    transform 220ms ease,
+    filter 220ms ease;
+}
+
+.artavel-google-maps-button:hover,
+.artavel-google-maps-button:focus-visible {
+  transform: translateY(-0.15rem);
+  background: #315f90 !important;
+  box-shadow:
+    0 16px 34px rgba(54, 105, 156, 0.30),
+    0 0 24px rgba(139, 196, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+}
+
+.artavel-google-maps-button:hover::before,
+.artavel-google-maps-button:focus-visible::before {
+  opacity: 1;
+  transform: translateX(76%);
+}
+
+.artavel-google-maps-button:hover svg,
+.artavel-google-maps-button:focus-visible svg {
+  transform: translate(0.14rem, -0.14rem) rotate(5deg);
+  filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.22));
+}
+
+.artavel-google-maps-button:active {
+  transform: translateY(0) scale(0.99);
+  box-shadow:
+    0 8px 18px rgba(54, 105, 156, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+.artavel-workflow-sim-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow:
+    0 10px 22px rgba(54, 105, 156, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    color 220ms ease,
+    opacity 220ms ease !important;
+}
+
+.artavel-workflow-sim-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(120deg, transparent 16%, rgba(255, 255, 255, 0.18) 46%, transparent 72%),
+    radial-gradient(circle at 18% 28%, rgba(168, 224, 143, 0.22), transparent 34%);
+  opacity: 0;
+  transform: translateX(-72%);
+  transition:
+    opacity 220ms ease,
+    transform 420ms ease;
+}
+
+.artavel-workflow-sim-icon {
+  transition:
+    transform 220ms ease,
+    filter 220ms ease;
+}
+
+.artavel-workflow-sim-button:not(:disabled):hover,
+.artavel-workflow-sim-button:not(:disabled):focus-visible {
+  transform: translateY(-0.14rem);
+  background: #315f90 !important;
+  box-shadow:
+    0 14px 30px rgba(54, 105, 156, 0.28),
+    0 0 22px rgba(139, 196, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20);
+  outline: none;
+}
+
+.artavel-workflow-sim-button:not(:disabled):hover::before,
+.artavel-workflow-sim-button:not(:disabled):focus-visible::before {
+  opacity: 1;
+  transform: translateX(76%);
+}
+
+.artavel-workflow-sim-button:not(:disabled):hover .artavel-workflow-sim-icon,
+.artavel-workflow-sim-button:not(:disabled):focus-visible .artavel-workflow-sim-icon {
+  transform: translateX(0.1rem) scale(1.08);
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.24));
+}
+
+.artavel-workflow-sim-button:not(:disabled):active {
+  transform: translateY(0) scale(0.99);
+  box-shadow:
+    0 8px 18px rgba(54, 105, 156, 0.22),
+    inset 0 2px 8px rgba(7, 25, 39, 0.16);
+}
+
+.artavel-workflow-sim-button:disabled {
+  cursor: wait;
+  box-shadow:
+    0 8px 18px rgba(54, 105, 156, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.artavel-capability-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  cursor: pointer;
+  border-color: rgba(54, 105, 156, 0.20) !important;
+  background: #ffffff;
+  color: #172536;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    color 220ms ease !important;
+}
+
+.artavel-capability-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(125, 188, 94, 0.20), transparent 34%),
+    radial-gradient(circle at 88% 88%, rgba(139, 196, 255, 0.12), transparent 36%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.54), transparent 48%);
+  opacity: 0;
+  transform: scale(0.985);
+  transition:
+    opacity 220ms ease,
+    transform 240ms ease;
+}
+
+.artavel-capability-card h3,
+.artavel-capability-card p,
+.artavel-capability-detail h3,
+.artavel-capability-detail p {
+  color: inherit;
+}
+
+.artavel-capability-card-active {
+  background: #f7fbff !important;
+  border-color: rgba(54, 105, 156, 0.34) !important;
+  color: #173955;
+}
+
+.artavel-capability-card:hover,
+.artavel-capability-card:focus-visible {
+  transform: translateY(-0.25rem);
+  border-color: rgba(125, 188, 94, 0.68) !important;
+  background: #ffffff !important;
+  box-shadow:
+    0 18px 44px rgba(23, 57, 85, 0.12),
+    0 0 30px rgba(125, 188, 94, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72) !important;
+}
+
+.artavel-capability-card:hover::before,
+.artavel-capability-card:focus-visible::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.artavel-capability-card-icon {
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease,
+    color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.artavel-capability-card:hover .artavel-capability-card-icon,
+.artavel-capability-card:focus-visible .artavel-capability-card-icon {
+  transform: translateY(-0.125rem) scale(1.06);
+  background: #7dbc5e !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 12px 26px rgba(86, 143, 62, 0.22),
+    0 0 18px rgba(125, 188, 94, 0.26);
+}
+
+.artavel-capability-detail-action {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-color: #36699c !important;
+  color: #244f78 !important;
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    color 220ms ease !important;
+}
+
+.artavel-capability-detail-action::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(110deg, transparent 0%, rgba(139, 196, 255, 0.20) 44%, transparent 74%);
+  opacity: 0;
+  transform: translateX(-42%);
+  transition:
+    opacity 220ms ease,
+    transform 320ms ease;
+}
+
+.artavel-capability-detail-action:hover,
+.artavel-capability-detail-action:focus-visible,
+.artavel-capability-detail-action:active {
+  border-color: #36699c !important;
+  color: #173955 !important;
+}
+
+.artavel-capability-detail-action:hover,
+.artavel-capability-detail-action:focus-visible {
+  transform: translateY(-0.125rem);
+  background: #f7fbff !important;
+  box-shadow:
+    0 14px 30px rgba(23, 57, 85, 0.10),
+    0 0 0 1px rgba(54, 105, 156, 0.16),
+    inset 0 0 18px rgba(139, 196, 255, 0.12) !important;
+}
+
+.artavel-capability-detail-action:active {
+  transform: translateY(0) scale(0.99);
+  background: #eaf2f8 !important;
+  box-shadow:
+    0 8px 18px rgba(23, 57, 85, 0.10),
+    0 0 0 1px rgba(54, 105, 156, 0.20) !important;
+}
+
+.artavel-capability-detail-action:hover::before,
+.artavel-capability-detail-action:focus-visible::before {
+  opacity: 1;
+  transform: translateX(42%);
+}
+
+.artavel-capability-detail-action > span,
+.artavel-capability-detail-action svg {
+  color: currentColor !important;
+}
+
+.artavel-security-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease !important;
+}
+
+.artavel-security-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 18% 10%, rgba(139, 196, 255, 0.24), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.58), transparent 44%);
+  opacity: 0;
+  transform: scale(0.985);
+  transition:
+    opacity 220ms ease,
+    transform 240ms ease;
+}
+
+.artavel-security-card:hover {
+  transform: translateY(-0.25rem);
+  border-color: rgba(54, 105, 156, 0.42) !important;
+  background-color: #f7fbff !important;
+  box-shadow:
+    0 18px 44px rgba(23, 57, 85, 0.12),
+    0 0 28px rgba(139, 196, 255, 0.16) !important;
+}
+
+.artavel-security-card:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.artavel-security-card-icon {
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.artavel-security-card:hover .artavel-security-card-icon {
+  transform: translateY(-0.125rem) scale(1.04);
+  background-color: #244f78 !important;
+  box-shadow:
+    0 12px 26px rgba(54, 105, 156, 0.22),
+    0 0 18px rgba(139, 196, 255, 0.28);
+}
+
+.artavel-problem-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease !important;
+}
+
+.artavel-problem-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(139, 196, 255, 0.18), transparent 34%),
+    radial-gradient(circle at 86% 88%, rgba(125, 188, 94, 0.10), transparent 36%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.52), transparent 48%);
+  opacity: 0;
+  transform: scale(0.985);
+  transition:
+    opacity 220ms ease,
+    transform 240ms ease;
+}
+
+.artavel-problem-card:hover {
+  transform: translateY(-0.25rem);
+  border-color: rgba(54, 105, 156, 0.42) !important;
+  background-color: #ffffff !important;
+  box-shadow:
+    0 18px 44px rgba(23, 57, 85, 0.12),
+    0 0 28px rgba(139, 196, 255, 0.14) !important;
+}
+
+.artavel-problem-card:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.artavel-problem-card-icon {
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease,
+    color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.artavel-problem-card:hover .artavel-problem-card-icon {
+  transform: translateY(-0.125rem) scale(1.06);
+  background-color: #244f78 !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 12px 26px rgba(54, 105, 156, 0.22),
+    0 0 18px rgba(139, 196, 255, 0.24);
+}
+
+.artavel-work-step-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease !important;
+}
+
+.artavel-work-step-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(125, 188, 94, 0.20), transparent 34%),
+    radial-gradient(circle at 88% 88%, rgba(139, 196, 255, 0.13), transparent 36%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.54), transparent 48%);
+  opacity: 0;
+  transform: scale(0.985);
+  transition:
+    opacity 220ms ease,
+    transform 240ms ease;
+}
+
+.artavel-work-step-card:hover {
+  transform: translateY(-0.25rem);
+  border-color: rgba(125, 188, 94, 0.62) !important;
+  background-color: #ffffff !important;
+  box-shadow:
+    0 18px 44px rgba(23, 57, 85, 0.12),
+    0 0 28px rgba(125, 188, 94, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72) !important;
+}
+
+.artavel-work-step-card:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.artavel-work-step-card-icon {
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease,
+    color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.artavel-work-step-card:hover .artavel-work-step-card-icon {
+  transform: translateY(-0.125rem) scale(1.06);
+  background-color: #244f78 !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 12px 26px rgba(54, 105, 156, 0.22),
+    0 0 18px rgba(139, 196, 255, 0.24);
+}
+
+.artavel-inline-action-link,
+.artavel-featured-case-link {
+  position: relative;
+  transition:
+    color 200ms ease,
+    transform 200ms ease,
+    text-shadow 200ms ease !important;
+}
+
+.artavel-inline-action-link span,
+.artavel-featured-case-link span {
+  position: relative;
+  display: inline-block;
+  transition: transform 200ms ease;
+}
+
+.artavel-inline-action-link span::after,
+.artavel-featured-case-link span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.18rem;
+  height: 0.12rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #36699c 0%, #7dbc5e 100%);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition:
+    opacity 200ms ease,
+    transform 240ms ease;
+}
+
+.artavel-inline-action-link svg,
+.artavel-featured-case-link svg {
+  transition:
+    transform 220ms ease,
+    filter 200ms ease;
+}
+
+.artavel-inline-action-link:hover,
+.artavel-inline-action-link:focus-visible,
+.artavel-featured-case-link:hover,
+.artavel-featured-case-link:focus-visible {
+  color: #244f78 !important;
+  text-shadow: 0 0 14px rgba(54, 105, 156, 0.14);
+}
+
+.artavel-inline-action-link:hover span,
+.artavel-inline-action-link:focus-visible span,
+.artavel-featured-case-link:hover span,
+.artavel-featured-case-link:focus-visible span {
+  transform: translateY(-0.08rem);
+}
+
+.artavel-inline-action-link:hover span::after,
+.artavel-inline-action-link:focus-visible span::after,
+.artavel-featured-case-link:hover span::after,
+.artavel-featured-case-link:focus-visible span::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.artavel-inline-action-link:hover svg,
+.artavel-inline-action-link:focus-visible svg,
+.artavel-featured-case-link:hover svg,
+.artavel-featured-case-link:focus-visible svg {
+  transform: translateX(0.28rem);
+  filter: drop-shadow(0 0 8px rgba(54, 105, 156, 0.20));
+}
+
+.artavel-readiness-question-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease !important;
+}
+
+.artavel-readiness-question-card:hover {
+  border-color: rgba(54, 105, 156, 0.30) !important;
+  box-shadow:
+    0 16px 38px rgba(23, 57, 85, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.70);
+}
+
+.artavel-readiness-option {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-color: #dbe4eb;
+  background: #ffffff;
+  color: #172536;
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    background-color 200ms ease,
+    box-shadow 200ms ease,
+    color 200ms ease !important;
+}
+
+.artavel-readiness-option::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 16% 50%, rgba(125, 188, 94, 0.16), transparent 36%),
+    linear-gradient(90deg, rgba(139, 196, 255, 0.10), transparent 64%);
+  opacity: 0;
+  transform: scaleX(0.985);
+  transition:
+    opacity 200ms ease,
+    transform 220ms ease;
+}
+
+.artavel-readiness-option:hover,
+.artavel-readiness-option:focus-visible {
+  transform: translateX(0.12rem);
+  border-color: rgba(125, 188, 94, 0.56) !important;
+  background: #f7fbff !important;
+  color: #173955 !important;
+  box-shadow:
+    0 10px 24px rgba(23, 57, 85, 0.08),
+    0 0 20px rgba(125, 188, 94, 0.12) !important;
+}
+
+.artavel-readiness-option:hover::before,
+.artavel-readiness-option:focus-visible::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.artavel-readiness-option-selected {
+  border-color: #36699c !important;
+  background: #eaf2f8 !important;
+  color: #244f78 !important;
+  box-shadow: inset 0 0 0 1px rgba(54, 105, 156, 0.08);
+}
+
+.artavel-readiness-option-selected:hover,
+.artavel-readiness-option-selected:focus-visible {
+  border-color: rgba(125, 188, 94, 0.64) !important;
+}
+
+.artavel-profile-info-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease !important;
+}
+
+.artavel-profile-info-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(168, 224, 143, 0.18), transparent 36%),
+    radial-gradient(circle at 86% 86%, rgba(139, 196, 255, 0.16), transparent 36%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.10), transparent 48%);
+  opacity: 0;
+  transform: scale(0.985);
+  transition:
+    opacity 220ms ease,
+    transform 240ms ease;
+}
+
+.artavel-profile-info-card:hover {
+  transform: translateY(-0.25rem);
+  border-color: rgba(139, 196, 255, 0.42) !important;
+  background-color: rgba(255, 255, 255, 0.14) !important;
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.18),
+    0 0 30px rgba(139, 196, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+.artavel-profile-info-card:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.artavel-profile-info-card-icon {
+  transition:
+    transform 220ms ease,
+    filter 220ms ease;
+}
+
+.artavel-profile-info-card:hover .artavel-profile-info-card-icon {
+  transform: translateY(-0.125rem) scale(1.08);
+  filter: drop-shadow(0 0 10px rgba(139, 196, 255, 0.32));
+}
+
+.artavel-solution-hero-primary-button,
+.artavel-solution-hero-outline-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    transform 220ms ease,
+    background-color 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    color 220ms ease !important;
+}
+
+.artavel-solution-hero-primary-button::before,
+.artavel-solution-hero-outline-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.22) 42%, transparent 72%);
+  opacity: 0;
+  transform: translateX(-42%);
+  transition:
+    opacity 220ms ease,
+    transform 320ms ease;
+}
+
+.artavel-solution-hero-primary-button:hover,
+.artavel-solution-hero-primary-button:focus-visible,
+.artavel-solution-hero-outline-button:hover,
+.artavel-solution-hero-outline-button:focus-visible {
+  transform: translateY(-0.125rem);
+}
+
+.artavel-solution-hero-primary-button:hover,
+.artavel-solution-hero-primary-button:focus-visible {
+  background-color: #244f78 !important;
+  box-shadow:
+    0 16px 34px rgba(54, 105, 156, 0.24),
+    0 0 22px rgba(139, 196, 255, 0.18) !important;
+}
+
+.artavel-solution-hero-outline-button:hover,
+.artavel-solution-hero-outline-button:focus-visible {
+  background-color: #f7fbff !important;
+  border-color: #36699c !important;
+  color: #173955 !important;
+  box-shadow:
+    0 14px 30px rgba(23, 57, 85, 0.10),
+    0 0 0 1px rgba(54, 105, 156, 0.16),
+    inset 0 0 18px rgba(139, 196, 255, 0.12) !important;
+}
+
+.artavel-solution-hero-outline-button:hover > span,
+.artavel-solution-hero-outline-button:focus-visible > span,
+.artavel-solution-hero-outline-button:active > span {
+  color: #173955 !important;
+}
+
+.artavel-solution-hero-primary-button:hover::before,
+.artavel-solution-hero-primary-button:focus-visible::before,
+.artavel-solution-hero-outline-button:hover::before,
+.artavel-solution-hero-outline-button:focus-visible::before {
+  opacity: 1;
+  transform: translateX(42%);
+}
+
+.artavel-solution-hero-primary-button:active,
+.artavel-solution-hero-outline-button:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.artavel-faq-accordion button {
+  color: #172536;
+}
+
+.artavel-faq-accordion [role="region"] {
+  color: #5c6b79;
+}
+
+.artavel-solution-faq-accordion {
+  overflow: hidden;
+  border: 1px solid rgba(54, 105, 156, 0.18) !important;
+  border-radius: 1.5rem;
+  background: #ffffff;
+  box-shadow:
+    0 18px 52px rgba(23, 57, 85, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.84);
+}
+
+.artavel-solution-faq-accordion > div {
+  padding: 1.1rem 1.35rem;
+  border-color: rgba(54, 105, 156, 0.14) !important;
+}
+
+.artavel-solution-faq-accordion button {
+  padding: 0.35rem 0;
+}
+
+.artavel-solution-faq-accordion button:hover,
+.artavel-solution-faq-accordion button:focus-visible {
+  color: #244f78 !important;
+}
+
+.artavel-solution-faq-accordion [role="region"] {
+  margin-top: 0.85rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(54, 105, 156, 0.12);
+  background: #f7fbff;
+  padding: 1rem 1.15rem !important;
+}
+
+.artavel-faq-section .artavel-faq-accordion {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(139, 196, 255, 0.13), transparent 36%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0) 44%),
+    rgba(7, 25, 39, 0.28) !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.20),
+    0 0 44px rgba(139, 196, 255, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+}
+
+.artavel-faq-section .artavel-faq-accordion::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(168, 215, 255, 0.13), transparent 30%),
+    radial-gradient(circle at 22% 90%, rgba(125, 188, 94, 0.08), transparent 34%);
+}
+
+.artavel-faq-section .artavel-faq-accordion > div {
+  position: relative;
+  z-index: 1;
+  border-color: rgba(255, 255, 255, 0.24) !important;
+}
+
+.artavel-faq-section .artavel-faq-accordion button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #f8fbff !important;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease !important;
+}
+
+.artavel-faq-section .artavel-faq-accordion button[aria-expanded="true"] {
+  color: #ffffff !important;
+}
+
+.artavel-faq-section .artavel-faq-accordion button::before {
+  content: "";
+  position: absolute;
+  inset: -0.35rem -0.5rem;
+  z-index: -1;
+  border-radius: 0.875rem;
+  background:
+    linear-gradient(90deg, rgba(139, 196, 255, 0.10), rgba(125, 188, 94, 0.06)),
+    radial-gradient(circle at 18% 50%, rgba(139, 196, 255, 0.12), transparent 42%);
+  opacity: 0;
+  transform: scaleX(0.985);
+  transition:
+    opacity 180ms ease,
+    transform 220ms ease;
+}
+
+.artavel-faq-section .artavel-faq-accordion button:hover,
+.artavel-faq-section .artavel-faq-accordion button:focus-visible {
+  color: #a8d7ff !important;
+  background: rgba(139, 196, 255, 0.035) !important;
+  box-shadow: 0 0 22px rgba(139, 196, 255, 0.08) !important;
+  text-shadow: 0 0 14px rgba(139, 196, 255, 0.18);
+  transform: translateX(0.125rem);
+}
+
+.artavel-faq-section .artavel-faq-accordion button:hover::before,
+.artavel-faq-section .artavel-faq-accordion button:focus-visible::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.artavel-faq-section .artavel-faq-accordion svg {
+  color: #8bc4ff !important;
+  stroke: currentColor !important;
+  transition:
+    color 180ms ease,
+    filter 180ms ease,
+    transform 180ms ease !important;
+}
+
+.artavel-faq-section .artavel-faq-accordion button:hover svg,
+.artavel-faq-section .artavel-faq-accordion button:focus-visible svg {
+  color: #a8d7ff !important;
+  filter: drop-shadow(0 0 8px rgba(139, 196, 255, 0.28));
+}
+
+.artavel-faq-section .artavel-faq-accordion [role="region"] {
+  margin-top: 0.65rem;
+  border-left: 2px solid rgba(168, 224, 143, 0.54);
+  color: #b9c9d8 !important;
+  padding-left: 1rem;
+}
+
+.artavel-location-map iframe {
+  filter: saturate(0.95) contrast(1.04);
+}
+
+:root[data-theme="dark"] .artavel-section-white,
+:root[data-theme="dark"] .artavel-section-surface,
+:root[data-theme="dark"] .artavel-section-surface-blue {
+  background: linear-gradient(180deg, #071927 0%, #0a2233 100%) !important;
+  color: #f8fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-section-surface {
+  background: linear-gradient(180deg, #081e2e 0%, #0b2839 100%) !important;
+}
+
+:root[data-theme="dark"] .artavel-section-surface-blue {
+  background: linear-gradient(180deg, #0b2234 0%, #082b32 100%) !important;
+}
+
+:root[data-theme="dark"] .artavel-section-dark {
+  background: #071927 !important;
+  color: #f7fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-contact-submit-button {
+  background: #36699c !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.26),
+    0 0 22px rgba(139, 196, 255, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+:root[data-theme="dark"] .artavel-contact-submit-button:hover,
+:root[data-theme="dark"] .artavel-contact-submit-button:focus-visible {
+  background: #3d76ad !important;
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, 0.30),
+    0 0 26px rgba(139, 196, 255, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+}
+
+:root[data-theme="dark"] .artavel-contact-whatsapp-button {
+  background: #568f3e !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.26),
+    0 0 22px rgba(125, 188, 94, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+:root[data-theme="dark"] .artavel-contact-whatsapp-button:hover,
+:root[data-theme="dark"] .artavel-contact-whatsapp-button:focus-visible {
+  background: #64a849 !important;
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, 0.30),
+    0 0 28px rgba(125, 188, 94, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+}
+
+:root[data-theme="dark"] .artavel-google-maps-button {
+  background: #36699c !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.26),
+    0 0 22px rgba(139, 196, 255, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+:root[data-theme="dark"] .artavel-google-maps-button:hover,
+:root[data-theme="dark"] .artavel-google-maps-button:focus-visible {
+  background: #3d76ad !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, 0.30),
+    0 0 26px rgba(139, 196, 255, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+}
+
+:root[data-theme="dark"] .artavel-workflow-sim-button {
+  background: #36699c !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.22),
+    0 0 18px rgba(139, 196, 255, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
+}
+
+:root[data-theme="dark"] .artavel-workflow-sim-button:not(:disabled):hover,
+:root[data-theme="dark"] .artavel-workflow-sim-button:not(:disabled):focus-visible {
+  background: #3d76ad !important;
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.28),
+    0 0 24px rgba(139, 196, 255, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+}
+
+:root[data-theme="dark"] .artavel-whatsapp-response-card {
+  background: rgba(125, 188, 94, 0.11) !important;
+  border-color: rgba(168, 224, 143, 0.36) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+:root[data-theme="dark"] .artavel-whatsapp-response-card::before {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(168, 224, 143, 0.16), transparent 36%),
+    linear-gradient(135deg, rgba(139, 196, 255, 0.07), transparent 54%);
+}
+
+:root[data-theme="dark"] .artavel-whatsapp-response-card h3 {
+  color: #f7fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-whatsapp-response-card p {
+  color: #c9d8e4 !important;
+}
+
+:root[data-theme="dark"] .artavel-whatsapp-response-card:hover,
+:root[data-theme="dark"] .artavel-whatsapp-response-card:focus-visible {
+  background: rgba(125, 188, 94, 0.15) !important;
+  border-color: rgba(168, 224, 143, 0.58) !important;
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.24),
+    0 0 24px rgba(125, 188, 94, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+:root[data-theme="dark"] .artavel-contact-social-card {
+  background: rgba(12, 34, 50, 0.88) !important;
+  border-color: rgba(139, 196, 255, 0.22) !important;
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+:root[data-theme="dark"] .artavel-contact-social-card h3 {
+  color: #f7fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-contact-social-card p {
+  color: #c9d8e4 !important;
+}
+
+:root[data-theme="dark"] .artavel-social-panel-surface .artavel-social-link {
+  color: #d8e8f6;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"] .artavel-social-panel-surface .artavel-social-link:hover,
+:root[data-theme="dark"] .artavel-social-panel-surface .artavel-social-link:focus-visible {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.13);
+  border-color: color-mix(in srgb, var(--social-accent) 60%, rgba(255, 255, 255, 0.26));
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.28),
+    0 0 26px var(--social-soft),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+:root[data-theme="dark"] .artavel-social-panel-surface .artavel-social-link-placeholder {
+  color: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+:root[data-theme="dark"] #produk-dan-solusi-teknologi {
+  background: linear-gradient(180deg, #071927 0%, #082b28 100%) !important;
+}
+
+:root[data-theme="dark"] .artavel-nav-item {
+  color: #9fd0ff !important;
+}
+
+:root[data-theme="dark"] .artavel-nav-item:hover {
+  background: rgba(139, 196, 255, 0.12) !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .artavel-nav-item-active {
+  color: #f7fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-nav-item-active > span,
+:root[data-theme="dark"] .artavel-nav-item-active > svg {
+  color: #f7fbff !important;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.32);
+}
+
+:root[data-theme="dark"] .artavel-nav-item-active svg,
+:root[data-theme="dark"] .artavel-nav-item:hover svg {
+  color: #9fd0ff !important;
+}
+
+:root[data-theme="dark"] .artavel-nav-active-surface {
+  background: linear-gradient(135deg, rgba(54, 105, 156, 0.52), rgba(125, 188, 94, 0.24)) !important;
+  border-color: rgba(139, 196, 255, 0.56) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.26) !important;
+}
+
+:root[data-theme="dark"] .artavel-nav-text-marker {
+  background: linear-gradient(90deg, #8bc4ff 0%, #a8e08f 100%) !important;
+  box-shadow:
+    0 0 18px rgba(139, 196, 255, 0.36),
+    0 0 18px rgba(168, 224, 143, 0.26);
+}
+
+:root[data-theme="dark"] .artavel-dropdown-panel {
+  background: rgba(8, 24, 38, 0.98) !important;
+  border-color: rgba(184, 221, 255, 0.78) !important;
+  box-shadow: 0 28px 78px rgba(0, 0, 0, 0.42) !important;
+}
+
+:root[data-theme="dark"] .artavel-dropdown-card {
+  background: #0f2b3f !important;
+  color: #eaf2f8 !important;
+}
+
+:root[data-theme="dark"] .artavel-dropdown-card:hover {
+  background: #143b55 !important;
+}
+
+:root[data-theme="dark"] .artavel-dropdown-card-active {
+  background: #17496a !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .artavel-dropdown-card div:first-of-type,
+:root[data-theme="dark"] .artavel-dropdown-card span {
+  color: #9fd0ff !important;
+}
+
+:root[data-theme="dark"] .artavel-dropdown-card div:last-child {
+  color: #c9d8e4 !important;
+}
+
+:root[data-theme="dark"] .artavel-dropdown-card-active div {
+  color: #f7fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-mobile-submenu {
+  background: #071927 !important;
+}
+
+:root[data-theme="dark"] .artavel-button-outline:hover,
+:root[data-theme="dark"] .artavel-dark-outline-button:hover {
+  background: rgba(139, 196, 255, 0.18) !important;
+  border-color: rgba(139, 196, 255, 0.72) !important;
+  color: #f8fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-button-outline:hover > span,
+:root[data-theme="dark"] .artavel-dark-outline-button:hover > span,
+:root[data-theme="dark"] .artavel-button-outline:active > span,
+:root[data-theme="dark"] .artavel-dark-outline-button:active > span,
+:root[data-theme="dark"] .artavel-button-outline:focus-visible > span,
+:root[data-theme="dark"] .artavel-dark-outline-button:focus-visible > span {
+  color: #f8fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-faq-accordion {
+  color: #f7fbff;
+}
+
+:root[data-theme="dark"] .artavel-faq-accordion > div {
+  border-color: rgba(139, 196, 255, 0.2) !important;
+}
+
+:root[data-theme="dark"] .artavel-faq-accordion button {
+  color: #f8fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-faq-accordion [role="region"] {
+  color: #d4e2ee !important;
+}
+
+:root[data-theme="dark"] .artavel-capability-card {
+  background: rgba(13, 34, 51, 0.72) !important;
+  border-color: rgba(139, 196, 255, 0.24) !important;
+  color: #f7fbff !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+:root[data-theme="dark"] .artavel-capability-card::before {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(125, 188, 94, 0.14), transparent 34%),
+    radial-gradient(circle at 88% 88%, rgba(139, 196, 255, 0.12), transparent 36%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.045), transparent 48%);
+}
+
+:root[data-theme="dark"] .artavel-capability-card-active {
+  background: rgba(16, 43, 64, 0.82) !important;
+  border-color: rgba(139, 196, 255, 0.34) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+:root[data-theme="dark"] .artavel-capability-card:hover,
+:root[data-theme="dark"] .artavel-capability-card:focus-visible {
+  background: rgba(15, 45, 60, 0.90) !important;
+  border-color: rgba(168, 224, 143, 0.58) !important;
+  box-shadow:
+    0 18px 46px rgba(0, 0, 0, 0.28),
+    0 0 30px rgba(125, 188, 94, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+:root[data-theme="dark"] .artavel-capability-card h3,
+:root[data-theme="dark"] .artavel-capability-detail h3 {
+  color: #f7fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-capability-card p,
+:root[data-theme="dark"] .artavel-capability-detail p {
+  color: #d4e2ee !important;
+}
+
+:root[data-theme="dark"] .artavel-capability-detail {
+  background: #0d2233 !important;
+  border-color: rgba(143, 216, 113, 0.36) !important;
+  color: #f7fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-capability-detail-action {
+  border-color: rgba(139, 196, 255, 0.62) !important;
+  color: #f8fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-capability-detail-action:hover,
+:root[data-theme="dark"] .artavel-capability-detail-action:focus-visible {
+  background: rgba(139, 196, 255, 0.16) !important;
+  border-color: rgba(168, 224, 143, 0.58) !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.22),
+    0 0 26px rgba(139, 196, 255, 0.12),
+    inset 0 0 18px rgba(139, 196, 255, 0.10) !important;
+}
+
+:root[data-theme="dark"] .artavel-capability-detail-action:active {
+  background: rgba(139, 196, 255, 0.20) !important;
+  border-color: rgba(168, 224, 143, 0.70) !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .artavel-solution-faq-accordion {
+  background: rgba(7, 25, 39, 0.62) !important;
+  border-color: rgba(139, 196, 255, 0.24) !important;
+  box-shadow:
+    0 20px 58px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+:root[data-theme="dark"] .artavel-solution-faq-accordion > div {
+  border-color: rgba(139, 196, 255, 0.18) !important;
+}
+
+:root[data-theme="dark"] .artavel-solution-faq-accordion button:hover,
+:root[data-theme="dark"] .artavel-solution-faq-accordion button:focus-visible {
+  color: #a8d7ff !important;
+}
+
+:root[data-theme="dark"] .artavel-solution-faq-accordion [role="region"] {
+  background: rgba(13, 34, 51, 0.72) !important;
+  border-color: rgba(139, 196, 255, 0.18) !important;
+  color: #d4e2ee !important;
+}
+
+:root[data-theme="dark"] .artavel-location-map iframe {
+  filter: saturate(0.85) contrast(1.08) brightness(0.82);
+}
+
+:root[data-theme="dark"] [class*="text-[#1F5D4B]"],
+:root[data-theme="dark"] [class*="text-[#4B6546]"],
+:root[data-theme="dark"] [class*="text-[#568F3E]"],
+:root[data-theme="dark"] [class*="text-[#7DBC5E]"] {
+  color: #a8e08f !important;
+}
+
+:root[data-theme="dark"] .artavel-section-white h1,
+:root[data-theme="dark"] .artavel-section-white h2,
+:root[data-theme="dark"] .artavel-section-white h3,
+:root[data-theme="dark"] .artavel-section-surface h1,
+:root[data-theme="dark"] .artavel-section-surface h2,
+:root[data-theme="dark"] .artavel-section-surface h3,
+:root[data-theme="dark"] .artavel-section-surface-blue h1,
+:root[data-theme="dark"] .artavel-section-surface-blue h2,
+:root[data-theme="dark"] .artavel-section-surface-blue h3 {
+  color: #f8fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-section-white p,
+:root[data-theme="dark"] .artavel-section-white li,
+:root[data-theme="dark"] .artavel-section-surface p,
+:root[data-theme="dark"] .artavel-section-surface li,
+:root[data-theme="dark"] .artavel-section-surface-blue p,
+:root[data-theme="dark"] .artavel-section-surface-blue li {
+  color: #d6e5f1 !important;
+}
+
+:root[data-theme="dark"] .artavel-section-white .bg-white,
+:root[data-theme="dark"] .artavel-section-surface .bg-white,
+:root[data-theme="dark"] .artavel-section-surface-blue .bg-white {
+  background: rgba(13, 34, 51, 0.96) !important;
+  border-color: rgba(139, 196, 255, 0.24) !important;
+}
+
+:root[data-theme="dark"] .artavel-solution-capabilities {
+  background: linear-gradient(180deg, #071927 0%, #0b2234 100%) !important;
+}
+
+:root[data-theme="dark"] .artavel-solution-faq-section {
+  background: linear-gradient(180deg, #0b2234 0%, #071927 100%) !important;
+}
+
+:root[data-theme="dark"] .artavel-solution-areas-panel {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(125, 188, 94, 0.16), transparent 30%),
+    linear-gradient(135deg, #082b22 0%, #0a3327 42%, #071927 100%) !important;
+  border-color: rgba(184, 221, 205, 0.76) !important;
+  color: #f8fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-solution-areas-panel h3 {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .artavel-solution-areas-panel p {
+  color: #bfe6b1 !important;
+}
+
+:root[data-theme="dark"] .artavel-solution-area-item {
+  background: linear-gradient(135deg, rgba(9, 31, 49, 0.98), rgba(12, 58, 48, 0.98)) !important;
+  border-color: rgba(184, 221, 255, 0.62) !important;
+  color: #ffffff !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 18px 42px rgba(0, 0, 0, 0.24) !important;
+}
+
+:root[data-theme="dark"] .artavel-solution-area-item,
+:root[data-theme="dark"] .artavel-solution-area-item * {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+:root[data-theme="dark"] .artavel-solution-area-item span {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .artavel-solution-area-item svg {
+  color: #a8e08f !important;
+  stroke: currentColor !important;
+}
+
+:root[data-theme="dark"] .artavel-faq-section {
+  background:
+    radial-gradient(circle at 18% 20%, rgba(54, 105, 156, 0.36), transparent 34%),
+    radial-gradient(circle at 82% 70%, rgba(125, 188, 94, 0.22), transparent 32%),
+    #071927 !important;
+}
+
+:root[data-theme="dark"] .artavel-faq-accordion {
+  background: rgba(6, 20, 31, 0.58) !important;
+  border-color: rgba(139, 196, 255, 0.22) !important;
+}
+
+:root[data-theme="dark"] .artavel-security-card {
+  background: rgba(12, 34, 51, 0.72) !important;
+  border-color: rgba(139, 196, 255, 0.18) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+:root[data-theme="dark"] .artavel-security-card::before {
+  background:
+    radial-gradient(circle at 20% 12%, rgba(139, 196, 255, 0.16), transparent 34%),
+    radial-gradient(circle at 84% 86%, rgba(125, 188, 94, 0.10), transparent 32%);
+}
+
+:root[data-theme="dark"] .artavel-security-card:hover {
+  background: rgba(13, 43, 64, 0.88) !important;
+  border-color: rgba(139, 196, 255, 0.42) !important;
+  box-shadow:
+    0 18px 46px rgba(0, 0, 0, 0.30),
+    0 0 30px rgba(139, 196, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+:root[data-theme="dark"] .artavel-problem-card {
+  background: rgba(7, 25, 39, 0.46) !important;
+  border-color: rgba(139, 196, 255, 0.22) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+:root[data-theme="dark"] .artavel-problem-card::before {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(139, 196, 255, 0.15), transparent 34%),
+    radial-gradient(circle at 86% 88%, rgba(125, 188, 94, 0.09), transparent 36%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.045), transparent 48%);
+}
+
+:root[data-theme="dark"] .artavel-problem-card:hover {
+  background: rgba(11, 34, 52, 0.78) !important;
+  border-color: rgba(139, 196, 255, 0.44) !important;
+  box-shadow:
+    0 18px 46px rgba(0, 0, 0, 0.28),
+    0 0 30px rgba(139, 196, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+:root[data-theme="dark"] .artavel-problem-card-icon {
+  background: rgba(54, 105, 156, 0.38) !important;
+  color: #8bc4ff !important;
+}
+
+:root[data-theme="dark"] .artavel-problem-card:hover .artavel-problem-card-icon {
+  background: rgba(54, 105, 156, 0.72) !important;
+  color: #dff0ff !important;
+  box-shadow:
+    0 12px 26px rgba(0, 0, 0, 0.20),
+    0 0 18px rgba(139, 196, 255, 0.24);
+}
+
+:root[data-theme="dark"] .artavel-work-step-card {
+  background: rgba(7, 25, 39, 0.46) !important;
+  border-color: rgba(139, 196, 255, 0.22) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+:root[data-theme="dark"] .artavel-work-step-card::before {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(125, 188, 94, 0.14), transparent 34%),
+    radial-gradient(circle at 88% 88%, rgba(139, 196, 255, 0.12), transparent 36%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.045), transparent 48%);
+}
+
+:root[data-theme="dark"] .artavel-work-step-card:hover {
+  background: rgba(11, 34, 52, 0.78) !important;
+  border-color: rgba(168, 224, 143, 0.52) !important;
+  box-shadow:
+    0 18px 46px rgba(0, 0, 0, 0.28),
+    0 0 30px rgba(125, 188, 94, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+:root[data-theme="dark"] .artavel-work-step-card-icon {
+  background: rgba(54, 105, 156, 0.38) !important;
+  color: #8bc4ff !important;
+}
+
+:root[data-theme="dark"] .artavel-work-step-card:hover .artavel-work-step-card-icon {
+  background: rgba(54, 105, 156, 0.72) !important;
+  color: #dff0ff !important;
+  box-shadow:
+    0 12px 26px rgba(0, 0, 0, 0.20),
+    0 0 18px rgba(139, 196, 255, 0.24);
+}
+
+:root[data-theme="dark"] .artavel-readiness-question-card {
+  background: rgba(7, 25, 39, 0.48) !important;
+  border-color: rgba(139, 196, 255, 0.22) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+:root[data-theme="dark"] .artavel-readiness-question-card:hover {
+  border-color: rgba(139, 196, 255, 0.36) !important;
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+:root[data-theme="dark"] .artavel-readiness-option {
+  background: rgba(13, 34, 51, 0.72) !important;
+  border-color: rgba(139, 196, 255, 0.24) !important;
+  color: #f7fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-readiness-option::before {
+  background:
+    radial-gradient(circle at 16% 50%, rgba(125, 188, 94, 0.13), transparent 36%),
+    linear-gradient(90deg, rgba(139, 196, 255, 0.10), transparent 64%);
+}
+
+:root[data-theme="dark"] .artavel-readiness-option:hover,
+:root[data-theme="dark"] .artavel-readiness-option:focus-visible {
+  background: rgba(15, 45, 60, 0.90) !important;
+  border-color: rgba(168, 224, 143, 0.54) !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.20),
+    0 0 22px rgba(125, 188, 94, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+:root[data-theme="dark"] .artavel-readiness-option-selected {
+  background: rgba(54, 105, 156, 0.30) !important;
+  border-color: rgba(139, 196, 255, 0.52) !important;
+  color: #f8fbff !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(139, 196, 255, 0.10),
+    0 0 18px rgba(139, 196, 255, 0.08) !important;
+}
+
+:root[data-theme="dark"] .artavel-readiness-result-label {
+  text-shadow: none;
+}
+
+:root[data-theme="dark"] .artavel-readiness-result-label[data-readiness-tone="critical"] {
+  color: #8a342c !important;
+}
+
+:root[data-theme="dark"] .artavel-readiness-result-label[data-readiness-tone="warning"] {
+  color: #7a511e !important;
+}
+
+:root[data-theme="dark"] .artavel-readiness-result-label[data-readiness-tone="success"] {
+  color: #8bc4ff !important;
+  text-shadow: 0 1px 10px rgba(7, 25, 39, 0.34);
+}
+
+:root[data-theme="dark"] .artavel-inline-action-link,
+:root[data-theme="dark"] .artavel-featured-case-link {
+  color: #8bc4ff !important;
+}
+
+:root[data-theme="dark"] .artavel-inline-action-link span::after,
+:root[data-theme="dark"] .artavel-featured-case-link span::after {
+  background: linear-gradient(90deg, #8bc4ff 0%, #a8e08f 100%);
+}
+
+:root[data-theme="dark"] .artavel-inline-action-link:hover,
+:root[data-theme="dark"] .artavel-inline-action-link:focus-visible,
+:root[data-theme="dark"] .artavel-featured-case-link:hover,
+:root[data-theme="dark"] .artavel-featured-case-link:focus-visible {
+  color: #dff0ff !important;
+  text-shadow:
+    0 0 14px rgba(139, 196, 255, 0.22),
+    0 0 18px rgba(168, 224, 143, 0.10);
+}
+
+:root[data-theme="dark"] .artavel-inline-action-link:hover svg,
+:root[data-theme="dark"] .artavel-inline-action-link:focus-visible svg,
+:root[data-theme="dark"] .artavel-featured-case-link:hover svg,
+:root[data-theme="dark"] .artavel-featured-case-link:focus-visible svg {
+  filter: drop-shadow(0 0 8px rgba(139, 196, 255, 0.30));
+}
+
+:root[data-theme="dark"] .artavel-location-section {
+  background:
+    radial-gradient(circle at 18% 10%, rgba(54, 105, 156, 0.20), transparent 34%),
+    radial-gradient(circle at 80% 84%, rgba(125, 188, 94, 0.16), transparent 32%),
+    linear-gradient(180deg, #081e2e 0%, #071927 100%) !important;
+}
+
+:root[data-theme="dark"] .artavel-location-section a:not(.artavel-button) {
+  background: rgba(139, 196, 255, 0.08) !important;
+  border-color: rgba(139, 196, 255, 0.24) !important;
+  color: #dcedff !important;
+}
+
+:root[data-theme="dark"] .artavel-location-section a:not(.artavel-button):hover {
+  background: rgba(139, 196, 255, 0.18) !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .artavel-location-section a.artavel-map-navigation-link {
+  background: rgba(125, 188, 94, 0.14) !important;
+  border-color: rgba(168, 224, 143, 0.34) !important;
+  color: #b9f09e !important;
+}
+
+:root[data-theme="dark"] .artavel-location-section a.artavel-map-navigation-link:hover,
+:root[data-theme="dark"] .artavel-location-section a.artavel-map-navigation-link:focus-visible {
+  background: rgba(125, 188, 94, 0.22) !important;
+  border-color: rgba(168, 224, 143, 0.62) !important;
+  color: #ddffcf !important;
+  box-shadow:
+    0 0 0 1px rgba(168, 224, 143, 0.12),
+    0 0 22px rgba(125, 188, 94, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+:root[data-theme="dark"] .artavel-location-section a.artavel-map-navigation-link .artavel-map-navigation-icon {
+  color: currentColor !important;
+  stroke: currentColor !important;
+}
+
+:root[data-theme="dark"] .artavel-capability-card {
+  cursor: pointer;
+}
+
+:root[data-theme="dark"] .artavel-capability-card:not(:hover):not(:focus-visible) .artavel-capability-card-icon {
+  background: rgba(139, 196, 255, 0.14) !important;
+}
+
+.artavel-capability-card {
+  cursor: pointer;
+}
+
+:root[data-theme="dark"] [data-accent-border="blue"] {
+  border-top-color: #4f8fca !important;
+}
+
+:root[data-theme="dark"] [data-accent-border="green"] {
+  border-top-color: #7dbc5e !important;
+}
+
+:root[data-theme="dark"] [data-accent-border="yellow"] {
+  border-top-color: #daa761 !important;
+}
+
+:root[data-theme="dark"] [data-accent-border="orange"] {
+  border-top-color: #d26353 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
