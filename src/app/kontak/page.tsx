@@ -1,10 +1,10 @@
 import { ContactClient } from '../_client-pages/ContactClient';
-import { createPageMetadata } from '../seo';
+import { createLocalizedPageMetadata } from '../seo';
 
-export const metadata = createPageMetadata({
+export const generateMetadata = () => createLocalizedPageMetadata({
   title: 'Hubungi PT Artavel - Konsultasi Solusi & Proposal',
   description:
-    'Jadwalkan konsultasi, permohonan demo aplikasi, atau diskusi proposal dengan tim PT Artavel.',
+    'Hubungi tim Artavel untuk memetakan kebutuhan organisasi, memilih solusi yang relevan, dan menyusun skenario implementasi yang sesuai.',
   path: '/kontak'
 });
 

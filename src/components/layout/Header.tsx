@@ -7,13 +7,15 @@ import { Button } from '../ui/Button';
 import { MobileNavigation } from './MobileNavigation';
 import { Language, useLanguage } from '../i18n/LanguageProvider';
 import { ThemeToggle } from '../theme/ThemeToggle';
+import { toLocalizedPath } from '../../utils/i18nRouting';
 
 interface HeaderProps {
   currentPath: string;
+  displayPath: string;
   onNavigate: (path: string) => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
+export const Header: React.FC<HeaderProps> = ({ currentPath, displayPath, onNavigate }) => {
   const { language, setLanguage, t, text } = useLanguage();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -51,11 +53,80 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
     setOpenDropdown(null);
   };
 
+  const normalizePath = (path: string) => {
+    const basePath = path.split('#')[0]?.split('?')[0] || '/';
+    return basePath.length > 1 ? basePath.replace(/\/+$/, '') : basePath;
+  };
+
   const isPathActive = (path: string) => {
-    return currentPath === path || (path !== '/' && currentPath.startsWith(`${path}/`));
+    const normalizedCurrentPath = normalizePath(currentPath);
+    const normalizedPath = normalizePath(path);
+
+    return (
+      normalizedCurrentPath === normalizedPath ||
+      (normalizedPath !== '/' && normalizedCurrentPath.startsWith(`${normalizedPath}/`))
+    );
+  };
+
+  const isNavItemActive = (item: NavLinkItem): boolean => {
+    const candidatePaths = [item.path, ...(item.activePaths || [])];
+    const isSelfActive = !item.isGroup && candidatePaths.some(isPathActive);
+    return isSelfActive || Boolean(item.children?.some(isNavItemActive));
   };
 
   const isContactPage = isPathActive('/kontak');
+  const consultationCtaLabel = isContactPage
+    ? language === 'en'
+      ? 'Fill Out the Form'
+      : 'Isi Formulir'
+    : t('nav.cta');
+  const consultationCtaShortLabel = isContactPage
+    ? language === 'en'
+      ? 'Fill Out Form'
+      : 'Isi Formulir'
+      : language === 'en'
+      ? 'Consult'
+      : 'Konsultasi';
+
+  const scrollToContactForm = () => {
+    const contactForm =
+      document.getElementById('formulir-inkuiri-demo') ||
+      document.getElementById('artavel-contact-form');
+
+    if (contactForm) {
+      const headerShell = document.querySelector('.artavel-header-shell');
+      const headerBottom =
+        headerShell instanceof HTMLElement ? headerShell.getBoundingClientRect().bottom : 112;
+      const formTop = contactForm.getBoundingClientRect().top + window.scrollY;
+      const comfortableGap = 36;
+
+      window.scrollTo({
+        top: Math.max(formTop - headerBottom - comfortableGap, 0),
+        behavior: shouldReduceMotion ? 'auto' : 'smooth'
+      });
+    }
+  };
+
+  const handleConsultationCtaClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setOpenDropdown(null);
+
+    if (isContactPage) {
+      scrollToContactForm();
+      return;
+    }
+
+    onNavigate('/kontak');
+  };
+
+  const handleLanguageChange = (nextLanguage: Language) => {
+    setLanguage(nextLanguage);
+    const currentDisplayPath =
+      typeof window === 'undefined'
+        ? displayPath
+        : `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    onNavigate(toLocalizedPath(currentDisplayPath, nextLanguage));
+  };
 
   const renderActiveIndicator = (layoutId: string) => (
     <motion.span
@@ -67,13 +138,19 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
   );
 
   const desktopNavBase =
-    'artavel-nav-item relative isolate inline-flex h-14 min-w-0 items-center justify-center gap-1.5 overflow-hidden rounded-2xl px-4 py-2 xl:px-5 text-[15px] font-black leading-[0.98] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] focus-visible:ring-offset-2 focus-visible:ring-offset-white';
+    'artavel-nav-item relative isolate inline-flex h-14 shrink-0 items-center justify-center gap-1 overflow-hidden rounded-2xl px-2.5 py-2 text-[14px] font-bold leading-[0.98] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] focus-visible:ring-offset-2 focus-visible:ring-offset-white min-[1500px]:gap-1.5 min-[1500px]:px-3.5 min-[1500px]:text-[15px] min-[1680px]:px-5';
+
+  const desktopNavWidthMap: Record<string, string> = {
+    'nav-studi-kasus': 'min-w-[7.35rem] min-[1680px]:min-w-[8.25rem]'
+  };
+
+  const getDesktopNavWidthClass = (itemId: string) =>
+    desktopNavWidthMap[itemId] || 'min-w-fit';
 
   const navLabelMap: Record<string, string> = {
     'nav-solusi': t('nav.solutions'),
     'nav-sektor': t('nav.sectors'),
     'nav-studi-kasus': t('nav.caseStudies'),
-    'nav-cara-kerja': t('nav.howWeWork'),
     'nav-tentang': t('nav.about'),
     'nav-wawasan': t('nav.insights'),
     'nav-kontak': t('nav.contact')
@@ -82,25 +159,23 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
   const navLabelLines: Record<string, string[]> = language === 'en'
     ? {
         'nav-solusi': ['Solutions'],
-        'nav-sektor': ['Sectors'],
-        'nav-studi-kasus': ['Case', 'Studies'],
-        'nav-cara-kerja': ['How We', 'Work'],
-        'nav-tentang': ['About', 'Artavel'],
+        'nav-sektor': ['Industries'],
+        'nav-studi-kasus': ['Case Studies'],
+        'nav-tentang': ['About'],
         'nav-wawasan': ['Insights'],
         'nav-kontak': ['Contact']
       }
     : {
         'nav-solusi': ['Solusi'],
         'nav-sektor': ['Sektor'],
-        'nav-studi-kasus': ['Studi', 'Kasus'],
-        'nav-cara-kerja': ['Cara Kami', 'Bekerja'],
-        'nav-tentang': ['Tentang', 'Artavel'],
+        'nav-studi-kasus': ['Studi Kasus'],
+        'nav-tentang': ['Tentang'],
         'nav-wawasan': ['Wawasan'],
         'nav-kontak': ['Kontak']
       };
 
   const renderNavLabel = (itemId: string, fallbackLabel: string) => (
-    <span className="relative z-20 flex h-9 min-w-0 flex-col items-center justify-center text-center font-black leading-[0.9] text-current">
+    <span className="relative z-20 flex h-9 min-w-max flex-col items-center justify-center px-0.5 text-center font-bold leading-[0.9] text-current">
       {(navLabelLines[itemId] || [navLabelMap[itemId] || fallbackLabel]).map((line) => (
         <span key={line} className="block whitespace-nowrap text-center">
           {line}
@@ -118,17 +193,28 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
   const childLabelMap: Record<string, string> = language === 'en'
     ? {
-        'nav-solusi-pelayanan': 'Public Services & Licensing',
-        'nav-solusi-arsip': 'Document & Archive Management',
-        'nav-solusi-tnde': 'Electronic Official Correspondence',
-        'nav-solusi-antrean': 'Queue & Tracking System',
-        'nav-solusi-digitalisasi': 'Digitization & Media Conversion',
-        'nav-solusi-keamanan': 'Data Security & Integration',
-        'nav-solusi-cctv-iot': 'CCTV, IoT & Monitoring',
-        'nav-solusi-website-uiux': 'Websites, UI/UX & Web Apps',
-        'nav-sektor-pemerintahan': 'Local Government',
-        'nav-sektor-organisasi': 'Organizations & Companies',
-        'nav-sektor-layanan': 'Public Service Centers & MPP'
+        'nav-solusi-group-ai-analytics': 'AI, Analytics & Smart Monitoring',
+        'nav-solusi-group-smart-education': 'Smart Education',
+        'nav-solusi-group-retail-fnb': 'Retail & F&B',
+        'nav-solusi-group-cyber-security': 'Cyber Security',
+        'nav-solusi-group-digital-government': 'Digital Government & Enterprise',
+        'nav-produk-smartmap-gis-analytics': 'SmartMap & GIS Analytics',
+        'nav-produk-ai-cctv-computer-vision': 'AI CCTV & Computer Vision',
+        'nav-produk-footfallcam': 'FootfallCam',
+        'nav-produk-otoschool': 'otoSchool',
+        'nav-produk-otopos-fnb': 'otoPOS F&B',
+        'nav-produk-opentext-cybersecurity': 'OpenText Cybersecurity',
+        'nav-produk-smarchlink-sippadu': 'Smarchlink SIPPADU',
+        'nav-produk-smarchlink-archive': 'Smarchlink Archive',
+        'nav-produk-tnde': 'TNDE',
+        'nav-produk-sianter': 'SIANter',
+        'nav-produk-semua': 'View All Products',
+        'nav-tentang-artavel': 'About Artavel',
+        'nav-cara-kerja': 'How We Work',
+        'nav-sektor-pemerintah-layanan-publik': 'Government & Public Services',
+        'nav-sektor-pendidikan': 'Education',
+        'nav-sektor-retail-fnb': 'Retail & F&B',
+        'nav-sektor-enterprise-organisasi': 'Enterprise & Organizations'
       }
     : {};
 
@@ -145,7 +231,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
         <React.Fragment key={item}>
           <button
             type="button"
-            onClick={() => setLanguage(item)}
+            onClick={() => handleLanguageChange(item)}
             aria-pressed={language === item}
             className={`rounded-full px-2 py-1 text-xs font-extrabold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] ${
               language === item
@@ -155,11 +241,212 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
           >
             {item.toUpperCase()}
           </button>
-          {index === 0 && <span className="mx-0.5 h-4 w-px bg-[#DBE4EB]" aria-hidden="true" />}
+          {index === 0 && <span className="mx-1.5 h-4 w-px bg-[#DBE4EB]" aria-hidden="true" />}
         </React.Fragment>
       ))}
     </div>
   );
+
+  const renderDropdownLeaf = (child: NavLinkItem): React.ReactNode => {
+    const isChildActive = isNavItemActive(child);
+    const isAllProductsLink = child.id === 'nav-produk-semua';
+
+    return (
+      <a
+        key={child.id}
+        href={child.path}
+        onClick={(e) => handleLinkClick(e, child.path)}
+        aria-current={isChildActive ? 'page' : undefined}
+        className={`artavel-dropdown-card group relative block rounded-xl border p-3 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] ${
+          isAllProductsLink
+            ? `artavel-dropdown-card-all-products border-[#36699C]/30 bg-[#EAF2F8] shadow-sm ${isChildActive ? 'artavel-dropdown-card-active' : ''}`
+            : isChildActive
+            ? 'artavel-dropdown-card-active border-[#36699C]/30 bg-[#EAF2F8] shadow-sm'
+            : 'border-transparent hover:-translate-y-0.5 hover:bg-[#F2F7FB]'
+        }`}
+      >
+        {isChildActive && (
+          <span
+            className="absolute inset-y-3 left-2 w-1 rounded-full bg-[#36699C]"
+            aria-hidden="true"
+          />
+        )}
+        <div
+          className={`text-sm font-semibold transition-colors ${
+            isChildActive
+              ? 'pl-2 text-[#173955]'
+              : 'text-[#172536] group-hover:text-[#36699C]'
+          }`}
+        >
+          {childLabelMap[child.id] || child.label}
+        </div>
+        {child.description && (
+          <div
+            className={`mt-0.5 line-clamp-1 text-xs ${
+              isChildActive ? 'pl-2 text-[#244F78]' : 'text-[#5C6B79]'
+            }`}
+          >
+            {text(child.description)}
+          </div>
+        )}
+        {child.meta && (
+          <div
+            className={`mt-1 text-[11px] font-semibold ${
+              isChildActive ? 'pl-2 text-[#244F78]/80' : 'text-[#7A8792]'
+            }`}
+          >
+            {text(child.meta)}
+          </div>
+        )}
+      </a>
+    );
+  };
+
+  const renderDropdownItem = (child: NavLinkItem, depth = 0): React.ReactNode => {
+    const hasNestedChildren = child.children && child.children.length > 0;
+
+    if (hasNestedChildren) {
+      return (
+        <div key={child.id} className="flex flex-col gap-1">
+          <div
+            className={`px-3 pb-1 pt-2 text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#36699C] ${
+              depth > 0 ? 'pl-5' : ''
+            }`}
+          >
+            {childLabelMap[child.id] || child.label}
+          </div>
+          <div className="flex flex-col gap-1">
+            {child.children?.map((nestedChild) => renderDropdownItem(nestedChild, depth + 1))}
+          </div>
+        </div>
+      );
+    }
+
+    return renderDropdownLeaf(child);
+  };
+
+  const renderMegaMenuProduct = (child: NavLinkItem, compact = false): React.ReactNode => {
+    const isChildActive = isNavItemActive(child);
+
+    return (
+      <a
+        key={child.id}
+        href={child.path}
+        onClick={(e) => handleLinkClick(e, child.path)}
+        aria-current={isChildActive ? 'page' : undefined}
+        className={`artavel-dropdown-card group relative block rounded-xl border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] ${
+          compact ? 'px-3 py-2.5' : 'px-3 py-2.5'
+        } ${
+          isChildActive
+            ? 'artavel-dropdown-card-active border-[#36699C]/30 bg-[#EAF2F8] shadow-sm'
+            : 'border-transparent hover:-translate-y-0.5 hover:bg-[#F2F7FB]'
+        }`}
+      >
+        {isChildActive && (
+          <span
+            className="absolute inset-y-2.5 left-2 w-1 rounded-full bg-[#36699C]"
+            aria-hidden="true"
+          />
+        )}
+        <div
+          className={`text-[13px] font-semibold leading-tight transition-colors ${
+            isChildActive
+              ? 'pl-2 text-[#173955]'
+              : 'text-[#172536] group-hover:text-[#36699C]'
+          }`}
+        >
+          {childLabelMap[child.id] || child.label}
+        </div>
+        {child.description && (
+          <div
+            className={`mt-1 line-clamp-1 text-xs leading-snug ${
+              isChildActive ? 'pl-2 text-[#244F78]' : 'text-[#5C6B79]'
+            }`}
+          >
+            {text(child.description)}
+          </div>
+        )}
+      </a>
+    );
+  };
+
+  const renderSolutionGroup = (group: NavLinkItem | undefined, compactGrid = false) => {
+    if (!group) {
+      return null;
+    }
+
+    const children = group.children?.filter((child) => child.id !== 'nav-produk-semua') || [];
+
+    return (
+      <div key={group.id} className="flex min-w-0 flex-col gap-1">
+        <div className="px-3 pb-0.5 text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#36699C]">
+          {childLabelMap[group.id] || group.label}
+        </div>
+        <div className={compactGrid ? 'grid grid-cols-2 gap-1' : 'flex flex-col gap-1'}>
+          {children.map((child) => renderMegaMenuProduct(child, compactGrid))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderAllProductsFooter = (child: NavLinkItem) => {
+    const isChildActive = isNavItemActive(child);
+
+    return (
+      <a
+        key={child.id}
+        href={child.path}
+        onClick={(e) => handleLinkClick(e, child.path)}
+        aria-current={isChildActive ? 'page' : undefined}
+        className={`artavel-dropdown-card-all-products artavel-mega-menu-footer-link group relative flex items-center justify-between gap-4 rounded-xl border px-4 py-3 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] ${
+          isChildActive ? 'artavel-dropdown-card-active' : ''
+        }`}
+      >
+        <span className="min-w-0">
+          <span className="block text-sm font-extrabold leading-tight text-[#244F78]">
+            {childLabelMap[child.id] || child.label}
+          </span>
+          {child.description && (
+            <span className="mt-0.5 block line-clamp-1 text-xs text-[#5C6B79]">
+              {text(child.description)}
+            </span>
+          )}
+        </span>
+        <span className="shrink-0 text-lg leading-none text-[#36699C]" aria-hidden="true">
+          →
+        </span>
+      </a>
+    );
+  };
+
+  const renderSolutionsMegaMenu = (item: NavLinkItem) => {
+    const groups = item.children || [];
+    const getGroup = (groupId: string) => groups.find((group) => group.id === groupId);
+    const allProductsLink = groups
+      .flatMap((group) => group.children || [])
+      .find((child) => child.id === 'nav-produk-semua');
+
+    return (
+      <div className="artavel-solutions-mega-menu flex flex-col gap-3">
+        <div className="grid gap-4 md:grid-cols-[minmax(0,0.96fr)_minmax(0,1.04fr)]">
+          <div className="flex min-w-0 flex-col gap-3">
+            {renderSolutionGroup(getGroup('nav-solusi-group-ai-analytics'))}
+            {renderSolutionGroup(getGroup('nav-solusi-group-retail-fnb'))}
+          </div>
+
+          <div className="flex min-w-0 flex-col gap-3">
+            <div className="grid gap-3 sm:grid-cols-2">
+              {renderSolutionGroup(getGroup('nav-solusi-group-smart-education'))}
+              {renderSolutionGroup(getGroup('nav-solusi-group-cyber-security'))}
+            </div>
+            {renderSolutionGroup(getGroup('nav-solusi-group-digital-government'), true)}
+          </div>
+        </div>
+
+        {allProductsLink && renderAllProductsFooter(allProductsLink)}
+      </div>
+    );
+  };
 
   return (
     <>
@@ -168,7 +455,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#36699C] focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none"
       >
-        Lompati ke konten utama (Skip to main content)
+        {text('Lompati ke konten utama')}
       </a>
 
       <header className="pointer-events-none fixed inset-x-0 top-3 z-50 px-3 sm:top-4 sm:px-5">
@@ -194,10 +481,10 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
             <a
               href="/"
               onClick={(e) => handleLinkClick(e, '/')}
-              className={`flex h-full items-center justify-center rounded-2xl p-0 transition-all duration-300 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] ${
+              className={`mr-2 flex h-full shrink-0 items-center justify-center rounded-2xl p-0 transition-all duration-300 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] min-[1500px]:mr-3 ${
                 isScrolled ? 'scale-[0.98]' : 'scale-[1.04]'
               }`}
-              aria-label="PT Artavel Beranda"
+              aria-label={text('PT Artavel Beranda')}
             >
               <span className="xl:hidden">
                 <ArtavelLogo size="sm" showSubbrand={false} className="translate-y-[1px]" />
@@ -208,10 +495,10 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
             </a>
 
             {/* Desktop Navigation */}
-            <nav className="hidden min-w-0 flex-1 items-center justify-center gap-1 xl:flex xl:gap-2">
+            <nav className="hidden min-w-0 flex-1 items-center justify-evenly gap-1 xl:flex min-[1680px]:gap-2">
               {MAIN_NAVIGATION.map((item: NavLinkItem) => {
                 const hasChildren = item.children && item.children.length > 0;
-                const hasActiveChild = item.children?.some((child) => isPathActive(child.path));
+                const hasActiveChild = item.children?.some(isNavItemActive);
                 const isActive = isPathActive(item.path) || Boolean(hasActiveChild);
                 const isOpen = openDropdown === item.id;
 
@@ -229,7 +516,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                         aria-haspopup="true"
                         onClick={(e) => handleLinkClick(e, item.path)}
                         aria-current={isActive ? 'page' : undefined}
-                        className={`${desktopNavBase} cursor-pointer ${
+                        className={`${desktopNavBase} ${getDesktopNavWidthClass(item.id)} cursor-pointer ${
                           isActive
                             ? 'artavel-nav-item-active text-[#173955]'
                             : isOpen
@@ -255,51 +542,14 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                           animate={shouldReduceMotion ? { y: 0 } : { y: 0, scale: 1 }}
                           exit={shouldReduceMotion ? { y: 0 } : { y: 8, scale: 0.98 }}
                           transition={{ duration: shouldReduceMotion ? 0 : 0.18, ease: [0.22, 1, 0.36, 1] }}
-                          className="absolute top-full left-0 z-50 w-84 pt-2"
+                          className={`absolute top-full left-0 z-50 pt-2 ${
+                            item.id === 'nav-solusi' ? 'w-[min(86vw,58rem)]' : 'w-84'
+                          }`}
                         >
-                          <div className="artavel-dropdown-panel flex flex-col gap-1 rounded-2xl border border-[#DBE4EB] bg-white/[0.96] p-3 shadow-[0_24px_60px_rgba(23,57,85,0.16)] backdrop-blur-xl">
-                            {item.children?.map((child) => {
-                              const isChildActive = isPathActive(child.path);
-
-                              return (
-                                <a
-                                  key={child.id}
-                                  href={child.path}
-                                  onClick={(e) => handleLinkClick(e, child.path)}
-                                  aria-current={isChildActive ? 'page' : undefined}
-                                  className={`artavel-dropdown-card group relative block rounded-xl border p-3 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] ${
-                                    isChildActive
-                                      ? 'artavel-dropdown-card-active border-[#36699C]/30 bg-[#EAF2F8] shadow-sm'
-                                      : 'border-transparent hover:-translate-y-0.5 hover:bg-[#F2F7FB]'
-                                  }`}
-                                >
-                                  {isChildActive && (
-                                    <span
-                                      className="absolute inset-y-3 left-2 w-1 rounded-full bg-[#36699C]"
-                                      aria-hidden="true"
-                                    />
-                                  )}
-                                  <div
-                                    className={`text-sm font-semibold transition-colors ${
-                                      isChildActive
-                                        ? 'pl-2 text-[#173955]'
-                                        : 'text-[#172536] group-hover:text-[#36699C]'
-                                    }`}
-                                  >
-                                  {childLabelMap[child.id] || child.label}
-                                  </div>
-                                  {child.description && (
-                                    <div
-                                      className={`mt-0.5 line-clamp-1 text-xs ${
-                                        isChildActive ? 'pl-2 text-[#244F78]' : 'text-[#5C6B79]'
-                                      }`}
-                                    >
-                                      {text(child.description)}
-                                    </div>
-                                  )}
-                                </a>
-                              );
-                            })}
+                          <div className="artavel-dropdown-panel flex max-h-[calc(100vh-7rem)] flex-col gap-1 overflow-y-auto overscroll-contain rounded-2xl border border-[#DBE4EB] bg-white/[0.96] p-3 shadow-[0_24px_60px_rgba(23,57,85,0.16)] backdrop-blur-xl">
+                            {item.id === 'nav-solusi'
+                              ? renderSolutionsMegaMenu(item)
+                              : item.children?.map((child) => renderDropdownItem(child))}
                           </div>
                         </motion.div>
                       )}
@@ -313,7 +563,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                     href={item.path}
                     onClick={(e) => handleLinkClick(e, item.path)}
                     aria-current={isActive ? 'page' : undefined}
-                    className={`${desktopNavBase} ${
+                    className={`${desktopNavBase} ${getDesktopNavWidthClass(item.id)} ${
                       isActive
                         ? 'artavel-nav-item-active text-[#173955]'
                         : 'text-[#172536] hover:-translate-y-0.5 hover:bg-[#F7F9FB] hover:text-[#244F78]'
@@ -328,31 +578,27 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
             </nav>
 
             {/* CTA Button */}
-            {!isContactPage && (
-              <div className="ml-3 hidden shrink-0 items-center gap-2 border-l border-[#DBE4EB] pl-3 xl:flex 2xl:gap-3 2xl:pl-4">
-                <ThemeToggle />
-                {renderLanguageToggle('desktop')}
-                <Button
-                  variant="primary"
-                  size="sm"
-                  className="h-11 min-h-0 rounded-2xl px-4 py-0 text-[15px] font-semibold tracking-normal shadow-[0_10px_24px_rgba(54,105,156,0.22)] 2xl:h-12 2xl:px-5 2xl:text-base"
-                  leftIcon={<PhoneCall className="h-4 w-4" aria-hidden="true" />}
-                  onClick={(e) => handleLinkClick(e, '/kontak')}
-                  aria-label={t('nav.cta')}
-                >
-                  <span className="hidden min-[1400px]:inline">{t('nav.cta')}</span>
-                  <span className="inline min-[1400px]:hidden">
-                    {language === 'en' ? 'Discuss' : 'Konsultasi'}
+            <div className="ml-3 hidden shrink-0 items-center gap-2 border-l border-[#DBE4EB] pl-3 xl:flex 2xl:gap-3 2xl:pl-4">
+              <ThemeToggle />
+              {renderLanguageToggle('desktop')}
+              <Button
+                variant="primary"
+                size="sm"
+                className="artavel-header-consultation-cta h-11 min-h-0 rounded-2xl px-4 py-0 text-[15px] font-semibold tracking-normal shadow-[0_10px_24px_rgba(54,105,156,0.22)] 2xl:h-12 2xl:px-5 2xl:text-base"
+                leftIcon={
+                  <span className="artavel-header-cta-phone-icon">
+                    <PhoneCall className="h-4 w-4" aria-hidden="true" />
                   </span>
-                </Button>
-              </div>
-            )}
-            {isContactPage && (
-              <div className="hidden xl:flex items-center ml-3 pl-4 border-l border-[#DBE4EB]">
-                <ThemeToggle />
-                {renderLanguageToggle('desktop')}
-              </div>
-            )}
+                }
+                onClick={handleConsultationCtaClick}
+                aria-label={consultationCtaLabel}
+              >
+                <span className="hidden min-[1680px]:inline">{consultationCtaLabel}</span>
+                <span className="inline min-[1680px]:hidden">
+                  {consultationCtaShortLabel}
+                </span>
+              </Button>
+            </div>
 
             {/* Mobile Menu Button */}
             <div className="flex xl:hidden items-center gap-2">
@@ -363,7 +609,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
               <button
                 type="button"
                 onClick={() => setIsMobileOpen(true)}
-                aria-label="Buka menu navigasi"
+                aria-label={text('Buka menu navigasi')}
                 className="cursor-pointer rounded-xl border border-[#DBE4EB] p-2.5 text-[#172536] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#F7F9FB] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C]"
               >
                 <Menu className="w-6 h-6" aria-hidden="true" />

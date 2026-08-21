@@ -46,6 +46,90 @@ export interface Solution {
   faqs: FAQItem[];
 }
 
+export type SolutionCategoryId =
+  | 'ai-analytics-monitoring'
+  | 'smart-education'
+  | 'retail-fnb'
+  | 'cyber-security'
+  | 'digital-government-enterprise'
+  | 'public-service'
+  | 'document-management'
+  | 'education'
+  | 'pos-retail'
+  | 'security-integration'
+  | 'cctv-iot-monitoring'
+  | 'application-uiux';
+
+export interface SolutionCategory {
+  id: SolutionCategoryId;
+  slug: string;
+  title: string;
+  description: string;
+  iconName: string;
+  accentColor: ColorThemeAccent;
+  path: string;
+  relatedProductIds: string[];
+}
+
+export interface ProductModule {
+  id: string;
+  title: string;
+  description: string;
+  details?: string[];
+}
+
+export interface ProductShowcase {
+  id: string;
+  title: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
+}
+
+export interface ProductDifferentiator {
+  id: string;
+  title: string;
+  description: string;
+}
+
+export type ProductOwnership = 'artavel-product' | 'artavel-solution' | 'partner-technology';
+
+export interface Product {
+  id: string;
+  slug: string;
+  name: string;
+  shortName: string;
+  subtitle: string;
+  categoryId: SolutionCategoryId;
+  categoryLabel: string;
+  tagline: string;
+  shortDescription: string;
+  heroDescription: string;
+  iconName: string;
+  accentColor: ColorThemeAccent;
+  ownership: ProductOwnership;
+  technologyTags: string[];
+  statusLabel?: string;
+  detailPath: string;
+  brochureHref?: string;
+  demoUrl?: string;
+  demoConfigKey?: string;
+  targetUsers: string[];
+  challenges: string[];
+  outcomes: string[];
+  modules: ProductModule[];
+  differentiators: ProductDifferentiator[];
+  showcase: ProductShowcase[];
+  integrations: string[];
+  securityFeatures: string[];
+  faqs: FAQItem[];
+  metadata: {
+    title: string;
+    description: string;
+  };
+  redirectPath?: string;
+}
+
 export interface Sector {
   id: string;
   slug: string;
@@ -56,6 +140,7 @@ export interface Sector {
   targetOrganizations: string[];
   keyChallenges: string[];
   recommendedSolutions: string[];
+  relatedProductIds?: string[];
   expectedImpacts: string[];
 }
 
@@ -95,11 +180,30 @@ export interface InsightArticle {
   title: string;
   excerpt: string;
   contentMarkdown: string;
-  category: 'Kearsipan Digital' | 'Pelayanan Publik' | 'Tata Naskah' | 'Keamanan Data' | 'Transformasi Digital';
+  category:
+    | 'AI, Analytics & Monitoring'
+    | 'Pendidikan Digital'
+    | 'Digital Education'
+    | 'Retail & F&B'
+    | 'Cyber Security'
+    | 'Digital Government'
+    | 'Teknologi & Transformasi Digital'
+    | 'Technology & Digital Transformation';
   publishedAt: string;
   readTimeMinutes: number;
   authorName: string;
   authorRole: string;
+  relatedProductIds?: string[];
+  relatedSolution?: {
+    label: string;
+    path: string;
+  };
+  ctaLabel?: string;
+  ctaPath?: string;
+  metadata?: {
+    title: string;
+    description: string;
+  };
 }
 
 export interface FAQItem {

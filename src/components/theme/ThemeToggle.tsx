@@ -10,7 +10,7 @@ interface ThemeToggleProps {
 }
 
 const THEME_OPTIONS: Array<{ mode: ThemeMode; label: string; icon: React.ElementType }> = [
-  { mode: 'auto', label: 'Mode otomatis mengikuti jam perangkat', icon: Clock3 },
+  { mode: 'auto', label: 'Mode sistem mengikuti pengaturan OS', icon: Clock3 },
   { mode: 'light', label: 'Mode siang', icon: Sun },
   { mode: 'dark', label: 'Mode malam', icon: Moon }
 ];
@@ -28,7 +28,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ variant = 'desktop' })
       aria-label={text('Pilih mode tampilan')}
       title={
         mode === 'auto'
-          ? `${text('Mode otomatis mengikuti jam perangkat')} (${resolvedTheme === 'dark' ? text('Mode malam') : text('Mode siang')})`
+          ? `${text('Mode sistem mengikuti pengaturan OS')} (${resolvedTheme === 'dark' ? text('Mode malam') : text('Mode siang')})`
           : resolvedTheme === 'dark'
             ? text('Mode malam')
             : text('Mode siang')

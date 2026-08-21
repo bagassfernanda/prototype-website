@@ -6,13 +6,14 @@ import { ArtavelLogo } from '../brand/ArtavelLogo';
 import { BrandColorLine } from '../brand/BrandColorLine';
 import { SocialMediaLinks } from '../brand/SocialMediaLinks';
 import { useLanguage } from '../i18n/LanguageProvider';
+import { toLocalizedPath } from '../../utils/i18nRouting';
 
 interface FooterProps {
   onNavigate: (path: string) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
-  const { text, localize } = useLanguage();
+  const { language, text, localize } = useLanguage();
   const currentYear = new Date().getFullYear();
   const profile = localize(COMPANY_PROFILE);
 
@@ -25,7 +26,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer className="bg-[#173955] text-white relative overflow-hidden">
       {/* Top 4-Color Brand Line */}
-      <BrandColorLine heightPx={4} />
+      <BrandColorLine heightPx={30} className="artavel-footer-transition" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-white/15">
@@ -49,7 +50,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               {FOOTER_SOLUTIONS_NAV.map((item) => (
                 <li key={item.id}>
                   <a
-                    href={item.path}
+                    href={toLocalizedPath(item.path, language)}
                     onClick={(e) => handleLinkClick(e, item.path)}
                     className="hover:text-[#7DBC5E] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#7DBC5E] rounded px-1 -ml-1 inline-block"
                   >
@@ -121,7 +122,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             {FOOTER_LEGAL_NAV.map((link) => (
               <a
                 key={link.path}
-                href={link.path}
+                href={toLocalizedPath(link.path, language)}
                 onClick={(e) => handleLinkClick(e, link.path)}
                 className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded px-1"
               >

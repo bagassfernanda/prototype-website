@@ -8,6 +8,8 @@ import { Badge } from '../components/ui/Badge';
 import { Accordion } from '../components/ui/Accordion';
 import { Card } from '../components/ui/Card';
 import { FinalCTASection } from '../components/sections/FinalCTASection';
+import { SecurityGovernanceSection } from '../components/sections/SecurityGovernanceSection';
+import { InteractiveWorkflowSim } from '../components/sections/InteractiveWorkflowSim';
 import { MetaInjector } from '../components/seo/MetaInjector';
 import { JsonLdInjector } from '../components/seo/JsonLdInjector';
 import {
@@ -393,6 +395,9 @@ export const SolutionDetailPage: React.FC<SolutionDetailPageProps> = ({ slug, on
           </div>
         </Container>
       </Section>
+
+      {solution.slug === 'keamanan-data-dan-integrasi' && <SecurityGovernanceSection onNavigate={onNavigate} />}
+      {solution.slug === 'tata-naskah-dinas-elektronik' && <InteractiveWorkflowSim />}
 
       {/* 6. FAQ Section */}
       <Section bg="white" padding="normal" id="faq-solusi" className="artavel-solution-faq-section">

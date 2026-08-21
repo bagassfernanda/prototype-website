@@ -1,7 +1,20 @@
 import React from 'react';
-import { FileCheck2, FolderKanban, MailCheck, Users, ScanLine, ShieldAlert, ArrowRight, Check, Camera, Globe2 } from 'lucide-react';
-import { SOLUTIONS_DATA } from '../../content/solutions';
-import { Solution } from '../../types';
+import {
+  ArrowRight,
+  Camera,
+  ClipboardList,
+  FileCheck2,
+  FolderKanban,
+  Globe2,
+  GraduationCap,
+  MailCheck,
+  ScanLine,
+  ShieldAlert,
+  ShoppingCart,
+  Users
+} from 'lucide-react';
+import { SOLUTION_CATEGORIES, getRelatedProducts } from '../../content/products';
+import type { SolutionCategory } from '../../types';
 import { Card } from '../ui/Card';
 import { Badge } from '../ui/Badge';
 import { Section } from '../layout/Section';
@@ -11,11 +24,12 @@ import { useLanguage } from '../i18n/LanguageProvider';
 
 interface SolutionGridSectionProps {
   onNavigate: (path: string) => void;
+  compact?: boolean;
 }
 
-export const SolutionGridSection: React.FC<SolutionGridSectionProps> = ({ onNavigate }) => {
+export const SolutionGridSection: React.FC<SolutionGridSectionProps> = ({ onNavigate, compact = false }) => {
   const { text, localize } = useLanguage();
-  const solutions = localize(SOLUTIONS_DATA);
+  const categories = localize(SOLUTION_CATEGORIES);
 
   const getIcon = (iconName: string) => {
     switch (iconName) {
@@ -27,76 +41,94 @@ export const SolutionGridSection: React.FC<SolutionGridSectionProps> = ({ onNavi
       case 'ShieldAlert': return ShieldAlert;
       case 'Camera': return Camera;
       case 'Globe2': return Globe2;
+      case 'GraduationCap': return GraduationCap;
+      case 'ClipboardList': return ClipboardList;
+      case 'ShoppingCart': return ShoppingCart;
       default: return FileCheck2;
     }
   };
 
-  const getAccentBorder = (index: number) => (index % 3 === 1 ? 'green' : 'blue');
-
   return (
-    <Section bg="surface-blue" padding="normal" id="solusi-artavel">
+    <Section bg="surface-blue" padding={compact ? 'compact' : 'normal'} id="solusi-artavel">
       <Container>
-        <ScrollReveal className="text-center max-w-3xl mx-auto mb-16" direction="scale">
+        <ScrollReveal className="text-center max-w-3xl mx-auto mb-8 sm:mb-10" direction="scale">
           <Badge variant="blue" size="md" className="mb-3">
 	            {text('Ekosistem Solusi Artavel')}
           </Badge>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#172536] font-heading leading-tight">
-	            {text('Solusi Digital Terintegrasi Berorientasi Hasil')}
+	            {text('Lima Keluarga Solusi Teknologi Artavel')}
           </h2>
-          <p className="text-base sm:text-lg text-[#5C6B79] mt-4">
-	            {text('Setiap modul dirancang untuk saling terhubung, mudah dikonfigurasi sesuai regulasi instansi, dan ramah pengguna.')}
+          <p className="text-base text-[#5C6B79] mt-3">
+	            {text('Temukan area kebutuhan utama dan produk yang relevan dalam satu peta solusi.')}
           </p>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-	          {solutions.map((solution: Solution, index) => {
-            const IconComponent = getIcon(solution.iconName);
+        <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-5">
+	          {categories.map((category: SolutionCategory, index) => {
+            const IconComponent = getIcon(category.iconName);
+            const relatedProducts = getRelatedProducts(category);
+            const displayedProducts = compact ? relatedProducts.slice(0, 2) : relatedProducts;
 
             return (
               <Card
-                key={solution.id}
-                id={`solusi-card-${solution.id}`}
-                accentBorder={getAccentBorder(index)}
-                className="flex flex-col justify-between"
+                key={category.id}
+                id={category.slug}
+                accentBorder={category.accentColor}
+                className="flex h-full flex-col justify-between p-4 sm:p-5"
                 revealDelay={index * 70}
               >
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-[#EAF2F8] text-[#36699C] flex items-center justify-center">
-                      <IconComponent className="w-6 h-6" aria-hidden="true" />
+                  <div className="mb-3 flex items-center justify-between gap-2">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#EAF2F8] text-[#36699C]">
+                      <IconComponent className="h-5 w-5" aria-hidden="true" />
                     </div>
                     <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#F7F9FB] text-[#5C6B79] border border-[#DBE4EB]">
-                      {solution.productFamily}
+                      {text('Solusi')}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-[#172536] font-heading mb-2">
-                    {solution.title}
+                  <h3 className="text-base font-bold leading-snug text-[#172536] font-heading mb-2">
+                    {category.title}
                   </h3>
 
-                  <p className="text-sm text-[#5C6B79] leading-relaxed mb-6">
-                    {solution.shortDescription}
+                  <p className="line-clamp-3 text-xs leading-relaxed text-[#5C6B79] mb-3">
+                    {category.description}
                   </p>
 
-                  <div className="space-y-2 mb-6 pt-4 border-t border-[#DBE4EB]">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#172536] block mb-2 font-heading">
-	                      {text('Kapabilitas Utama:')}
+                  {relatedProducts.length > 0 && (
+                    <div className="mb-3 space-y-1 border-t border-[#DBE4EB] pt-3">
+                    <span className="mb-1.5 block text-[10px] font-bold uppercase tracking-wider text-[#172536] font-heading">
+	                      {text('Produk Terkait:')}
                     </span>
-                    {solution.capabilities.slice(0, 3).map((cap) => (
-                      <div key={cap.id} className="flex items-start gap-2 text-xs text-[#5C6B79]">
-                        <Check className="w-4 h-4 text-[#568F3E] flex-shrink-0 mt-0.5" aria-hidden="true" />
-                        <span>{cap.title}</span>
-                      </div>
+                    {displayedProducts.map((product) => (
+                      <button
+                        key={product.id}
+                        type="button"
+                        onClick={() => onNavigate(product.detailPath)}
+                        className="flex min-h-9 w-full items-center justify-between gap-2 rounded-lg border border-[#DBE4EB] bg-[#F7F9FB] px-2.5 py-1.5 text-left text-xs text-[#5C6B79] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#36699C]/35 hover:bg-white hover:text-[#172536] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C]"
+                      >
+                        <span className="min-w-0 truncate font-bold text-[#172536]">
+                          {product.name}
+                        </span>
+                        <ArrowRight className="h-3.5 w-3.5 flex-shrink-0 text-[#36699C]" aria-hidden="true" />
+                        </button>
                     ))}
-                  </div>
+                    {compact && relatedProducts.length > displayedProducts.length && (
+                      <span className="block pt-1 text-[11px] font-semibold text-[#5C6B79]">
+                        + {relatedProducts.length - displayedProducts.length} {text('produk lainnya')}
+                      </span>
+                    )}
+                    </div>
+                  )}
+
                 </div>
 
-                <div className="pt-4">
+                <div className="pt-2">
                   <button
-                    onClick={() => onNavigate(`/solusi/${solution.slug}`)}
-                    className="artavel-inline-action-link inline-flex items-center gap-2 text-sm font-bold text-[#36699C] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] rounded px-1 -ml-1"
+                    onClick={() => onNavigate(category.path)}
+                    className="artavel-inline-action-link inline-flex items-center gap-2 whitespace-nowrap text-xs font-bold text-[#36699C] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] rounded px-1 -ml-1"
                   >
-	                    <span>{text('Pelajari Selengkapnya')}</span>
+	                    <span>{text('Lihat Area Solusi')}</span>
                     <ArrowRight className="w-4 h-4" aria-hidden="true" />
                   </button>
                 </div>
@@ -104,6 +136,27 @@ export const SolutionGridSection: React.FC<SolutionGridSectionProps> = ({ onNavi
             );
           })}
         </div>
+
+        {compact && (
+          <div className="mt-5 flex flex-col gap-4 rounded-2xl border border-[#B7D7C4] bg-[#EFF8EA] p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+            <div className="min-w-0">
+              <p className="text-sm font-bold text-[#172536] font-heading">
+                {text('Cek Kesiapan Digital Organisasi')}
+              </p>
+              <p className="mt-1 max-w-3xl text-xs leading-relaxed text-[#1F5D4B]">
+                {text('Cek kesiapan proses, data, keamanan, analytics, dan infrastruktur organisasi Anda.')}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => onNavigate('/assessment')}
+              className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-[#36699C] px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-[#244F78] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] focus-visible:ring-offset-2"
+            >
+              {text('Mulai Assessment')}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
+        )}
       </Container>
     </Section>
   );

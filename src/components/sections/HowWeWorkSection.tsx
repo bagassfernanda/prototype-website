@@ -5,7 +5,11 @@ import { Container } from '../layout/Container';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import { useLanguage } from '../i18n/LanguageProvider';
 
-export const HowWeWorkSection: React.FC = () => {
+interface HowWeWorkSectionProps {
+  compact?: boolean;
+}
+
+export const HowWeWorkSection: React.FC<HowWeWorkSectionProps> = ({ compact = false }) => {
   const { text } = useLanguage();
   const steps = [
     {
@@ -41,9 +45,9 @@ export const HowWeWorkSection: React.FC = () => {
   ];
 
   return (
-    <Section bg="white" padding="normal" id="cara-kami-bekerja">
+    <Section bg="white" padding={compact ? 'compact' : 'normal'} id="cara-kami-bekerja">
       <Container>
-        <ScrollReveal className="text-center max-w-3xl mx-auto mb-16" direction="scale">
+        <ScrollReveal className="text-center max-w-3xl mx-auto mb-8 sm:mb-10" direction="scale">
           <h2 className="text-sm font-bold tracking-wider uppercase text-[#36699C] font-heading mb-3">
 	            {text('Pendampingan Berkelanjutan')}
           </h2>
@@ -55,7 +59,7 @@ export const HowWeWorkSection: React.FC = () => {
           </p>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {steps.map((s, idx) => {
             const Icon = s.icon;
             return (
@@ -65,7 +69,7 @@ export const HowWeWorkSection: React.FC = () => {
                 delay={idx * 70}
                 direction="scale"
               >
-                <div className="artavel-work-step-card group flex h-full flex-col bg-[#F7F9FB] border border-[#DBE4EB] p-6 rounded-2xl">
+                <div className={`artavel-work-step-card group flex h-full flex-col bg-[#F7F9FB] border border-[#DBE4EB] ${compact ? 'p-4 rounded-xl' : 'p-6 rounded-2xl'}`}>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-2xl font-extrabold text-[#7DBC5E] font-heading">
                       {s.number}
@@ -79,7 +83,7 @@ export const HowWeWorkSection: React.FC = () => {
 	                    {text(s.title)}
                   </h3>
 
-                  <p className="text-xs text-[#5C6B79] leading-relaxed">
+                  <p className="text-xs text-[#5C6B79] leading-relaxed line-clamp-3">
 	                    {text(s.description)}
                   </p>
                 </div>

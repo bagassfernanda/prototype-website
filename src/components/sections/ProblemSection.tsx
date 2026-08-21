@@ -10,33 +10,33 @@ export const ProblemSection: React.FC = () => {
   const problems = [
     {
       icon: SearchX,
-      title: 'Dokumen Fisik & Digital Sulit Ditemukan',
-      description: 'Mencari berkas perizinan atau surat keputusan masa lalu memakan waktu lama karena bergantung pada ingatan staf tertentu.'
+      title: 'Data Operasional Tersebar',
+      description: 'Informasi penting masih tersebar di spreadsheet, aplikasi terpisah, perangkat lokal, dan laporan manual sehingga sulit dibaca sebagai satu gambaran.'
     },
     {
       icon: FileQuestion,
-      title: 'Status Disposisi & Izin Tidak Mudah Dipantau',
-      description: 'Pemohon dan pimpinan tidak memiliki visibilitas *real-time* tentang posisi berkas yang sedang diverifikasi.'
+      title: 'Monitoring Lapangan Masih Reaktif',
+      description: 'CCTV, perangkat, dan aktivitas lapangan sering hanya menjadi rekaman pasif, belum menghasilkan data people counting, vehicle counting, atau insight area.'
     },
     {
       icon: Layers,
-      title: 'Informasi Tersebar di Banyak Aplikasi & Perangkat',
-      description: 'Data disimpan secara acak di komputer lokal, flashdisk, atau obrolan pesan instan tanpa penataan terpusat.'
+      title: 'Peta dan Potensi Wilayah Sulit Dibaca',
+      description: 'Data lokasi, objek, pajak, aset, atau aktivitas wilayah sulit diprioritaskan ketika belum divisualisasikan melalui GIS, WebGIS, atau SmartMap.'
     },
     {
       icon: Lock,
-      title: 'Persetujuan & Paraf Masih Bergantung Lokasi Fisik',
-      description: 'Proses surat-menyurat dan perizinan tertahan ketika pejabat penandatangan sedang bertugas di luar kantor.'
+      title: 'Risiko Siber Dimulai dari Pengguna',
+      description: 'Phishing, kebiasaan kerja yang kurang aman, dan endpoint yang tidak terpantau dapat membuka celah risiko bagi organisasi.'
     },
     {
       icon: Users,
-      title: 'Masyarakat Harus Berulang Kali Menanyakan Status',
-      description: 'Kurangnya portal tracking mandiri menyebabkan penumpukan pertanyaan warga di loket atau telepon dinas.'
+      title: 'Sekolah dan Retail Butuh Sistem Terpadu',
+      description: 'Sekolah, kasir, inventory, absensi, keuangan, dan dashboard performa membutuhkan alur yang saling terhubung agar tidak terus direkap berulang.'
     },
     {
       icon: History,
-      title: 'Ketiadaan Jejak Audit (Audit Trail) yang Jelas',
-      description: 'Kesulitan melacak siapa yang mengubah status dokumen, memberikan catatan revisi, atau menyetujui draft.'
+      title: 'Workflow Enterprise Tetap Butuh Audit Trail',
+      description: 'Pelayanan publik, antrean, dokumen, dan tata naskah tetap membutuhkan status, log aktivitas, integrasi, dan pelaporan yang dapat dipertanggungjawabkan.'
     }
   ];
 
@@ -48,10 +48,10 @@ export const ProblemSection: React.FC = () => {
             {text('Tantangan Operasional Organisasi')}
           </h2>
           <p className="text-3xl sm:text-4xl font-extrabold text-[#172536] font-heading leading-tight">
-            {text('Proses manual yang tidak tertata menghambat kecepatan pelayanan & keputusan')}
+            {text('Organisasi membutuhkan data, monitoring, aplikasi, dan keamanan yang saling terhubung')}
           </p>
           <p className="text-base sm:text-lg text-[#5C6B79] mt-4">
-            {text('Sebelum beralih ke solusi digital, banyak instansi mengalami kebuntuan alur kerja yang memicu ketidakpuasan masyarakat dan risiko kearsipan.')}
+            {text('Artavel merangkum kebutuhan tersebut menjadi beberapa keluarga solusi agar teknologi modern tetap mudah dipahami dan dapat diarahkan ke produk nyata.')}
           </p>
         </ScrollReveal>
 

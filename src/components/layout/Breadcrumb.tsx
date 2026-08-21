@@ -1,6 +1,7 @@
 import React from 'react';
 import { ChevronRight, Home } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageProvider';
+import { toLocalizedPath } from '../../utils/i18nRouting';
 
 export interface BreadcrumbItem {
   label: string;
@@ -20,7 +21,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
   className = '',
   id = 'artavel-breadcrumb'
 }) => {
-  const { text } = useLanguage();
+  const { language, text } = useLanguage();
   const fullItems: BreadcrumbItem[] = [
     { label: 'Beranda', path: '/' },
     ...items
@@ -50,7 +51,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
                 </span>
               ) : (
                 <a
-                  href={item.path}
+                  href={toLocalizedPath(item.path, language)}
                   onClick={(e) => handleClick(e, item.path)}
                   className="hover:text-[#36699C] transition-colors inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] rounded px-1"
                 >

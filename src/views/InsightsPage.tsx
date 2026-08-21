@@ -1,5 +1,5 @@
 import React from 'react';
-import { INSIGHTS_DATA } from '../content/insights';
+import { getLocalizedInsights } from '../content/insights';
 import { Section } from '../components/layout/Section';
 import { Container } from '../components/layout/Container';
 import { Breadcrumb } from '../components/layout/Breadcrumb';
@@ -7,7 +7,7 @@ import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { FinalCTASection } from '../components/sections/FinalCTASection';
 import { MetaInjector } from '../components/seo/MetaInjector';
-import { Clock, BookOpen, ArrowRight } from 'lucide-react';
+import { Clock, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../components/i18n/LanguageProvider';
 
 interface InsightsPageProps {
@@ -15,27 +15,27 @@ interface InsightsPageProps {
 }
 
 export const InsightsPage: React.FC<InsightsPageProps> = ({ onNavigate }) => {
-  const { text, localize } = useLanguage();
-  const articles = localize(INSIGHTS_DATA);
+  const { language, text } = useLanguage();
+  const articles = getLocalizedInsights(language);
 
   return (
     <>
       <MetaInjector
-	        title={`${text('Wawasan & Edukasi Digital')} — PT Artavel`}
-	        description={text('Kumpulan artikel edukatif mengenai tata kelola kearsipan digital, TNDE, perizinan publik, dan keamanan data.')}
+        title={`${text('Wawasan & Transformasi Digital')} — PT Artavel`}
+        description={text('Artikel, insight, dan panduan praktis dari tim Artavel mengenai AI, analytics, transformasi digital, pendidikan, retail, pemerintahan, IoT, cybersecurity, dan pengembangan sistem.')}
         canonicalPath="/wawasan"
       />
 
       <Section bg="surface" padding="compact">
         <Container>
-	          <Breadcrumb items={[{ label: text('Wawasan') }]} onNavigate={onNavigate} />
+          <Breadcrumb items={[{ label: text('Wawasan') }]} onNavigate={onNavigate} />
 
           <div className="py-8 max-w-3xl">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#172536] font-heading mb-4">
-	              {text('Wawasan & Edukasi Tata Kelola Digital')}
+              {text('Wawasan & Transformasi Digital')}
             </h1>
             <p className="text-lg text-[#5C6B79] leading-relaxed">
-	              {text('Kumpulan artikel teknis dan panduan praktis dari tim analis Artavel untuk membantu organisasi Anda mempersiapkan transformasi digital yang berkelanjutan.')}
+              {text('Artikel, insight, dan panduan praktis dari tim Artavel mengenai AI, analytics, transformasi digital, pendidikan, retail, pemerintahan, IoT, cybersecurity, dan pengembangan sistem.')}
             </p>
           </div>
         </Container>
@@ -44,7 +44,7 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ onNavigate }) => {
       <Section bg="white" padding="normal">
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-	            {articles.map((article) => (
+            {articles.map((article) => (
               <Card key={article.id} className="flex flex-col justify-between p-6">
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-4">
@@ -53,7 +53,7 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ onNavigate }) => {
                     </Badge>
                     <span className="text-xs text-[#5C6B79] flex items-center gap-1 font-medium">
                       <Clock className="w-3.5 h-3.5" aria-hidden="true" />
-	                      {article.readTimeMinutes} {text('Mnt Baca')}
+                      {article.readTimeMinutes} {text('Mnt Baca')}
                     </span>
                   </div>
 
@@ -80,7 +80,7 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ onNavigate }) => {
                     onClick={() => onNavigate(`/wawasan/${article.slug}`)}
                     className="artavel-inline-action-link font-bold text-[#36699C] cursor-pointer inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] rounded px-1 -mr-1"
                   >
-	                    <span>{text('Baca')}</span>
+                    <span>{text('Baca')}</span>
                     <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
                   </button>
                 </div>

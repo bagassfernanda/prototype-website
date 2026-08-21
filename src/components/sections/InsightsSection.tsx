@@ -1,6 +1,6 @@
 import React from 'react';
-import { ArrowRight, BookOpen, Clock } from 'lucide-react';
-import { INSIGHTS_DATA } from '../../content/insights';
+import { ArrowRight, Clock } from 'lucide-react';
+import { getLocalizedFeaturedInsights } from '../../content/insights';
 import { InsightArticle } from '../../types';
 import { Card } from '../ui/Card';
 import { Badge } from '../ui/Badge';
@@ -11,22 +11,23 @@ import { useLanguage } from '../i18n/LanguageProvider';
 
 interface InsightsSectionProps {
   onNavigate: (path: string) => void;
+  compact?: boolean;
 }
 
-export const InsightsSection: React.FC<InsightsSectionProps> = ({ onNavigate }) => {
-  const { text, localize } = useLanguage();
-  const articles = localize(INSIGHTS_DATA);
+export const InsightsSection: React.FC<InsightsSectionProps> = ({ onNavigate, compact = false }) => {
+  const { language, text } = useLanguage();
+  const articles = getLocalizedFeaturedInsights(language);
 
   return (
-    <Section bg="surface" padding="normal" id="wawasan-terbaru">
+    <Section bg="surface" padding={compact ? 'compact' : 'normal'} id="wawasan-terbaru">
       <Container>
-        <ScrollReveal className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6" direction="scale">
+        <ScrollReveal className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-5" direction="scale">
           <div>
             <h2 className="text-sm font-bold tracking-wider uppercase text-[#36699C] font-heading mb-2">
               {text('Artikel & Edukasi')}
             </h2>
             <p className="text-3xl sm:text-4xl font-extrabold text-[#172536] font-heading">
-              {text('Wawasan Praktis Tata Kelola Digital')}
+              {text('Wawasan Praktis Transformasi Digital')}
             </p>
           </div>
           <button
@@ -38,7 +39,7 @@ export const InsightsSection: React.FC<InsightsSectionProps> = ({ onNavigate }) 
           </button>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {articles.map((article: InsightArticle, index) => (
             <Card key={article.id} className="flex flex-col justify-between" revealDelay={index * 80}>
               <div>

@@ -5,16 +5,20 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Header } from './Header';
 import { Footer } from './Footer';
-import { LanguageProvider } from '../i18n/LanguageProvider';
+import { LanguageProvider, useLanguage } from '../i18n/LanguageProvider';
 import { ThemeProvider } from '../theme/ThemeProvider';
+import { getInternalPathname, getLocaleFromPathname, toLocalizedPath, type Locale } from '../../utils/i18nRouting';
 
 interface SiteShellProps {
   children: React.ReactNode;
+  initialLanguage: Locale;
 }
 
-export const SiteShell: React.FC<SiteShellProps> = ({ children }) => {
+const SiteShellContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const router = useRouter();
-  const pathname = usePathname() || '/';
+  const displayPathname = usePathname() || '/';
+  const pathname = getInternalPathname(displayPathname);
+  const { language } = useLanguage();
   const shouldReduceMotion = useReducedMotion();
 
   const scrollToPageTop = useCallback(() => {
@@ -27,45 +31,62 @@ export const SiteShell: React.FC<SiteShellProps> = ({ children }) => {
 
   const navigate = useCallback(
     (path: string) => {
-      if (path === pathname) {
+      const targetPath = getLocaleFromPathname(path)
+        ? path
+        : toLocalizedPath(path, language);
+      const targetInternalPath = getInternalPathname(targetPath);
+      const targetDisplayPath = normalizeDisplayPath(targetPath);
+      const currentDisplayPath = normalizeDisplayPath(displayPathname);
+
+      if (targetInternalPath === pathname && targetDisplayPath === currentDisplayPath) {
         scrollToPageTop();
         return;
       }
-      router.push(path);
+      router.push(targetPath);
     },
-    [pathname, router, scrollToPageTop]
+    [displayPathname, language, pathname, router, scrollToPageTop]
   );
 
   return (
-    <LanguageProvider>
-      <ThemeProvider>
-        <div className="min-h-screen flex flex-col bg-white text-[#172536] font-sans antialiased">
-          <Header currentPath={pathname} onNavigate={navigate} />
+    <ThemeProvider>
+      <div className="min-h-screen flex flex-col bg-white text-[#172536] font-sans antialiased">
+        <Header currentPath={pathname} displayPath={displayPathname} onNavigate={navigate} />
 
-          <main
-            id="main-content"
-            tabIndex={-1}
-            className={`flex-1 overflow-x-hidden focus:outline-none ${pathname === '/' ? '' : 'pt-40 sm:pt-44 xl:pt-48'}`}
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={pathname}
-                initial={shouldReduceMotion ? false : { y: 14 }}
-                animate={{ y: 0 }}
-                exit={shouldReduceMotion ? { y: 0 } : { y: -10 }}
-                transition={{
-                  duration: shouldReduceMotion ? 0 : 0.24,
-                  ease: [0.22, 1, 0.36, 1]
-                }}
-              >
-                {children}
-              </motion.div>
-            </AnimatePresence>
-          </main>
+        <main
+          id="main-content"
+          tabIndex={-1}
+          className={`flex-1 overflow-x-hidden focus:outline-none ${pathname === '/' ? '' : 'pt-40 sm:pt-44 xl:pt-48'}`}
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={pathname}
+              initial={shouldReduceMotion ? false : { y: 14 }}
+              animate={{ y: 0 }}
+              exit={shouldReduceMotion ? { y: 0 } : { y: -10 }}
+              transition={{
+                duration: shouldReduceMotion ? 0 : 0.24,
+                ease: [0.22, 1, 0.36, 1]
+              }}
+            >
+              {children}
+            </motion.div>
+          </AnimatePresence>
+        </main>
 
-          <Footer onNavigate={navigate} />
-        </div>
-      </ThemeProvider>
-    </LanguageProvider>
+        <Footer onNavigate={navigate} />
+      </div>
+    </ThemeProvider>
   );
 };
+
+const normalizeDisplayPath = (path: string) => {
+  const pathname = path.split('#')[0]?.split('?')[0] || '/';
+  const withoutTrailingSlash = pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname;
+  return withoutTrailingSlash || '/';
+};
+
+export const SiteShell: React.FC<SiteShellProps> = ({ children, initialLanguage }) => (
+  <LanguageProvider initialLanguage={initialLanguage}>
+    <SiteShellContent>{children}</SiteShellContent>
+  </LanguageProvider>
+);

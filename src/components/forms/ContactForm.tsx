@@ -6,6 +6,7 @@ import { logger } from '../../utils/logger';
 import { COMPANY_PROFILE } from '../../content/company';
 import { Button } from '../ui/Button';
 import { useLanguage } from '../i18n/LanguageProvider';
+import { toLocalizedPath } from '../../utils/i18nRouting';
 
 interface ContactFormProps {
   onSuccess?: (referenceId: string) => void;
@@ -14,18 +15,29 @@ interface ContactFormProps {
 
 const CONSULTATION_WHATSAPP_NUMBER = '6281331921019';
 
+const NEED_CATEGORY_OPTIONS = [
+  { value: 'ai-analytics-smart-monitoring', label: 'AI, Analytics & Smart Monitoring' },
+  { value: 'smart-education-otoschool', label: 'Smart Education / otoSchool' },
+  { value: 'retail-fnb-otopos', label: 'Retail & F&B / otoPOS' },
+  { value: 'cyber-security', label: 'Cyber Security' },
+  { value: 'smartmap-gis', label: 'SmartMap & GIS' },
+  { value: 'cctv-computer-vision', label: 'CCTV & Computer Vision' },
+  { value: 'digital-government-enterprise', label: 'Digital Government & Enterprise' },
+  { value: 'other-general-consultation', label: 'Other / General Consultation' }
+];
+
 export const ContactForm: React.FC<ContactFormProps> = ({
   onSuccess,
   id = 'artavel-contact-form'
 }) => {
-  const { text } = useLanguage();
+  const { language, text } = useLanguage();
   const [formData, setFormData] = useState<ContactFormValues>({
     fullName: '',
     organizationName: '',
     role: '',
     email: '',
     phoneNumber: '',
-    needCategory: 'pelayanan-publik',
+    needCategory: 'ai-analytics-smart-monitoring',
     summary: '',
     estimatedTimeline: 'secepatnya',
     privacyAgreed: false,
@@ -88,17 +100,8 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   };
 
   const getNeedCategoryLabel = (value: string) => {
-    const labels: Record<string, string> = {
-      'pelayanan-publik': 'Pelayanan Publik & Perizinan (SIPPADU)',
-      kearsipan: 'Manajemen Dokumen & Arsip (Archive)',
-      'tata-naskah': 'Tata Naskah Dinas Elektronik (TNDE)',
-      antrean: 'Sistem Antrean & Tracking (SIANTER)',
-      digitalisasi: 'Digitalisasi & Alih Media Dokumen',
-      'keamanan-integrasi': 'Keamanan Data & Integrasi API',
-      lainnya: 'Lainnya / Konsultasi Umum'
-    };
-
-    return text(labels[value] || 'Lainnya / Konsultasi Umum');
+    const option = NEED_CATEGORY_OPTIONS.find((item) => item.value === value);
+    return text(option?.label || 'Other / General Consultation');
   };
 
   const createReferenceId = () => `ART-${Math.floor(100000 + Math.random() * 900000)}`;
@@ -112,8 +115,10 @@ export const ContactForm: React.FC<ContactFormProps> = ({
     needCategory: sanitizeString(formData.needCategory),
     needCategoryLabel: getNeedCategoryLabel(formData.needCategory),
     summary: sanitizeString(formData.summary),
-    estimatedTimeline: sanitizeString(formData.estimatedTimeline || ''),
-    submittedAt: new Date().toLocaleString('id-ID', {
+    estimatedTimeline: formData.estimatedTimeline
+      ? text(sanitizeString(formData.estimatedTimeline))
+      : '',
+    submittedAt: new Date().toLocaleString(language === 'en' ? 'en-US' : 'id-ID', {
       dateStyle: 'long',
       timeStyle: 'short'
     })
@@ -123,22 +128,50 @@ export const ContactForm: React.FC<ContactFormProps> = ({
     referenceId: string,
     payload: ReturnType<typeof getSanitizedPayload>
   ) => {
+    const labels = language === 'en'
+      ? {
+          title: 'PT Artavel Website Consultation Request',
+          reference: 'Reference Number',
+          fullName: 'Full Name',
+          organization: 'Organization / Company',
+          role: 'Role / Work Unit',
+          email: 'Email',
+          phone: 'Phone / WhatsApp',
+          category: 'Need Category',
+          timeline: 'Estimated Timeline',
+          summary: 'Needs Summary',
+          submittedAt: 'Submitted At'
+        }
+      : {
+          title: 'Permohonan Konsultasi Website PT Artavel',
+          reference: 'Nomor Referensi',
+          fullName: 'Nama Lengkap',
+          organization: 'Instansi / Perusahaan',
+          role: 'Jabatan / Unit Kerja',
+          email: 'Email',
+          phone: 'Telepon / WhatsApp',
+          category: 'Kategori Kebutuhan',
+          timeline: 'Estimasi Timeline',
+          summary: 'Ringkasan Kebutuhan',
+          submittedAt: 'Waktu Pengisian'
+        };
+
     return [
-      'Permohonan Konsultasi Website PT Artavel',
-      `Nomor Referensi: ${referenceId}`,
+      labels.title,
+      `${labels.reference}: ${referenceId}`,
       '',
-      `Nama Lengkap: ${payload.fullName}`,
-      `Instansi / Perusahaan: ${payload.organizationName}`,
-      payload.role ? `Jabatan / Unit Kerja: ${payload.role}` : '',
-      `Email: ${payload.email}`,
-      payload.phoneNumber ? `Telepon / WhatsApp: ${payload.phoneNumber}` : '',
-      `Kategori Kebutuhan: ${payload.needCategoryLabel}`,
-      payload.estimatedTimeline ? `Estimasi Timeline: ${payload.estimatedTimeline}` : '',
+      `${labels.fullName}: ${payload.fullName}`,
+      `${labels.organization}: ${payload.organizationName}`,
+      payload.role ? `${labels.role}: ${payload.role}` : '',
+      `${labels.email}: ${payload.email}`,
+      payload.phoneNumber ? `${labels.phone}: ${payload.phoneNumber}` : '',
+      `${labels.category}: ${payload.needCategoryLabel}`,
+      payload.estimatedTimeline ? `${labels.timeline}: ${payload.estimatedTimeline}` : '',
       '',
-      'Ringkasan Kebutuhan:',
+      `${labels.summary}:`,
       payload.summary,
       '',
-      `Waktu Pengisian: ${payload.submittedAt}`
+      `${labels.submittedAt}: ${payload.submittedAt}`
     ]
       .filter(Boolean)
       .join('\n');
@@ -146,7 +179,9 @@ export const ContactForm: React.FC<ContactFormProps> = ({
 
   const openEmailClient = (referenceId: string, payload: ReturnType<typeof getSanitizedPayload>) => {
     const subject = encodeURIComponent(
-      `Permohonan Konsultasi Artavel - ${payload.organizationName} (${referenceId})`
+      language === 'en'
+        ? `Artavel Consultation Request - ${payload.organizationName} (${referenceId})`
+        : `Permohonan Konsultasi Artavel - ${payload.organizationName} (${referenceId})`
     );
     const body = encodeURIComponent(buildConsultationMessage(referenceId, payload));
     window.location.href = `mailto:${COMPANY_PROFILE.contact.email}?subject=${subject}&body=${body}`;
@@ -258,7 +293,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
                 role: '',
                 email: '',
                 phoneNumber: '',
-                needCategory: 'pelayanan-publik',
+                needCategory: 'ai-analytics-smart-monitoring',
                 summary: '',
                 estimatedTimeline: 'secepatnya',
                 privacyAgreed: false,
@@ -416,13 +451,11 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             onChange={handleChange}
             className="w-full px-4 py-3 rounded-xl border border-[#DBE4EB] text-[#172536] bg-white focus:outline-none focus:ring-2 focus:ring-[#36699C] transition-all"
           >
-	            <option value="pelayanan-publik">{text('Pelayanan Publik & Perizinan (SIPPADU)')}</option>
-	            <option value="kearsipan">{text('Manajemen Dokumen & Arsip (Archive)')}</option>
-	            <option value="tata-naskah">{text('Tata Naskah Dinas Elektronik (TNDE)')}</option>
-	            <option value="antrean">{text('Sistem Antrean & Tracking (SIANTER)')}</option>
-	            <option value="digitalisasi">{text('Digitalisasi & Alih Media Dokumen')}</option>
-	            <option value="keamanan-integrasi">{text('Keamanan Data & Integrasi API')}</option>
-	            <option value="lainnya">{text('Lainnya / Konsultasi Umum')}</option>
+            {NEED_CATEGORY_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {text(option.label)}
+              </option>
+            ))}
           </select>
         </div>
       </div>
@@ -465,7 +498,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
           />
           <span className="text-xs text-[#5C6B79] leading-normal">
 	            {text('Saya menyetujui bahwa data yang diisi digunakan oleh PT Artavel untuk keperluan konsultasi dan penawaran layanan sesuai ')}
-            <a href="/kebijakan-privasi" className="text-[#36699C] underline hover:text-[#244F78]">
+            <a href={toLocalizedPath('/kebijakan-privasi', language)} className="text-[#36699C] underline hover:text-[#244F78]">
 	              {text('Kebijakan Privasi')}
             </a>.
           </span>

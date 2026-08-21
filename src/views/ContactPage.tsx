@@ -17,11 +17,13 @@ interface ContactPageProps {
 }
 
 export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
-  const { text, localize } = useLanguage();
+  const { language, text, localize } = useLanguage();
   const profile = localize(COMPANY_PROFILE);
   const whatsappNumber = profile.contact.whatsapp.replace(/\D/g, '');
   const whatsappMessage = encodeURIComponent(
-    'Halo Admin PT Artavel, saya ingin mendapatkan respons cepat untuk konsultasi solusi Artavel.'
+    language === 'en'
+      ? 'Hello PT Artavel team, I would like a quick response for an Artavel solution consultation.'
+      : 'Halo Admin PT Artavel, saya ingin mendapatkan respons cepat untuk konsultasi solusi Artavel.'
   );
   const whatsappHref = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
@@ -42,7 +44,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
 	              {text('Konsultasikan Kebutuhan Organisasi Anda')}
             </h1>
             <p className="text-lg text-[#5C6B79] leading-relaxed">
-	              {text('Tim konsultan Artavel siap membantu memetakan tantangan alur kerja, mendemonstrasikan modul Smarchlink®, dan menyusun skenario implementasi yang efisien.')}
+	              {text('Tim konsultan Artavel siap membantu memetakan kebutuhan organisasi, memilih solusi yang relevan, serta menyusun skenario implementasi yang sesuai dengan proses, pengguna, dan lingkungan teknologi Anda.')}
             </p>
           </div>
         </Container>
@@ -124,7 +126,11 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                 href={whatsappHref}
                 target="_blank"
                 rel="noreferrer"
-                aria-label={`Hubungi tim PT Artavel melalui WhatsApp di ${profile.contact.whatsapp}`}
+                aria-label={
+                  language === 'en'
+                    ? `Contact the PT Artavel team through WhatsApp at ${profile.contact.whatsapp}`
+                    : `Hubungi tim PT Artavel melalui WhatsApp di ${profile.contact.whatsapp}`
+                }
                 className="artavel-whatsapp-response-card p-6 rounded-2xl bg-[#EFF8EA] border border-[#7DBC5E]/40 flex items-center gap-4"
               >
                 <MessageSquare className="artavel-whatsapp-response-icon w-8 h-8 text-[#568F3E] flex-shrink-0" aria-hidden="true" />
@@ -145,7 +151,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
             </div>
 
             {/* Right: Contact Form */}
-            <div className="lg:col-span-7 bg-white rounded-3xl border border-[#DBE4EB] p-8 shadow-sm">
+            <div
+              id="formulir-inkuiri-demo"
+              className="scroll-mt-28 rounded-3xl border border-[#DBE4EB] bg-white p-8 shadow-sm lg:col-span-7"
+            >
               <h2 className="text-2xl font-bold text-[#172536] font-heading mb-6">
 	                {text('Formulir Inkuiri & Permohonan Demo')}
               </h2>

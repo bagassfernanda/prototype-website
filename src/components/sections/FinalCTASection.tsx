@@ -9,6 +9,7 @@ import { COMPANY_PROFILE } from '../../content/company';
 
 interface FinalCTASectionProps {
   onNavigate: (path: string) => void;
+  compact?: boolean;
 }
 
 const officeWhatsAppNumber = COMPANY_PROFILE.contact.whatsapp.replace(/\D/g, '');
@@ -17,11 +18,11 @@ const officeWhatsAppMessage = encodeURIComponent(
 );
 const officeWhatsAppHref = `https://wa.me/${officeWhatsAppNumber}?text=${officeWhatsAppMessage}`;
 
-export const FinalCTASection: React.FC<FinalCTASectionProps> = ({ onNavigate }) => {
+export const FinalCTASection: React.FC<FinalCTASectionProps> = ({ onNavigate, compact = false }) => {
   const { text } = useLanguage();
 
   return (
-    <Section bg="dark-blue" padding="large" id="jadwalkan-konsultasi">
+    <Section bg="dark-blue" padding={compact ? 'normal' : 'large'} id="jadwalkan-konsultasi">
       <Container size="narrow">
         <div className="text-center flex flex-col items-center gap-6">
           <ScrollReveal direction="scale">

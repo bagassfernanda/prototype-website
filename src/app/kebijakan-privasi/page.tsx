@@ -1,7 +1,7 @@
 import { PrivacyClient } from '../_client-pages/PrivacyClient';
-import { createPageMetadata } from '../seo';
+import { createLocalizedPageMetadata } from '../seo';
 
-export const metadata = createPageMetadata({
+export const generateMetadata = () => createLocalizedPageMetadata({
   title: 'Kebijakan Privasi - PT Artavel',
   description:
     'Kebijakan privasi website PT Artavel terkait pengumpulan, penggunaan, dan perlindungan data pengguna.',

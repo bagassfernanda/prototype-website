@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { useLanguage } from '../i18n/LanguageProvider';
+import { toLocalizedPath } from '../../utils/i18nRouting';
 
 interface MetaInjectorProps {
   title: string;
@@ -13,6 +15,8 @@ export const MetaInjector: React.FC<MetaInjectorProps> = ({
   canonicalPath = '/',
   ogType = 'website'
 }) => {
+  const { language } = useLanguage();
+
   useEffect(() => {
     // Update document title
     document.title = title;
@@ -34,7 +38,8 @@ export const MetaInjector: React.FC<MetaInjectorProps> = ({
     setMetaTag('meta[property="og:type"]', 'property', 'og:type', ogType);
 
     // Canonical link
-    const canonicalUrl = `https://artavel.co.id${canonicalPath}`;
+    const localizedCanonicalPath = toLocalizedPath(canonicalPath, language);
+    const canonicalUrl = `https://artavel.co.id${localizedCanonicalPath}`;
     let canonicalElement = document.querySelector('link[rel="canonical"]');
     if (!canonicalElement) {
       canonicalElement = document.createElement('link');
@@ -42,7 +47,24 @@ export const MetaInjector: React.FC<MetaInjectorProps> = ({
       document.head.appendChild(canonicalElement);
     }
     canonicalElement.setAttribute('href', canonicalUrl);
-  }, [title, description, canonicalPath, ogType]);
+
+    const setAlternateLink = (hrefLang: string, href: string) => {
+      let element = document.querySelector(`link[rel="alternate"][hreflang="${hrefLang}"]`);
+      if (!element) {
+        element = document.createElement('link');
+        element.setAttribute('rel', 'alternate');
+        element.setAttribute('hreflang', hrefLang);
+        document.head.appendChild(element);
+      }
+      element.setAttribute('href', href);
+    };
+
+    const idUrl = `https://artavel.co.id${toLocalizedPath(canonicalPath, 'id')}`;
+    const enUrl = `https://artavel.co.id${toLocalizedPath(canonicalPath, 'en')}`;
+    setAlternateLink('id', idUrl);
+    setAlternateLink('en', enUrl);
+    setAlternateLink('x-default', idUrl);
+  }, [title, description, canonicalPath, ogType, language]);
 
   return null;
 };

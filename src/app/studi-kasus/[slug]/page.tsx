@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 import { CaseStudyDetailClient } from '../../_client-pages/CaseStudyDetailClient';
 import { CASE_STUDIES_DATA } from '../../../content/caseStudies';
-import { createPageMetadata } from '../../seo';
+import { translateTextValue } from '../../../content/i18nText';
+import { createPageMetadata, getRequestLocale } from '../../seo';
 
 interface CaseStudyRouteProps {
   params: Promise<{
@@ -17,13 +18,15 @@ export const generateStaticParams = () => {
 
 export const generateMetadata = async ({ params }: CaseStudyRouteProps) => {
   const { slug } = await params;
+  const locale = await getRequestLocale();
   const caseStudy = CASE_STUDIES_DATA.find((item) => item.slug === slug);
 
   if (!caseStudy) {
     return createPageMetadata({
-      title: 'Studi Kasus Tidak Ditemukan - PT Artavel',
-      description: 'Halaman studi kasus yang Anda cari tidak ditemukan.',
-      path: `/studi-kasus/${slug}`
+      title: translateTextValue('Studi Kasus Tidak Ditemukan - PT Artavel', locale),
+      description: translateTextValue('Halaman studi kasus yang Anda cari tidak ditemukan.', locale),
+      path: `/studi-kasus/${slug}`,
+      locale
     });
   }
 
@@ -32,9 +35,10 @@ export const generateMetadata = async ({ params }: CaseStudyRouteProps) => {
     : caseStudy.anonymousClientLabel;
 
   return createPageMetadata({
-    title: `${displayName} - Studi Kasus PT Artavel`,
-    description: caseStudy.challenge,
-    path: `/studi-kasus/${caseStudy.slug}`
+    title: `${translateTextValue(displayName, locale)} - ${translateTextValue('Studi Kasus PT Artavel', locale)}`,
+    description: translateTextValue(caseStudy.challenge, locale),
+    path: `/studi-kasus/${caseStudy.slug}`,
+    locale
   });
 };
 

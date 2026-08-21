@@ -97,6 +97,84 @@ textarea {
   }
 }
 
+@keyframes artavel-header-cta-phone-ring {
+  0%,
+  84%,
+  96%,
+  100% {
+    transform: rotate(0deg);
+  }
+  86% {
+    transform: rotate(-6deg);
+  }
+  88% {
+    transform: rotate(6deg);
+  }
+  90% {
+    transform: rotate(-4deg);
+  }
+  92% {
+    transform: rotate(4deg);
+  }
+  94% {
+    transform: rotate(-2deg);
+  }
+}
+
+@keyframes artavel-header-cta-phone-ripple {
+  0%,
+  84%,
+  100% {
+    opacity: 0;
+    transform: scale(0.76);
+  }
+  87% {
+    opacity: 0.2;
+    transform: scale(0.9);
+  }
+  94% {
+    opacity: 0;
+    transform: scale(1.56);
+  }
+}
+
+@keyframes artavel-header-cta-phone-ring-hover {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  18% {
+    transform: rotate(-6deg);
+  }
+  36% {
+    transform: rotate(6deg);
+  }
+  54% {
+    transform: rotate(-4deg);
+  }
+  72% {
+    transform: rotate(4deg);
+  }
+  88% {
+    transform: rotate(-2deg);
+  }
+}
+
+@keyframes artavel-header-cta-phone-ripple-hover {
+  0% {
+    opacity: 0;
+    transform: scale(0.76);
+  }
+  28% {
+    opacity: 0.24;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.56);
+  }
+}
+
 @keyframes artavel-tech-marquee {
   0% {
     transform: translate3d(0, 0, 0);
@@ -131,6 +209,32 @@ textarea {
   filter: brightness(1.18) saturate(1.08) contrast(1.04);
 }
 
+.artavel-security-strip-button {
+  background: #244f78 !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(139, 196, 255, 0.42);
+  box-shadow:
+    0 10px 22px rgba(23, 57, 85, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.artavel-security-strip-button:hover,
+.artavel-security-strip-button:focus-visible {
+  background: #36699c !important;
+  border-color: #8bc4ff !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 14px 28px rgba(23, 57, 85, 0.24),
+    0 0 0 3px rgba(139, 196, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.artavel-security-strip-button:active {
+  background: #173955 !important;
+  color: #ffffff !important;
+  transform: translateY(1px);
+}
+
 .artavel-cta-phone-link {
   position: relative;
   isolation: isolate;
@@ -154,7 +258,62 @@ textarea {
 
 .artavel-cta-phone-link:hover,
 .artavel-cta-phone-link:focus-visible {
-  animation-play-state: paused;
+  animation-duration: 2.2s;
+}
+
+.artavel-cta-phone-link-static,
+.artavel-cta-phone-link-static::before {
+  animation: none;
+}
+
+.artavel-header-cta-phone-icon {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  transform-origin: 52% 50%;
+}
+
+.artavel-header-cta-phone-icon svg {
+  display: block;
+  transform-origin: 52% 50%;
+  animation: artavel-header-cta-phone-ring 5.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+.artavel-header-cta-phone-icon::before,
+.artavel-header-cta-phone-icon::after {
+  content: "";
+  position: absolute;
+  inset: -0.32rem;
+  z-index: -1;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  opacity: 0;
+  transform: scale(0.76);
+  pointer-events: none;
+  animation: artavel-header-cta-phone-ripple 5.2s ease-out infinite;
+}
+
+.artavel-header-cta-phone-icon::after {
+  animation-delay: 0.18s;
+  inset: -0.46rem;
+  opacity: 0;
+}
+
+.artavel-header-consultation-cta:hover .artavel-header-cta-phone-icon svg,
+.artavel-header-consultation-cta:focus-visible .artavel-header-cta-phone-icon svg {
+  animation: artavel-header-cta-phone-ring-hover 0.9s ease-in-out 1;
+}
+
+.artavel-header-consultation-cta:hover .artavel-header-cta-phone-icon::before,
+.artavel-header-consultation-cta:focus-visible .artavel-header-cta-phone-icon::before {
+  animation: artavel-header-cta-phone-ripple-hover 0.9s ease-out 1;
+}
+
+.artavel-header-consultation-cta:hover .artavel-header-cta-phone-icon::after,
+.artavel-header-consultation-cta:focus-visible .artavel-header-cta-phone-icon::after {
+  animation: artavel-header-cta-phone-ripple-hover 0.9s ease-out 1;
+  animation-delay: 0.14s;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -164,7 +323,10 @@ textarea {
   }
 
   .artavel-cta-phone-link,
-  .artavel-cta-phone-link::before {
+  .artavel-cta-phone-link::before,
+  .artavel-header-cta-phone-icon svg,
+  .artavel-header-cta-phone-icon::before,
+  .artavel-header-cta-phone-icon::after {
     animation: none !important;
   }
 
@@ -229,11 +391,6 @@ textarea {
     transform: none !important;
     transition-duration: 0ms !important;
   }
-}
-
-.artavel-dot-grid {
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.18) 1px, transparent 1.2px);
-  background-size: 44px 44px;
 }
 
 .artavel-text-balance {
@@ -439,6 +596,18 @@ textarea {
   scroll-margin-top: 11rem;
 }
 
+/* Section boundaries should feel continuous; keep separation in the color field, not a hard rule. */
+.artavel-section-transition {
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+  isolation: isolate;
+}
+
+.artavel-section-transition > * {
+  position: relative;
+  z-index: 1;
+}
+
 .artavel-nav-item {
   color: #172536;
 }
@@ -459,39 +628,7 @@ textarea {
   pointer-events: none;
   border-radius: calc(1.7rem + 1px);
   padding: 2.5px;
-  background: linear-gradient(90deg, #36699c 0%, #36699c 18%, #2f79b7 42%, #7dbc5e 70%, #7dbc5e 100%);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-
-.artavel-header-brand-edge::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 4.5px;
-  background:
-    linear-gradient(90deg, #36699c 0%, #36699c 20%, #2f79b7 48%, #7dbc5e 78%, #7dbc5e 100%);
-  clip-path: inset(0 0 calc(100% - 2.7rem) 0);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-
-.artavel-header-brand-edge::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 3.5px;
-  background:
-    linear-gradient(180deg, rgba(54, 105, 156, 0.92) 0%, rgba(54, 105, 156, 0.58) 44%, rgba(54, 105, 156, 0) 100%) left top / 4.5px 4rem no-repeat,
-    linear-gradient(180deg, rgba(125, 188, 94, 0.92) 0%, rgba(125, 188, 94, 0.58) 44%, rgba(125, 188, 94, 0) 100%) right top / 4.5px 4rem no-repeat;
+  background: linear-gradient(90deg, #2f79b7 0%, #36699c 46%, #7dbc5e 100%);
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
@@ -2434,6 +2571,39 @@ textarea {
     inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
 }
 
+:root[data-theme="dark"] .artavel-security-strip {
+  background: linear-gradient(135deg, #0d3527 0%, #0a2b2a 100%) !important;
+  border-color: rgba(168, 224, 143, 0.62) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 18px 42px rgba(0, 0, 0, 0.18);
+}
+
+:root[data-theme="dark"] .artavel-security-strip-chip {
+  background: rgba(7, 25, 39, 0.72) !important;
+  border-color: rgba(139, 196, 255, 0.42) !important;
+  color: #f7fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-security-strip-chip svg {
+  color: #a8e08f !important;
+}
+
+:root[data-theme="dark"] .artavel-security-strip-button {
+  background: #2f79b7 !important;
+  color: #ffffff !important;
+  border-color: rgba(184, 221, 255, 0.68) !important;
+  border-radius: 0.75rem;
+  padding-inline: 0.85rem !important;
+}
+
+:root[data-theme="dark"] .artavel-security-strip-button:hover,
+:root[data-theme="dark"] .artavel-security-strip-button:focus-visible {
+  background: #4b91cc !important;
+  border-color: #dff0ff !important;
+  color: #ffffff !important;
+}
+
 :root[data-theme="dark"] .artavel-problem-card {
   background: rgba(7, 25, 39, 0.46) !important;
   border-color: rgba(139, 196, 255, 0.22) !important;
@@ -2659,6 +2829,321 @@ textarea {
 
 :root[data-theme="dark"] [data-accent-border="orange"] {
   border-top-color: #d26353 !important;
+}
+
+.artavel-card-accent-brand::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 2;
+  height: 4px;
+  pointer-events: none;
+  background: linear-gradient(90deg, #36699c 0%, #2f79b7 48%, #7dbc5e 100%);
+}
+
+:root[data-theme="dark"] .artavel-card-accent-brand {
+  border-color: rgba(139, 196, 255, 0.32) !important;
+  box-shadow:
+    0 18px 54px rgba(0, 0, 0, 0.30),
+    0 0 0 1px rgba(139, 196, 255, 0.04) !important;
+}
+
+:root[data-theme="dark"] .artavel-card-accent-brand::before {
+  background: linear-gradient(90deg, #8bc4ff 0%, #6aa7da 46%, #a8e08f 100%);
+  box-shadow: 0 0 18px rgba(139, 196, 255, 0.24);
+}
+
+.artavel-ownership-badge {
+  color: #244f78 !important;
+  border-color: rgba(54, 105, 156, 0.22) !important;
+  background: rgba(255, 255, 255, 0.82) !important;
+}
+
+:root[data-theme="dark"] .artavel-ownership-badge {
+  color: #f7fbff !important;
+  border-color: rgba(139, 196, 255, 0.62) !important;
+  background: rgba(139, 196, 255, 0.16) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    0 0 18px rgba(139, 196, 255, 0.10) !important;
+}
+
+.artavel-page-title-section {
+  background:
+    radial-gradient(circle at 14% 0%, rgba(54, 105, 156, 0.16), transparent 36%),
+    linear-gradient(180deg, #eaf2f8 0%, #f7fbff 100%) !important;
+  border-bottom: 0;
+}
+
+.artavel-page-title-section::before {
+  display: none;
+}
+
+.artavel-page-title-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(54, 105, 156, 0.07), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.36), transparent 72%);
+}
+
+.artavel-page-title-section > * {
+  position: relative;
+  z-index: 2;
+}
+
+:root[data-theme="dark"] .artavel-page-title-section {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(139, 196, 255, 0.17), transparent 34%),
+    radial-gradient(circle at 85% 16%, rgba(125, 188, 94, 0.14), transparent 34%),
+    linear-gradient(180deg, #071927 0%, #0b2839 100%) !important;
+  border-bottom: 0 !important;
+}
+
+:root[data-theme="dark"] .artavel-page-title-section::before {
+  display: none;
+}
+
+:root[data-theme="dark"] .artavel-page-title-section::after {
+  background:
+    linear-gradient(90deg, rgba(139, 196, 255, 0.08), transparent 44%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 76%);
+}
+
+.artavel-footer-transition {
+  background: linear-gradient(
+    180deg,
+    rgba(54, 105, 156, 0.16) 0%,
+    rgba(54, 105, 156, 0.04) 42%,
+    rgba(125, 188, 94, 0) 100%
+  );
+}
+
+.artavel-footer-transition > div {
+  opacity: 0;
+}
+
+:root[data-theme="dark"] .artavel-footer-transition {
+  background: linear-gradient(
+    180deg,
+    rgba(139, 196, 255, 0.14) 0%,
+    rgba(139, 196, 255, 0.035) 42%,
+    rgba(168, 224, 143, 0) 100%
+  );
+}
+
+.artavel-workflow-status {
+  line-height: 1.25;
+}
+
+:root[data-theme="dark"] .artavel-workflow-status-idle {
+  background: #24445d !important;
+  border: 1px solid rgba(139, 196, 255, 0.42);
+  color: #f4f9ff !important;
+}
+
+:root[data-theme="dark"] .artavel-workflow-status-active {
+  background: #367fba !important;
+  border: 1px solid rgba(223, 240, 255, 0.68);
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .artavel-workflow-status-done {
+  background: #4f8f58 !important;
+  border: 1px solid rgba(205, 244, 184, 0.52);
+  color: #ffffff !important;
+}
+
+.artavel-dropdown-card-all-products,
+.artavel-mobile-submenu-all-products {
+  border-color: rgba(54, 105, 156, 0.30) !important;
+  background: linear-gradient(135deg, #eaf2f8 0%, #eff8ea 100%) !important;
+  color: #173955 !important;
+}
+
+.artavel-dropdown-card-all-products::before,
+.artavel-mobile-submenu-all-products::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0.65rem;
+  width: 4px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #36699c 0%, #7dbc5e 100%);
+}
+
+.artavel-dropdown-card-all-products div,
+.artavel-mobile-submenu-all-products span {
+  color: #244f78 !important;
+}
+
+.artavel-dropdown-card-all-products div:first-of-type,
+.artavel-mobile-submenu-all-products > span:first-of-type {
+  font-weight: 800;
+}
+
+.artavel-dropdown-card-all-products {
+  padding-left: 1.5rem !important;
+}
+
+.artavel-mobile-submenu-all-products {
+  padding-left: 1.75rem !important;
+}
+
+:root[data-theme="dark"] .artavel-dropdown-card-all-products,
+:root[data-theme="dark"] .artavel-mobile-submenu-all-products {
+  border-color: rgba(139, 196, 255, 0.62) !important;
+  background:
+    linear-gradient(135deg, rgba(54, 105, 156, 0.40) 0%, rgba(125, 188, 94, 0.18) 100%) !important;
+  color: #f7fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-dropdown-card-all-products::before,
+:root[data-theme="dark"] .artavel-mobile-submenu-all-products::before {
+  background: linear-gradient(180deg, #8bc4ff 0%, #a8e08f 100%);
+  box-shadow: 0 0 14px rgba(139, 196, 255, 0.28);
+}
+
+:root[data-theme="dark"] .artavel-dropdown-card-all-products div,
+:root[data-theme="dark"] .artavel-mobile-submenu-all-products span {
+  color: #f7fbff !important;
+}
+
+.artavel-dropdown-card-active {
+  border-color: rgba(54, 105, 156, 0.44) !important;
+  background:
+    linear-gradient(135deg, rgba(54, 105, 156, 0.16) 0%, rgba(125, 188, 94, 0.13) 100%),
+    #eaf2f8 !important;
+  box-shadow:
+    0 12px 28px rgba(54, 105, 156, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.62) !important;
+}
+
+.artavel-dropdown-card-active::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(54, 105, 156, 0.08), transparent 48%, rgba(125, 188, 94, 0.08));
+}
+
+:root[data-theme="dark"] .artavel-dropdown-card-active {
+  border-color: rgba(139, 196, 255, 0.72) !important;
+  background:
+    linear-gradient(135deg, rgba(54, 105, 156, 0.48) 0%, rgba(125, 188, 94, 0.18) 100%),
+    #17496a !important;
+  box-shadow:
+    0 0 0 1px rgba(139, 196, 255, 0.12),
+    0 0 26px rgba(139, 196, 255, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+}
+
+:root[data-theme="dark"] .artavel-dropdown-card-active::after {
+  background: linear-gradient(90deg, rgba(139, 196, 255, 0.14), transparent 48%, rgba(168, 224, 143, 0.12));
+}
+
+.artavel-markdown-content > :first-child {
+  margin-top: 0;
+}
+
+:root[data-theme="dark"] .artavel-markdown-content code {
+  background: rgba(139, 196, 255, 0.14) !important;
+  color: #dcedff !important;
+}
+
+:root[data-theme="dark"] .artavel-markdown-content blockquote {
+  background: rgba(139, 196, 255, 0.08) !important;
+  border-left-color: #a8e08f !important;
+  color: #dcedff !important;
+}
+
+:root[data-theme="dark"] .artavel-markdown-content hr {
+  border-color: rgba(139, 196, 255, 0.22) !important;
+}
+
+/* Assessment result bands: color reinforces the score, while the copy remains explicit. */
+.artavel-assessment-score-card,
+.artavel-assessment-specialized-score {
+  color: #172536;
+}
+
+.artavel-assessment-score-low {
+  border-color: #e6a0aa !important;
+  background: #fff1f2 !important;
+  color: #7f1d1d !important;
+}
+
+.artavel-assessment-score-medium {
+  border-color: #e7c56f !important;
+  background: #fff8e6 !important;
+  color: #78350f !important;
+}
+
+.artavel-assessment-score-high {
+  border-color: #9bc58e !important;
+  background: #eff8ea !important;
+  color: #1f5d4b !important;
+}
+
+.artavel-assessment-score-card .artavel-assessment-score-suffix,
+.artavel-assessment-specialized-score .artavel-assessment-score-suffix {
+  color: currentColor !important;
+  opacity: 0.76;
+}
+
+.artavel-assessment-score-card .artavel-assessment-score-summary {
+  color: currentColor !important;
+  opacity: 0.9;
+}
+
+:root[data-theme="dark"] .artavel-assessment-score-low {
+  border-color: #f09aa7 !important;
+  background: #42202a !important;
+  color: #ffe8ec !important;
+}
+
+:root[data-theme="dark"] .artavel-assessment-score-medium {
+  border-color: #f0ca70 !important;
+  background: #443516 !important;
+  color: #fff2c7 !important;
+}
+
+:root[data-theme="dark"] .artavel-assessment-score-high {
+  border-color: #a8e08f !important;
+  background: #16412d !important;
+  color: #efffe8 !important;
+}
+
+:root[data-theme="dark"] .artavel-assessment-organization-option {
+  border-color: rgba(139, 196, 255, 0.28) !important;
+  background: #0d2233 !important;
+  color: #f7fbff !important;
+}
+
+:root[data-theme="dark"] .artavel-assessment-organization-option:hover,
+:root[data-theme="dark"] .artavel-assessment-organization-option:has(input:checked) {
+  border-color: rgba(139, 196, 255, 0.72) !important;
+  background: #17496a !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .artavel-dropdown-card-active {
+    animation: artavel-active-menu-glow 3.2s ease-in-out infinite;
+  }
+}
+
+@keyframes artavel-active-menu-glow {
+  0%,
+  100% {
+    filter: saturate(1);
+  }
+
+  50% {
+    filter: saturate(1.12);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -33,10 +33,10 @@ export const Card: React.FC<CardProps> = ({
 
   const accentStyles = {
     none: '',
-    blue: 'border-t-4 border-t-[#36699C]',
-    green: 'border-t-4 border-t-[#7DBC5E]',
-    yellow: 'border-t-4 border-t-[#DAA761]',
-    orange: 'border-t-4 border-t-[#D26353]'
+    blue: 'artavel-card-accent-brand',
+    green: 'artavel-card-accent-brand',
+    yellow: 'artavel-card-accent-brand',
+    orange: 'artavel-card-accent-brand'
   };
 
   const hoverEffect = hoverable
@@ -51,13 +51,13 @@ export const Card: React.FC<CardProps> = ({
       whileInView={shouldReduceMotion ? undefined : { y: 0, scale: 1 }}
       whileHover={hoverable && !shouldReduceMotion ? { y: -4, transition: { duration: 0.2 } } : undefined}
       whileTap={hoverable && !shouldReduceMotion ? { scale: 0.99, transition: { duration: 0.12 } } : undefined}
-      viewport={shouldReduceMotion ? undefined : { once: false, amount: 0.22, margin: '0px 0px -8% 0px' }}
+      viewport={shouldReduceMotion ? undefined : { once: true, amount: 0.22, margin: '0px 0px -8% 0px' }}
       transition={{
         duration: shouldReduceMotion ? 0 : 0.42,
         delay: shouldReduceMotion ? 0 : revealDelay / 1000,
         ease: [0.22, 1, 0.36, 1]
       }}
-      className={`bg-white rounded-2xl border border-[#DBE4EB] shadow-xs ${paddingStyles[padding]} ${accentStyles[accentBorder]} ${hoverEffect} ${className}`}
+      className={`relative overflow-hidden bg-white rounded-2xl border border-[#DBE4EB] shadow-xs ${paddingStyles[padding]} ${accentStyles[accentBorder]} ${hoverEffect} ${className}`}
     >
       {children}
     </motion.div>
