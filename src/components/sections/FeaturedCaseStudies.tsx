@@ -1,5 +1,5 @@
 import React from 'react';
-import { Building, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Building, ArrowRight } from 'lucide-react';
 import { CASE_STUDIES_DATA } from '../../content/caseStudies';
 import { CaseStudy } from '../../types';
 import { Card } from '../ui/Card';
@@ -10,22 +10,23 @@ import { useLanguage } from '../i18n/LanguageProvider';
 
 interface FeaturedCaseStudiesProps {
   onNavigate: (path: string) => void;
+  compact?: boolean;
 }
 
-export const FeaturedCaseStudies: React.FC<FeaturedCaseStudiesProps> = ({ onNavigate }) => {
+export const FeaturedCaseStudies: React.FC<FeaturedCaseStudiesProps> = ({ onNavigate, compact = false }) => {
   const { text, localize } = useLanguage();
   const caseStudies = localize(CASE_STUDIES_DATA);
 
   return (
-    <Section bg="surface" padding="normal" id="studi-kasus-unggulan">
+    <Section bg="surface" padding={compact ? 'compact' : 'normal'} id="studi-kasus-unggulan">
       <Container>
-        <ScrollReveal className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6" direction="scale">
+        <ScrollReveal className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-5" direction="scale">
           <div>
             <h2 className="text-sm font-bold tracking-wider uppercase text-[#36699C] font-heading mb-2">
 	              {text('Pengalaman Implementasi')}
             </h2>
             <p className="text-3xl sm:text-4xl font-extrabold text-[#172536] font-heading">
-	              {text('Kisah Sukses Transformasi Layanan')}
+	              {text('Rekam Jejak Implementasi Digital')}
             </p>
           </div>
           <button
@@ -37,8 +38,8 @@ export const FeaturedCaseStudies: React.FC<FeaturedCaseStudiesProps> = ({ onNavi
           </button>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-	          {caseStudies.map((cs: CaseStudy, index) => {
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+	          {caseStudies.slice(0, 3).map((cs: CaseStudy, index) => {
             const displayName = cs.publicationPermission ? cs.clientName : cs.anonymousClientLabel;
 
             return (

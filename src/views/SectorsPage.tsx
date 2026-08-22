@@ -7,7 +7,7 @@ import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { FinalCTASection } from '../components/sections/FinalCTASection';
 import { MetaInjector } from '../components/seo/MetaInjector';
-import { CheckCircle2, ArrowRight, Building2, Briefcase, Users } from 'lucide-react';
+import { CheckCircle2, ArrowRight, Building2, Briefcase, GraduationCap, Store, Users } from 'lucide-react';
 import { useLanguage } from '../components/i18n/LanguageProvider';
 
 interface SectorsPageProps {
@@ -22,6 +22,8 @@ export const SectorsPage: React.FC<SectorsPageProps> = ({ onNavigate }) => {
     switch (iconName) {
       case 'Building2': return Building2;
       case 'Briefcase': return Briefcase;
+      case 'GraduationCap': return GraduationCap;
+      case 'Store': return Store;
       case 'Users': return Users;
       default: return Building2;
     }
@@ -31,7 +33,7 @@ export const SectorsPage: React.FC<SectorsPageProps> = ({ onNavigate }) => {
     <>
       <MetaInjector
 	        title={`${text('Sektor Layanan')} — PT Artavel`}
-	        description={text('Solusi digital Artavel disesuaikan untuk Pemerintah Daerah, BUMD, Swasta, dan Pusat Pelayanan Publik Terpadu.')}
+	        description={text('Solusi digital Artavel disesuaikan untuk pemerintah, pendidikan, retail dan F&B, enterprise, BUMD, lembaga, dan organisasi.')}
         canonicalPath="/sektor"
       />
 

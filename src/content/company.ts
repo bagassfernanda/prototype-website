@@ -5,7 +5,7 @@ export const COMPANY_PROFILE = {
   fullNameLegal: 'PT Artavel (Draf — memerlukan konfirmasi Akta Legalitas Manajemen)',
   establishedYear: 2012,
   tagline: 'Solusi Teknologi Informasi Terintegrasi untuk Layanan, Dokumen, Keamanan, dan Infrastruktur',
-  positioning: 'Artavel adalah perusahaan solusi teknologi informasi yang berfokus pada aplikasi pelayanan publik, sistem perizinan terpadu, manajemen dokumen, kearsipan elektronik, tata naskah dinas elektronik, keamanan dan perlindungan data, CCTV & IoT, website, UI/UX, serta otomasi proses organisasi.',
+  positioning: 'Artavel adalah perusahaan solusi teknologi yang mengintegrasikan aplikasi, data, AI, analytics, IoT, keamanan, dan sistem digital untuk pendidikan, retail, pemerintahan, serta enterprise.',
   brandPromise: 'Teknologi yang menata proses kerja, melindungi aset data, dan membantu organisasi memberikan layanan yang lebih jelas, cepat, dan dapat dipercaya.',
   brandEssence: 'Teknologi terintegrasi untuk layanan yang terpercaya.',
   supportingConcept: 'Yang ribet, biar sistem yang bekerja.',

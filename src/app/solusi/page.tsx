@@ -1,10 +1,10 @@
 import { SolutionsClient } from '../_client-pages/SolutionsClient';
-import { createPageMetadata } from '../seo';
+import { createLocalizedPageMetadata } from '../seo';
 
-export const metadata = createPageMetadata({
-  title: 'Solusi Digital Terintegrasi - PT Artavel',
+export const generateMetadata = () => createLocalizedPageMetadata({
+  title: 'Solusi Teknologi Artavel - PT Artavel',
   description:
-    'Jelajahi ekosistem solusi digital PT Artavel: SIPPADU, E-Archive, TNDE, SIANTER, Alih Media, Keamanan Data, CCTV IoT, Website, dan UI/UX.',
+    'Jelajahi lima keluarga solusi Artavel: AI, Analytics & Smart Monitoring, Smart Education, Retail & F&B, Cyber Security, serta Digital Government & Enterprise.',
   path: '/solusi'
 });
 

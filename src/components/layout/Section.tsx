@@ -19,6 +19,7 @@ export const Section: React.FC<SectionProps> = ({
   padding = 'normal'
 }) => {
   const shouldReduceMotion = useReducedMotion();
+  const isPageTitleSection = padding === 'compact' && (bg === 'surface' || bg === 'surface-blue');
 
   const bgStyles = {
     white: 'artavel-section-white bg-white text-[#172536]',
@@ -43,7 +44,7 @@ export const Section: React.FC<SectionProps> = ({
         duration: shouldReduceMotion ? 0 : 0.55,
         ease: [0.22, 1, 0.36, 1]
       }}
-      className={`w-full relative overflow-hidden scroll-mt-40 sm:scroll-mt-44 ${bgStyles[bg]} ${paddingStyles[padding]} ${className}`}
+      className={`artavel-section-transition w-full relative overflow-hidden scroll-mt-40 sm:scroll-mt-44 ${bgStyles[bg]} ${isPageTitleSection ? 'artavel-page-title-section' : ''} ${paddingStyles[padding]} ${className}`}
     >
       {children}
     </motion.section>

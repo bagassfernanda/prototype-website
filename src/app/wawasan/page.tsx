@@ -1,10 +1,10 @@
 import { InsightsClient } from '../_client-pages/InsightsClient';
-import { createPageMetadata } from '../seo';
+import { createLocalizedPageMetadata } from '../seo';
 
-export const metadata = createPageMetadata({
-  title: 'Wawasan & Edukasi Digital - PT Artavel',
+export const generateMetadata = () => createLocalizedPageMetadata({
+  title: 'Wawasan & Transformasi Digital - PT Artavel',
   description:
-    'Kumpulan artikel edukatif mengenai tata kelola kearsipan digital, TNDE, perizinan publik, keamanan data, dan transformasi digital.',
+    'Artikel, insight, dan panduan praktis dari tim Artavel mengenai AI, analytics, transformasi digital, pendidikan, retail, pemerintahan, IoT, cybersecurity, dan pengembangan sistem.',
   path: '/wawasan'
 });
 

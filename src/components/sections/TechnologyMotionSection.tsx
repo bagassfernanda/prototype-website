@@ -1,11 +1,9 @@
 import React from 'react';
 import {
   AppWindow,
-  Archive,
   Camera,
   CheckCircle2,
   DatabaseZap,
-  FileSignature,
   Globe2,
   Network,
   ScanLine,
@@ -19,42 +17,42 @@ import { ScrollReveal } from '../ui/ScrollReveal';
 import { useLanguage } from '../i18n/LanguageProvider';
 
 const animatedServices = [
-  { icon: AppWindow, label: 'Aplikasi Bisnis', color: 'bg-[#2F79B7]', ring: 'ring-[#8BC4FF]/30' },
-  { icon: ShieldCheck, label: 'Keamanan Data', color: 'bg-[#1F5D4B]', ring: 'ring-[#8FD871]/30' },
-  { icon: Camera, label: 'CCTV & IoT', color: 'bg-[#568F3E]', ring: 'ring-[#8FD871]/35' },
-  { icon: Globe2, label: 'Website & UI/UX', color: 'bg-[#173955]', ring: 'ring-[#8BC4FF]/25' },
-  { icon: Archive, label: 'E-Archive', color: 'bg-[#2B7658]', ring: 'ring-[#8FD871]/25' },
-  { icon: Network, label: 'Integrasi Sistem', color: 'bg-[#244F78]', ring: 'ring-[#8BC4FF]/25' }
+  { icon: Camera, label: 'AI & Computer Vision', color: 'bg-[#2F79B7]', ring: 'ring-[#8BC4FF]/30' },
+  { icon: DatabaseZap, label: 'Smart Analytics', color: 'bg-[#568F3E]', ring: 'ring-[#8FD871]/35' },
+  { icon: Globe2, label: 'SmartMap & GIS', color: 'bg-[#173955]', ring: 'ring-[#8BC4FF]/25' },
+  { icon: Network, label: 'IoT Monitoring', color: 'bg-[#244F78]', ring: 'ring-[#8BC4FF]/25' },
+  { icon: ShieldCheck, label: 'Cyber Security', color: 'bg-[#1F5D4B]', ring: 'ring-[#8FD871]/30' },
+  { icon: AppWindow, label: 'Smart Applications', color: 'bg-[#2B7658]', ring: 'ring-[#8FD871]/25' }
 ];
 
 const productHighlights = [
   {
-    icon: ShieldCheck,
-    title: 'Perlindungan & Keamanan Data',
+    icon: Camera,
+    title: 'AI, Computer Vision & IoT',
     description:
-      'Perlindungan endpoint, server, jaringan, hak akses, backup, dan audit trail untuk menjaga aset data organisasi tetap aman dan dapat dipertanggungjawabkan.'
+      'CCTV AI, people counting, vehicle counting, parking monitoring, dan perangkat IoT membantu organisasi membaca kondisi lapangan sebagai data.'
   },
   {
     icon: DatabaseZap,
-    title: 'Pelayanan Publik & Dokumen Elektronik',
+    title: 'Analytics, SmartMap & GIS',
     description:
-      'Aplikasi perizinan, tata naskah, kearsipan elektronik, dan dashboard layanan membantu proses administrasi yang sebelumnya tersebar menjadi lebih tertata.'
+      'SmartMap, VirtualMAP, JobMAP, WebGIS, school dashboard, otoPOS performance analytics, dan Footfall analytics membantu keputusan berbasis data.'
   },
   {
-    icon: FileSignature,
-    title: 'Otomasi & Alih Media',
+    icon: ShieldCheck,
+    title: 'Cyber Security & OpenText',
     description:
-      'Konsultasi manajemen arsip, digitalisasi dokumen, scan arsip, alih media rekaman, serta integrasi sistem untuk mendukung transformasi kerja.'
+      'OpenText diposisikan sebagai partner technology untuk endpoint protection, EDR, security awareness training, phishing simulation, dan reporting.'
   }
 ];
 
 const solutionBullets = [
-  'Aplikasi Perijinan Berbasis Dokumen Elektronik.',
-  'Aplikasi Kearsipan Elektronik.',
-  'Aplikasi Tata Naskah Elektronik (TNDE/SMS).',
-  'Konsultasi Manajemen Kearsipan Digital & Konvensional.',
-  'Otomasi, Digitalisasi, dan Alih Media Dokumen Konvensional ke Digital.',
-  'Pemasangan CCTV, IoT, integrasi jaringan, website, dan UI/UX.'
+  'otoSchool: AI membantu menyusun draf soal; guru tetap mereview dan memutuskan.',
+  'otoPOS F&B: sales dan workforce analytics dalam satu sistem operasional.',
+  'SmartMap: JobMAP, VirtualMAP, WebGIS, PBB berbasis map, dan peta potensi.',
+  'AI CCTV: people counting, vehicle counting, parking monitoring, LPR, dan speed detection.',
+  'FootfallCam: visitor count, zone analytics, BI analytics, predictive analytics, dan API integration.',
+  'OpenText: endpoint protection, EDR, security awareness training, phishing simulation, dan reporting.'
 ];
 
 export const TechnologyMotionSection: React.FC = () => {
@@ -72,16 +70,16 @@ export const TechnologyMotionSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <ScrollReveal className="lg:col-span-5" direction="left">
             <Badge variant="blue" size="md" className="mb-5">
-              {text('Product & Solutions')}
+              {text('Technology Capabilities')}
             </Badge>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#172536] font-heading leading-tight">
-              {text('Satu mitra untuk aplikasi, keamanan, perangkat, dan pengalaman digital.')}
+              {text('AI, Analytics, IoT, dan Security menjadi benang merah solusi Artavel.')}
             </h2>
             <p className="mt-5 text-base sm:text-lg text-[#5C6B79] leading-relaxed">
-              {text('Dalam era digital, efektivitas dan efisiensi organisasi sangat dipengaruhi oleh kemampuan menata proses konvensional seperti kertas, arsip fisik, rekaman, dan media kerja manual. Tanpa sistem yang tepat, media tersebut dapat membebani kinerja, ruang penyimpanan, waktu pencarian, dan kualitas pelayanan.')}
+              {text('Website Artavel sekarang menempatkan teknologi modern sebagai pintu masuk, lalu menghubungkannya ke produk nyata: otoSchool, otoPOS F&B, SmartMap, AI CCTV, FootfallCam, OpenText, dan solusi government yang sudah ada.')}
             </p>
             <p className="mt-4 text-base sm:text-lg text-[#5C6B79] leading-relaxed">
-              {text('Artavel menyediakan solusi aplikasi berbasis dokumen elektronik, keamanan data, CCTV & IoT, website, UI/UX, integrasi sistem, konsultasi manajemen kearsipan, serta otomasi dan alih media agar proses kerja lebih tertata dan mudah dikembangkan.')}
+              {text('Tujuannya sederhana: pengunjung memahami masalah yang diselesaikan Artavel, produk atau partner technology yang tersedia, lalu diarahkan ke demo, konsultasi, dan implementasi.')}
             </p>
           </ScrollReveal>
 
@@ -93,10 +91,10 @@ export const TechnologyMotionSection: React.FC = () => {
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <p className="text-xs font-bold uppercase text-[#36699C]">
-                      {text('Ekosistem Solusi Digital Artavel')}
+                      {text('Technology Capabilities Across Solutions')}
                     </p>
                     <h3 className="mt-1 text-xl font-extrabold text-[#172536] font-heading">
-                      {text('Solusi yang dapat dikembangkan')}
+                      {text('Kapabilitas teknologi yang saling terhubung')}
                     </h3>
                   </div>
                   <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[#B7D7C4] bg-[#EFF8EA] px-3 py-1 text-xs font-bold text-[#4B6546]">
@@ -156,10 +154,10 @@ export const TechnologyMotionSection: React.FC = () => {
                 <div className="mt-5 rounded-xl border border-[#DBE4EB] bg-[#F7F9FB] p-4">
                   <div className="mb-3 flex items-center gap-2 text-sm font-bold text-[#172536]">
                     <ServerCog className="h-4 w-4 text-[#36699C]" aria-hidden="true" />
-                    <span>{text('Pemetaan solusi lintas kebutuhan')}</span>
+                    <span>{text('Flow konsultasi teknologi')}</span>
                   </div>
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-                    {['Analisis proses', 'Implementasi modular', 'Dukungan berkelanjutan'].map((item) => (
+                    {['Demo produk', 'Konsultasi solusi', 'Implementasi bertahap'].map((item) => (
                       <div key={item} className="rounded-lg border border-[#DBE4EB] bg-white px-3 py-2 text-xs font-semibold text-[#5C6B79]">
                         {text(item)}
                       </div>
@@ -176,7 +174,7 @@ export const TechnologyMotionSection: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               <div className="lg:col-span-4">
                 <h3 className="text-2xl font-extrabold text-[#172536] font-heading">
-                  {text('Solusi yang dapat dikembangkan')}
+                  {text('Contoh penerapan teknologi lintas produk')}
                 </h3>
                 <p className="mt-3 text-sm text-[#4B6546] leading-relaxed">
                   {text('Draf - memerlukan verifikasi manajemen Artavel')}

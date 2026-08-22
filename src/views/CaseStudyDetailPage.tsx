@@ -98,8 +98,8 @@ export const CaseStudyDetailPage: React.FC<CaseStudyDetailPageProps> = ({ slug, 
               </div>
             </div>
 
-            {/* Testimonial jika ada */}
-            {cs.testimonial && (
+            {/* Testimonial hanya ditampilkan jika sudah terverifikasi untuk publikasi. */}
+            {cs.testimonial?.verified && (
               <div className="p-8 rounded-2xl bg-[#173955] text-white space-y-4">
                 <blockquote className="text-lg italic leading-relaxed text-white/90">
                   "{cs.testimonial.quote}"

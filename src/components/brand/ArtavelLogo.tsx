@@ -41,7 +41,6 @@ export const ArtavelLogo: React.FC<ArtavelLogoProps> = ({
           fill
           sizes={size === 'lg' ? '192px' : size === 'md' ? '160px' : '96px'}
           className="object-contain"
-          priority={size !== 'lg'}
         />
       </span>
 

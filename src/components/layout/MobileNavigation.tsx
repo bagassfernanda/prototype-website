@@ -6,6 +6,7 @@ import { ArtavelLogo } from '../brand/ArtavelLogo';
 import { Button } from '../ui/Button';
 import { Language, useLanguage } from '../i18n/LanguageProvider';
 import { ThemeToggle } from '../theme/ThemeToggle';
+import { toLocalizedPath } from '../../utils/i18nRouting';
 
 interface MobileNavigationProps {
   isOpen: boolean;
@@ -20,7 +21,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   onNavigate,
   currentPath
 }) => {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage, t, text } = useLanguage();
   const [expandedNavId, setExpandedNavId] = React.useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -48,12 +49,71 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
     onClose();
   };
 
+  const isContactPage = currentPath === '/kontak' || currentPath.startsWith('/kontak/');
+  const consultationCtaLabel = isContactPage
+    ? language === 'en'
+      ? 'Fill Out the Form'
+      : 'Isi Formulir'
+    : t('nav.cta');
+
+  const scrollToContactForm = () => {
+    const contactForm =
+      document.getElementById('formulir-inkuiri-demo') ||
+      document.getElementById('artavel-contact-form');
+
+    if (contactForm) {
+      const headerShell = document.querySelector('.artavel-header-shell');
+      const headerBottom =
+        headerShell instanceof HTMLElement ? headerShell.getBoundingClientRect().bottom : 96;
+      const formTop = contactForm.getBoundingClientRect().top + window.scrollY;
+      const comfortableGap = 28;
+
+      window.scrollTo({
+        top: Math.max(formTop - headerBottom - comfortableGap, 0),
+        behavior: shouldReduceMotion ? 'auto' : 'smooth'
+      });
+    }
+  };
+
+  const handleConsultationCtaClick = () => {
+    if (isContactPage) {
+      onClose();
+      window.setTimeout(scrollToContactForm, shouldReduceMotion ? 0 : 180);
+      return;
+    }
+
+    handleLinkClick('/kontak');
+  };
+
   const toggleSubmenu = (navId: string) => {
     setExpandedNavId((prev) => (prev === navId ? null : navId));
   };
 
+  const handleLanguageChange = (nextLanguage: Language) => {
+    setLanguage(nextLanguage);
+    const currentDisplayPath = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    onNavigate(toLocalizedPath(currentDisplayPath, nextLanguage));
+  };
+
+  const normalizePath = (path: string) => {
+    const basePath = path.split('#')[0]?.split('?')[0] || '/';
+    return basePath.length > 1 ? basePath.replace(/\/+$/, '') : basePath;
+  };
+
   const isPathActive = (path: string) => {
-    return currentPath === path || (path !== '/' && currentPath.startsWith(`${path}/`));
+    const normalizedCurrentPath = normalizePath(currentPath);
+    const normalizedPath = normalizePath(path);
+
+    return (
+      normalizedCurrentPath === normalizedPath ||
+      (normalizedPath !== '/' && normalizedCurrentPath.startsWith(`${normalizedPath}/`))
+    );
+  };
+
+  const isNavItemActive = (item: NavLinkItem): boolean => {
+    const candidatePaths = [item.path, ...(item.activePaths || [])];
+    const isSelfActive = !item.isGroup && candidatePaths.some(isPathActive);
+    return isSelfActive || Boolean(item.children?.some(isNavItemActive));
   };
 
   const renderMobileActiveIndicator = () => (
@@ -79,7 +139,6 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
     'nav-solusi': t('nav.solutions'),
     'nav-sektor': t('nav.sectors'),
     'nav-studi-kasus': t('nav.caseStudies'),
-    'nav-cara-kerja': t('nav.howWeWork'),
     'nav-tentang': t('nav.about'),
     'nav-wawasan': t('nav.insights'),
     'nav-kontak': t('nav.contact')
@@ -87,17 +146,28 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
 
   const childLabelMap: Record<string, string> = language === 'en'
     ? {
-        'nav-solusi-pelayanan': 'Public Services & Licensing',
-        'nav-solusi-arsip': 'Document & Archive Management',
-        'nav-solusi-tnde': 'Electronic Official Correspondence',
-        'nav-solusi-antrean': 'Queue & Tracking System',
-        'nav-solusi-digitalisasi': 'Digitization & Media Conversion',
-        'nav-solusi-keamanan': 'Data Security & Integration',
-        'nav-solusi-cctv-iot': 'CCTV, IoT & Monitoring',
-        'nav-solusi-website-uiux': 'Websites, UI/UX & Web Apps',
-        'nav-sektor-pemerintahan': 'Local Government',
-        'nav-sektor-organisasi': 'Organizations & Companies',
-        'nav-sektor-layanan': 'Public Service Centers & MPP'
+        'nav-solusi-group-ai-analytics': 'AI, Analytics & Smart Monitoring',
+        'nav-solusi-group-smart-education': 'Smart Education',
+        'nav-solusi-group-retail-fnb': 'Retail & F&B',
+        'nav-solusi-group-cyber-security': 'Cyber Security',
+        'nav-solusi-group-digital-government': 'Digital Government & Enterprise',
+        'nav-produk-smartmap-gis-analytics': 'SmartMap & GIS Analytics',
+        'nav-produk-ai-cctv-computer-vision': 'AI CCTV & Computer Vision',
+        'nav-produk-footfallcam': 'FootfallCam',
+        'nav-produk-otoschool': 'otoSchool',
+        'nav-produk-otopos-fnb': 'otoPOS F&B',
+        'nav-produk-opentext-cybersecurity': 'OpenText Cybersecurity',
+        'nav-produk-smarchlink-sippadu': 'Smarchlink SIPPADU',
+        'nav-produk-smarchlink-archive': 'Smarchlink Archive',
+        'nav-produk-tnde': 'TNDE',
+        'nav-produk-sianter': 'SIANter',
+        'nav-produk-semua': 'View All Products',
+        'nav-tentang-artavel': 'About Artavel',
+        'nav-cara-kerja': 'How We Work',
+        'nav-sektor-pemerintah-layanan-publik': 'Government & Public Services',
+        'nav-sektor-pendidikan': 'Education',
+        'nav-sektor-retail-fnb': 'Retail & F&B',
+        'nav-sektor-enterprise-organisasi': 'Enterprise & Organizations'
       }
     : {};
 
@@ -107,7 +177,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
         <React.Fragment key={item}>
           <button
             type="button"
-            onClick={() => setLanguage(item)}
+            onClick={() => handleLanguageChange(item)}
             aria-pressed={language === item}
             className={`rounded-full px-2 py-1 text-xs font-extrabold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] ${
               language === item
@@ -122,6 +192,78 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
       ))}
     </div>
   );
+
+  const renderMobileSubmenuItem = (child: NavLinkItem, depth = 0): React.ReactNode => {
+    const hasNestedChildren = child.children && child.children.length > 0;
+
+    if (hasNestedChildren) {
+      return (
+        <div key={child.id} className="flex flex-col gap-1">
+          <div
+            className={`px-3 py-2 text-xs font-extrabold uppercase tracking-[0.14em] text-[#36699C] ${
+              depth > 0 ? 'pl-5' : ''
+            }`}
+          >
+            {childLabelMap[child.id] || child.label}
+          </div>
+          <div className="flex flex-col gap-1">
+            {child.children?.map((nestedChild) => renderMobileSubmenuItem(nestedChild, depth + 1))}
+          </div>
+        </div>
+      );
+    }
+
+    const isChildActive = isNavItemActive(child);
+    const isAllProductsLink = child.id === 'nav-produk-semua';
+    const shouldShowMeta = Boolean(child.meta && (!child.id.startsWith('nav-produk-') || isAllProductsLink));
+
+    return (
+      <a
+        key={child.id}
+        href={child.path}
+        onClick={(e) => {
+          e.preventDefault();
+          handleLinkClick(child.path);
+        }}
+        aria-current={isChildActive ? 'page' : undefined}
+        className={`relative rounded-lg border px-3 py-2 text-sm font-medium transition-all duration-200 ${
+          isAllProductsLink
+            ? `artavel-mobile-submenu-all-products border-[#36699C]/25 bg-[#EAF2F8] text-[#173955] shadow-sm ${isChildActive ? 'artavel-dropdown-card-active' : ''}`
+            : isChildActive
+            ? 'artavel-dropdown-card-active border-[#36699C]/25 bg-white text-[#173955] shadow-sm'
+            : 'border-transparent text-[#5C6B79] hover:bg-white hover:text-[#172536]'
+        }`}
+      >
+        {isChildActive && (
+          <span
+            className="absolute inset-y-2 left-1.5 w-1 rounded-full bg-[#36699C]"
+            aria-hidden="true"
+          />
+        )}
+        <span className={`block ${isChildActive ? 'pl-2' : ''}`}>
+          {childLabelMap[child.id] || child.label}
+        </span>
+        {child.description && (
+          <span
+            className={`mt-0.5 block line-clamp-1 text-xs ${
+              isChildActive ? 'pl-2 text-[#244F78]' : 'text-[#7A8792]'
+            }`}
+          >
+            {text(child.description)}
+          </span>
+        )}
+        {shouldShowMeta && (
+          <span
+            className={`mt-1 block text-[11px] font-semibold ${
+              isChildActive ? 'pl-2 text-[#244F78]/80' : 'text-[#7A8792]'
+            }`}
+          >
+            {child.meta ? text(child.meta) : ''}
+          </span>
+        )}
+      </a>
+    );
+  };
 
   return (
     <AnimatePresence>
@@ -141,7 +283,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
             ref={containerRef}
             role="dialog"
             aria-modal="true"
-            aria-label="Menu Navigasi Mobile"
+            aria-label={text('Menu Navigasi Mobile')}
             initial={shouldReduceMotion ? false : { opacity: 0, x: 32 }}
             animate={{ opacity: 1, x: 0 }}
             exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: 32 }}
@@ -155,7 +297,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
                   <ArtavelLogo size="sm" showSubbrand={false} />
                   <button
                     onClick={onClose}
-                    aria-label="Tutup menu navigasi"
+                    aria-label={text('Tutup menu navigasi')}
                     className="cursor-pointer rounded-lg p-2 text-[#5C6B79] transition-all duration-200 hover:bg-[#F7F9FB] hover:text-[#172536] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C]"
                   >
                     <X className="w-6 h-6" aria-hidden="true" />
@@ -172,7 +314,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
                 {MAIN_NAVIGATION.map((item: NavLinkItem) => {
                   const hasChildren = item.children && item.children.length > 0;
                   const isExpanded = expandedNavId === item.id;
-                  const hasActiveChild = item.children?.some((child) => isPathActive(child.path));
+                  const hasActiveChild = item.children?.some(isNavItemActive);
                   const isActive = isPathActive(item.path) || Boolean(hasActiveChild);
 
                   return (
@@ -212,36 +354,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
                                 className="overflow-hidden"
                               >
                                 <div className="artavel-mobile-submenu mt-2 flex flex-col gap-1 rounded-xl bg-[#F7F9FB] py-2 pl-4 pr-2">
-                                  {item.children?.map((child) => {
-                                    const isChildActive = isPathActive(child.path);
-
-                                    return (
-                                      <a
-                                        key={child.id}
-                                        href={child.path}
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          handleLinkClick(child.path);
-                                        }}
-                                        aria-current={isChildActive ? 'page' : undefined}
-                                        className={`relative rounded-lg border px-3 py-2 text-sm font-medium transition-all duration-200 ${
-                                          isChildActive
-                                            ? 'artavel-dropdown-card-active border-[#36699C]/25 bg-white text-[#173955] shadow-sm'
-                                            : 'border-transparent text-[#5C6B79] hover:bg-white hover:text-[#172536]'
-                                        }`}
-                                      >
-                                        {isChildActive && (
-                                          <span
-                                            className="absolute inset-y-2 left-1.5 w-1 rounded-full bg-[#36699C]"
-                                            aria-hidden="true"
-                                          />
-                                        )}
-                                        <span className={isChildActive ? 'pl-2' : ''}>
-                                          {childLabelMap[child.id] || child.label}
-                                        </span>
-                                      </a>
-                                    );
-                                  })}
+                                  {item.children?.map((child) => renderMobileSubmenuItem(child))}
                                 </div>
                               </motion.div>
                             )}
@@ -276,11 +389,15 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
               <Button
                 variant="primary"
                 size="md"
-                className="w-full"
-                leftIcon={<PhoneCall className="w-4 h-4" aria-hidden="true" />}
-                onClick={() => handleLinkClick('/kontak')}
+                className="artavel-header-consultation-cta w-full"
+                leftIcon={
+                  <span className="artavel-header-cta-phone-icon">
+                    <PhoneCall className="h-4 w-4" aria-hidden="true" />
+                  </span>
+                }
+                onClick={handleConsultationCtaClick}
               >
-                {t('nav.cta')}
+                {consultationCtaLabel}
               </Button>
             </div>
           </motion.div>

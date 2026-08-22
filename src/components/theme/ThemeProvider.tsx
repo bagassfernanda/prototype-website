@@ -14,13 +14,13 @@ interface ThemeContextValue {
 const STORAGE_KEY = 'artavel-theme-mode';
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-const resolveThemeByTime = (date = new Date()): ResolvedTheme => {
-  const hour = date.getHours();
-  return hour >= 18 || hour < 6 ? 'dark' : 'light';
+const resolveSystemTheme = (): ResolvedTheme => {
+  if (typeof window === 'undefined') return 'light';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 };
 
 const resolveTheme = (mode: ThemeMode): ResolvedTheme => {
-  return mode === 'auto' ? resolveThemeByTime() : mode;
+  return mode === 'auto' ? resolveSystemTheme() : mode;
 };
 
 const applyTheme = (mode: ThemeMode, resolvedTheme: ResolvedTheme) => {
@@ -31,7 +31,9 @@ const applyTheme = (mode: ThemeMode, resolvedTheme: ResolvedTheme) => {
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [mode, setModeState] = useState<ThemeMode>('auto');
-  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>(() => resolveTheme('auto'));
+  // Keep the first client render identical to the server render. The actual
+  // system preference is read in an effect after hydration has completed.
+  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>('light');
 
   useEffect(() => {
     const savedMode = window.localStorage.getItem(STORAGE_KEY);
@@ -51,14 +53,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     if (mode !== 'auto') return undefined;
 
-    const timer = window.setInterval(updateResolvedTheme, 60_000);
-    window.addEventListener('visibilitychange', updateResolvedTheme);
-    window.addEventListener('focus', updateResolvedTheme);
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', updateResolvedTheme);
 
     return () => {
-      window.clearInterval(timer);
-      window.removeEventListener('visibilitychange', updateResolvedTheme);
-      window.removeEventListener('focus', updateResolvedTheme);
+      mediaQuery.removeEventListener('change', updateResolvedTheme);
     };
   }, [mode]);
 

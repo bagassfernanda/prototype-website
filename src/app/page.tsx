@@ -1,10 +1,10 @@
 import { HomeClient } from './_client-pages/HomeClient';
-import { createPageMetadata } from './seo';
+import { createLocalizedPageMetadata } from './seo';
 
-export const metadata = createPageMetadata({
-  title: 'PT Artavel - Solusi Digital, Keamanan Data, CCTV IoT & UI/UX',
+export const generateMetadata = () => createLocalizedPageMetadata({
+  title: 'PT Artavel - Solusi Digital Berbasis AI, Analytics, IoT & Security',
   description:
-    'Artavel menyediakan solusi digital terintegrasi untuk aplikasi, pelayanan publik, arsip digital, keamanan data, CCTV IoT, website, UI/UX, dan alih media dokumen.',
+    'Artavel menghadirkan solusi teknologi terintegrasi untuk pendidikan, retail, pemerintahan, dan enterprise melalui AI, analytics, SmartMap/GIS, computer vision, IoT, cybersecurity, dan aplikasi bisnis.',
   path: '/'
 });
 

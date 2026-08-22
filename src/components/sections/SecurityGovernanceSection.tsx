@@ -1,11 +1,20 @@
 import React from 'react';
-import { ShieldCheck, Server, Lock, Eye, Database, RefreshCw } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Server, Lock, Eye, Database, RefreshCw } from 'lucide-react';
 import { Section } from '../layout/Section';
 import { Container } from '../layout/Container';
 import { ScrollReveal } from '../ui/ScrollReveal';
+import { Button } from '../ui/Button';
 import { useLanguage } from '../i18n/LanguageProvider';
 
-export const SecurityGovernanceSection: React.FC = () => {
+interface SecurityGovernanceSectionProps {
+  compact?: boolean;
+  onNavigate?: (path: string) => void;
+}
+
+export const SecurityGovernanceSection: React.FC<SecurityGovernanceSectionProps> = ({
+  compact = false,
+  onNavigate
+}) => {
   const { text } = useLanguage();
   const securityPoints = [
     {
@@ -39,6 +48,51 @@ export const SecurityGovernanceSection: React.FC = () => {
       description: 'Mengikuti pedoman teknis SPBE, integrasi BSrE/BSSN, dan klasifikasi kearsipan ANRI.'
     }
   ];
+
+  if (compact) {
+    return (
+      <Section bg="surface" padding="compact" id="keamanan-dan-tata-kelola">
+        <Container>
+          <ScrollReveal direction="up">
+            <div className="artavel-security-strip flex flex-col gap-5 rounded-2xl border border-[#B7D7C4] bg-[#EFF8EA] px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+              <div className="min-w-0">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#568F3E]">
+                  {text('Secure by Design')}
+                </p>
+                <p className="mt-1 text-sm font-semibold text-[#172536]">
+                  {text('Fondasi keamanan dan deployment yang dapat disesuaikan dengan kebutuhan organisasi.')}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-[#244F78] sm:justify-end">
+                {securityPoints.slice(0, 4).map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <span key={item.title} className="artavel-security-strip-chip inline-flex items-center gap-1.5 rounded-full border border-[#B7D7C4] bg-white/70 px-3 py-2">
+                      <Icon className="h-3.5 w-3.5 text-[#36699C]" aria-hidden="true" />
+                      {text(item.title)}
+                    </span>
+                  );
+                })}
+              </div>
+
+              {onNavigate && (
+                <Button
+                  variant="primary"
+                  size="sm"
+                  className="artavel-security-strip-button shrink-0 !px-3"
+                  rightIcon={<ArrowRight className="h-4 w-4" aria-hidden="true" />}
+                  onClick={() => onNavigate('/solusi/keamanan-data-dan-integrasi')}
+                >
+                  {text('Pelajari Keamanan & Infrastruktur')}
+                </Button>
+              )}
+            </div>
+          </ScrollReveal>
+        </Container>
+      </Section>
+    );
+  }
 
   return (
     <Section bg="white" padding="normal" id="keamanan-dan-tata-kelola">

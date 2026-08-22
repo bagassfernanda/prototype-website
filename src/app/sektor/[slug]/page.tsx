@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 import { SectorDetailClient } from '../../_client-pages/SectorDetailClient';
 import { SECTORS_DATA } from '../../../content/sectors';
-import { createPageMetadata } from '../../seo';
+import { translateTextValue } from '../../../content/i18nText';
+import { createPageMetadata, getRequestLocale } from '../../seo';
 
 interface SectorRouteProps {
   params: Promise<{
@@ -10,17 +11,24 @@ interface SectorRouteProps {
 }
 
 const SECTOR_SLUG_ALIASES: Record<string, string> = {
-  'pemerintah-daerah': 'pemerintahan',
-  'instansi-publik': 'pemerintahan',
-  pemerintah: 'pemerintahan',
-  organisasi: 'organisasi-dan-perusahaan',
-  perusahaan: 'organisasi-dan-perusahaan',
-  'organisasi-perusahaan': 'organisasi-dan-perusahaan',
-  bumd: 'organisasi-dan-perusahaan',
-  'layanan-public': 'layanan-publik',
-  'layanan-terpadu': 'layanan-publik',
-  'pusat-layanan': 'layanan-publik',
-  mpp: 'layanan-publik'
+  pemerintahan: 'pemerintah-layanan-publik',
+  'pemerintah-daerah': 'pemerintah-layanan-publik',
+  'instansi-publik': 'pemerintah-layanan-publik',
+  pemerintah: 'pemerintah-layanan-publik',
+  'layanan-publik': 'pemerintah-layanan-publik',
+  'layanan-public': 'pemerintah-layanan-publik',
+  'layanan-terpadu': 'pemerintah-layanan-publik',
+  'pusat-layanan': 'pemerintah-layanan-publik',
+  mpp: 'pemerintah-layanan-publik',
+  organisasi: 'enterprise-organisasi',
+  perusahaan: 'enterprise-organisasi',
+  'organisasi-dan-perusahaan': 'enterprise-organisasi',
+  'organisasi-perusahaan': 'enterprise-organisasi',
+  bumd: 'enterprise-organisasi',
+  enterprise: 'enterprise-organisasi',
+  'enterprise-organizations': 'enterprise-organisasi',
+  education: 'pendidikan',
+  retail: 'retail-fnb'
 };
 
 const resolveSectorSlug = (slug: string) => SECTOR_SLUG_ALIASES[slug] ?? slug;
@@ -38,21 +46,24 @@ export const generateStaticParams = () => {
 
 export const generateMetadata = async ({ params }: SectorRouteProps) => {
   const { slug } = await params;
+  const locale = await getRequestLocale();
   const resolvedSlug = resolveSectorSlug(slug);
   const sector = SECTORS_DATA.find((item) => item.slug === resolvedSlug);
 
   if (!sector) {
     return createPageMetadata({
-      title: 'Sektor Tidak Ditemukan - PT Artavel',
-      description: 'Halaman sektor layanan yang Anda cari tidak ditemukan.',
-      path: `/sektor/${slug}`
+      title: translateTextValue('Sektor Tidak Ditemukan - PT Artavel', locale),
+      description: translateTextValue('Halaman sektor layanan yang Anda cari tidak ditemukan.', locale),
+      path: `/sektor/${slug}`,
+      locale
     });
   }
 
   return createPageMetadata({
-    title: `${sector.title} - PT Artavel`,
-    description: sector.description,
-    path: `/sektor/${sector.slug}`
+    title: `${translateTextValue(sector.title, locale)} - PT Artavel`,
+    description: translateTextValue(sector.description, locale),
+    path: `/sektor/${sector.slug}`,
+    locale
   });
 };
 

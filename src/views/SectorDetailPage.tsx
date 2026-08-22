@@ -1,8 +1,9 @@
 import React from 'react';
-import { ArrowRight, Briefcase, Building2, CheckCircle2, ClipboardCheck, Users } from 'lucide-react';
+import { ArrowRight, Briefcase, Building2, CheckCircle2, ClipboardCheck, GraduationCap, Store, Users } from 'lucide-react';
 import { SECTORS_DATA } from '../content/sectors';
 import { SOLUTIONS_DATA } from '../content/solutions';
-import { Sector, Solution } from '../types';
+import { PRODUCTS_DATA } from '../content/products';
+import { Product, Sector, Solution } from '../types';
 import { Section } from '../components/layout/Section';
 import { Container } from '../components/layout/Container';
 import { Breadcrumb } from '../components/layout/Breadcrumb';
@@ -23,6 +24,10 @@ const getSectorIcon = (iconName: string) => {
   switch (iconName) {
     case 'Briefcase':
       return Briefcase;
+    case 'GraduationCap':
+      return GraduationCap;
+    case 'Store':
+      return Store;
     case 'Users':
       return Users;
     case 'Building2':
@@ -32,16 +37,21 @@ const getSectorIcon = (iconName: string) => {
 };
 
 const isSolution = (value: Solution | undefined): value is Solution => Boolean(value);
+const isProduct = (value: Product | undefined): value is Product => Boolean(value);
 
 export const SectorDetailPage: React.FC<SectorDetailPageProps> = ({ slug, onNavigate }) => {
   const { text, localize } = useLanguage();
   const sectors = localize(SECTORS_DATA) as Sector[];
   const solutions = localize(SOLUTIONS_DATA) as Solution[];
+  const products = localize(PRODUCTS_DATA) as Product[];
   const sector = sectors.find((item) => item.slug === slug) || sectors[0];
   const Icon = getSectorIcon(sector.iconName);
   const recommendedSolutions = sector.recommendedSolutions
     .map((solutionSlug) => solutions.find((solution) => solution.slug === solutionSlug))
     .filter(isSolution);
+  const relatedProducts = (sector.relatedProductIds || [])
+    .map((productId) => products.find((product) => product.id === productId))
+    .filter(isProduct);
 
   return (
     <>
@@ -182,6 +192,30 @@ export const SectorDetailPage: React.FC<SectorDetailPageProps> = ({ slug, onNavi
                     rightIcon={<ArrowRight className="h-4 w-4" aria-hidden="true" />}
                   >
                     {text('Lihat Solusi')}
+                  </Button>
+                </div>
+              </Card>
+            ))}
+
+            {relatedProducts.map((product) => (
+              <Card key={product.id} className="flex h-full flex-col p-6">
+                <Badge variant={product.accentColor} size="sm" className="mb-4 w-fit">
+                  {text(product.ownership === 'partner-technology' ? 'Partner Technology' : 'Produk Terkait')}
+                </Badge>
+                <h3 className="text-xl font-extrabold text-[#172536] font-heading">
+                  {product.name}
+                </h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-[#5C6B79]">
+                  {product.subtitle}
+                </p>
+                <div className="mt-6">
+                  <Button
+                    variant="outline"
+                    size="md"
+                    onClick={() => onNavigate(product.detailPath)}
+                    rightIcon={<ArrowRight className="h-4 w-4" aria-hidden="true" />}
+                  >
+                    {text('Pelajari Produk')}
                   </Button>
                 </div>
               </Card>

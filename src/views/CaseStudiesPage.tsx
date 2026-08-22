@@ -5,6 +5,7 @@ import { Container } from '../components/layout/Container';
 import { Breadcrumb } from '../components/layout/Breadcrumb';
 import { Card } from '../components/ui/Card';
 import { FinalCTASection } from '../components/sections/FinalCTASection';
+import { TrustSection } from '../components/sections/TrustSection';
 import { MetaInjector } from '../components/seo/MetaInjector';
 import { Building, ArrowRight, ShieldCheck } from 'lucide-react';
 import { useLanguage } from '../components/i18n/LanguageProvider';
@@ -21,7 +22,7 @@ export const CaseStudiesPage: React.FC<CaseStudiesPageProps> = ({ onNavigate }) 
     <>
       <MetaInjector
 	        title={`${text('Studi Kasus Implementasi')} — PT Artavel`}
-	        description={text('Pelajari pengalaman implementasi SIPPADU, E-Archive, dan TNDE pada instansi pemerintah daerah dan BUMD.')}
+	        description={text('Pelajari rekam jejak implementasi solusi Artavel yang dapat dipublikasikan, termasuk proyek layanan digital, dokumen, arsip, dan integrasi proses organisasi.')}
         canonicalPath="/studi-kasus"
       />
 
@@ -34,11 +35,13 @@ export const CaseStudiesPage: React.FC<CaseStudiesPageProps> = ({ onNavigate }) 
 	              {text('Studi Kasus & Rekam Jejak')}
             </h1>
             <p className="text-lg text-[#5C6B79] leading-relaxed">
-	              {text('Pengalaman nyata bagaimana solusi Artavel membantu instansi pemerintah dan BUMD memetakan proses, mempercepat persetujuan, dan merapikan kearsipan.')}
+	              {text('Pengalaman nyata bagaimana solusi Artavel membantu organisasi menyederhanakan proses, meningkatkan visibilitas data, dan membangun sistem digital yang lebih terintegrasi.')}
             </p>
           </div>
         </Container>
       </Section>
+
+      <TrustSection />
 
       <Section bg="white" padding="normal">
         <Container>

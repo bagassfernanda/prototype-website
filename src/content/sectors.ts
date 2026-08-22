@@ -2,93 +2,144 @@ import { Sector } from '../types';
 
 export const SECTORS_DATA: Sector[] = [
   {
-    id: 'pemerintahan',
-    slug: 'pemerintahan',
-    title: 'Pemerintah Daerah & Instansi Publik',
-    subtitle: 'Mendukung Tata Kelola Pemerintahan Digital (SPBE) yang Terintegrasi & Akuntabel',
-    description: 'Artavel menyediakan paket solusi perizinan terpadu, tata naskah dinas, dan e-archive yang disesuaikan dengan nomenklatur regulasi daerah, standar BSSN/BSrE, dan prinsip Sistem Pemerintahan Berbasis Elektronik (SPBE).',
+    id: 'pemerintah-layanan-publik',
+    slug: 'pemerintah-layanan-publik',
+    title: 'Pemerintah & Layanan Publik',
+    subtitle: 'Layanan publik, dokumen, antrean, dan data wilayah yang lebih tertata',
+    description: 'Pemda, Dinas, MPP, BUMD dan layanan publik.',
     iconName: 'Building2',
     targetOrganizations: [
-      'Pemerintah Kabupaten / Kota / Provinsi',
-      'Dinas Penanaman Modal & PTSP (DPMPTSP)',
-      'Sekretariat Daerah (Setda) & Bagian Umum',
-      'Dinas Kearsipan dan Perpustakaan Daerah',
-      'Dinas Komunikasi dan Informatika (Diskominfo)'
+      'Pemerintah daerah kabupaten, kota, dan provinsi',
+      'Dinas teknis, DPMPTSP, Diskominfo, dan Setda',
+      'Mal Pelayanan Publik dan loket terpadu',
+      'BUMD dan unit layanan masyarakat'
     ],
     keyChallenges: [
-      'Ekspektasi masyarakat akan kepastian waktu layanan publik yang semakin tinggi.',
-      'Persyaratan integrasi nasional dengan OSS RBA, SIMBG, dan Sistem Penghubung Layanan Pemerintah.',
-      'Risiko penumpukan fisik surat dinas dan dokumen perizinan di masa lalu.',
-      'Tuntutan efisiensi anggaran cetak dan percepatan disposisi pimpinan.'
+      'Alur layanan, dokumen, antrean, dan pelaporan masih berjalan pada beberapa sistem atau proses manual.',
+      'Kebutuhan integrasi dengan sistem nasional, kanal pemohon, dan data internal perlu dirancang hati-hati.',
+      'Pimpinan membutuhkan visibilitas status layanan, dokumen, dan aktivitas lapangan yang mudah dipantau.'
     ],
     recommendedSolutions: [
       'pelayanan-publik-dan-perizinan',
+      'sistem-antrean-dan-tracking',
       'tata-naskah-dinas-elektronik',
       'manajemen-dokumen-dan-arsip',
-      'sistem-antrean-dan-tracking'
+      'cctv-iot-dan-monitoring'
+    ],
+    relatedProductIds: [
+      'smarchlink-sippadu',
+      'sianter',
+      'tnde',
+      'smarchlink-archive',
+      'smartmap-gis-analytics'
     ],
     expectedImpacts: [
-      'Peningkatan Indeks Pelayanan Publik dan Indeks SPBE Instansi.',
-      'Proses penerbitan perizinan dan disposisi pimpinan menjadi lebih mudah dipantau.',
-      'Terwujudnya kearsipan daerah yang rapi dan siap diaudit.'
+      'Status layanan dan dokumen lebih mudah ditelusuri oleh petugas maupun pimpinan.',
+      'Ruang layanan dapat dibantu dengan antrean, tracking, dan monitoring yang lebih tertata.',
+      'Data wilayah, dokumen, dan aktivitas operasional lebih mudah dibaca sebagai dasar evaluasi.'
     ]
   },
   {
-    id: 'organisasi-dan-perusahaan',
-    slug: 'organisasi-dan-perusahaan',
-    title: 'Organisasi, BUMD & Swasta',
-    subtitle: 'Efisiensi Operasional, Manajemen Kontrak & Pengamanan Aset Dokumen Organisasi',
-    description: 'Transformasikan alur kerja internal korporasi dan BUMD dari ketergantungan proses manual menuju otomasi dokumen, persetujuan bertingkat, dan arsip digital yang mudah diakses tim antar-cabang.',
-    iconName: 'Briefcase',
+    id: 'pendidikan',
+    slug: 'pendidikan',
+    title: 'Pendidikan',
+    subtitle: 'Ekosistem sekolah yang menghubungkan akademik, administrasi, dan komunikasi',
+    description: 'Sekolah, Yayasan dan Institusi Pendidikan.',
+    iconName: 'GraduationCap',
     targetOrganizations: [
-      'Badan Usaha Milik Daerah (BUMD) / BUMN',
-      'Perusahaan Penyedia Jasa & Manufaktur',
-      'Organisasi Non-Profit & Lembaga Pendidikan',
-      'Rumah Sakit & Lembaga Kesehatan'
+      'Sekolah dasar, menengah, dan multi-jenjang',
+      'Yayasan pendidikan dan pengelola sekolah',
+      'Institusi pendidikan yang membutuhkan portal terintegrasi',
+      'Tim akademik, administrasi, keuangan, guru, siswa, dan orang tua'
     ],
     keyChallenges: [
-      'Kesulitan melacak posisi berkas penawaran, kontrak, dan tagihan yang sedang diproses.',
-      'Penyimpanan dokumen transaksi dan legalitas perusahaan yang tersebar di banyak folder personal karyawan.',
-      'Risiko hilangnya dokumen historis saat terjadi pergantian personel (*turnover*).'
+      'Data akademik, administrasi, keuangan, dan komunikasi sering tersebar di banyak media.',
+      'Guru, admin, siswa, orang tua, dan yayasan membutuhkan akses informasi yang berbeda.',
+      'Proses PPDB, absensi, nilai, tagihan, dan pelaporan perlu terhubung agar tidak direkap berulang.'
     ],
     recommendedSolutions: [
-      'manajemen-dokumen-dan-arsip',
-      'tata-naskah-dinas-elektronik',
-      'digitalisasi-dan-alih-media',
+      'website-ui-ux-dan-aplikasi-web',
       'keamanan-data-dan-integrasi'
     ],
+    relatedProductIds: [
+      'otoschool'
+    ],
     expectedImpacts: [
-      'Pencarian dokumen legalitas dan transaksi menjadi lebih terstruktur.',
-      'Siklus persetujuan dokumen internal lebih mudah dilacak dan dievaluasi.',
-      'Pencegahan kebocoran data sensitif perusahaan.'
+      'Informasi sekolah lebih konsisten karena dikelola dalam ekosistem yang terhubung.',
+      'Pengguna melihat data sesuai peran, mulai dari admin hingga orang tua.',
+      'Pimpinan sekolah atau yayasan memiliki ringkasan operasional yang lebih mudah dipantau.'
     ]
   },
   {
-    id: 'layanan-publik',
-    slug: 'layanan-publik',
-    title: 'Pusat Layanan Terpadu & Loket Publik',
-    subtitle: 'Pengalaman Ruang Tunggu yang Nyaman, Teratur, dan Terukur untuk Masyarakat',
-    description: 'Solusi manajemen antrean fisik dan digital untuk Mal Pelayanan Publik (MPP), loket kesehatan, dan ruang layanan terpadu guna menciptakan keteraturan dan kepastian waktu panggil.',
-    iconName: 'Users',
+    id: 'retail-fnb',
+    slug: 'retail-fnb',
+    title: 'Retail & F&B',
+    subtitle: 'Operasional outlet, transaksi, inventory, dan performa yang saling terhubung',
+    description: 'Retail, restoran, kafe dan bisnis multi-outlet.',
+    iconName: 'Store',
     targetOrganizations: [
-      'Mal Pelayanan Publik (MPP)',
-      'Kantor Bersama SAMSAT / Loket Retribusi',
-      'Pusat Layanan Pelanggan PDAM & BUMD',
-      'Ruang Tunggu Pendaftaran Rumah Sakit / Puskesmas'
+      'Restoran, kafe, dan bisnis F&B',
+      'Retail dan toko multi-outlet',
+      'Owner, manajer outlet, kasir, inventory, dan tim operasional',
+      'Area komersial yang membutuhkan visitor analytics'
     ],
     keyChallenges: [
-      'Kepadatan antrean pengunjung pada jam-jam sibuk tanpa estimasi waktu panggil.',
-      'Ketidakseimbangan beban kerja antar-loket layanan.',
-      'Ketiadaan data Indeks Kepuasan Masyarakat (IKM) real-time pasca pelayanan.'
+      'Transaksi, stok, karyawan, loyalty, dan keuangan sering tidak terhubung dalam satu alur.',
+      'Owner membutuhkan data outlet, shift, produk, dan performa cabang yang mudah dibandingkan.',
+      'Traffic pengunjung dan pola area dapat membantu keputusan operasional ketika datanya tersedia.'
     ],
     recommendedSolutions: [
-      'sistem-antrean-dan-tracking',
-      'pelayanan-publik-dan-perizinan'
+      'cctv-iot-dan-monitoring',
+      'keamanan-data-dan-integrasi',
+      'website-ui-ux-dan-aplikasi-web'
+    ],
+    relatedProductIds: [
+      'otopos-fnb',
+      'footfallcam',
+      'ai-cctv-computer-vision'
     ],
     expectedImpacts: [
-      'Alur antrean pengunjung di ruang tunggu lebih tertata.',
-      'Transparansi estimasi panggilan di layar TV dan HP warga.',
-      'Data kuantitatif kinerja petugas loket untuk bahan evaluasi mingguan.'
+      'Penjualan, inventory, absensi, loyalty, dan laporan performa lebih mudah dipantau.',
+      'Pengelola dapat membaca pola operasional outlet dan traffic pengunjung secara lebih objektif.',
+      'Keputusan stok, jadwal staf, dan evaluasi cabang memiliki data pendukung yang lebih jelas.'
+    ]
+  },
+  {
+    id: 'enterprise-organisasi',
+    slug: 'enterprise-organisasi',
+    title: 'Enterprise & Organisasi',
+    subtitle: 'Keamanan, analytics, aplikasi enterprise, dan pengelolaan dokumen lintas unit',
+    description: 'Perusahaan, BUMD, lembaga dan organisasi.',
+    iconName: 'Briefcase',
+    targetOrganizations: [
+      'Perusahaan, BUMD, BUMN, dan grup usaha',
+      'Lembaga, yayasan, organisasi, dan unit operasional multi-lokasi',
+      'Tim IT, operasional, legal, keuangan, dan manajemen',
+      'Organisasi yang membutuhkan security, analytics, dan aplikasi enterprise'
+    ],
+    keyChallenges: [
+      'Dokumen, aset data, dan proses persetujuan sering tersebar antarunit atau cabang.',
+      'Endpoint, email, pengguna, dan akses sistem membutuhkan perlindungan dan awareness yang konsisten.',
+      'Manajemen membutuhkan analytics, integrasi, dan dashboard agar keputusan tidak hanya bergantung pada laporan manual.'
+    ],
+    recommendedSolutions: [
+      'keamanan-data-dan-integrasi',
+      'manajemen-dokumen-dan-arsip',
+      'tata-naskah-dinas-elektronik',
+      'cctv-iot-dan-monitoring',
+      'website-ui-ux-dan-aplikasi-web'
+    ],
+    relatedProductIds: [
+      'opentext-cybersecurity',
+      'smarchlink-archive',
+      'tnde',
+      'smartmap-gis-analytics',
+      'footfallcam'
+    ],
+    expectedImpacts: [
+      'Dokumen, persetujuan, dan akses data lebih mudah ditata sesuai peran pengguna.',
+      'Program keamanan dapat menggabungkan proteksi teknis dengan awareness pengguna.',
+      'Data operasional dan lokasi lebih mudah divisualisasikan untuk kebutuhan monitoring dan evaluasi.'
     ]
   }
 ];

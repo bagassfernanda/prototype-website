@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 interface JsonLdInjectorProps {
-  type: 'Organization' | 'Service' | 'BreadcrumbList' | 'FAQPage';
+  type: 'Organization' | 'Service' | 'Product' | 'BreadcrumbList' | 'FAQPage';
   data: Record<string, unknown>;
   id?: string;
 }

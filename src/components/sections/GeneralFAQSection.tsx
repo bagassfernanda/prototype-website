@@ -12,16 +12,17 @@ import { useLanguage } from '../i18n/LanguageProvider';
 
 interface GeneralFAQSectionProps {
   onNavigate: (path: string) => void;
+  compact?: boolean;
 }
 
-export const GeneralFAQSection: React.FC<GeneralFAQSectionProps> = ({ onNavigate }) => {
+export const GeneralFAQSection: React.FC<GeneralFAQSectionProps> = ({ onNavigate, compact = false }) => {
   const { text, localize } = useLanguage();
   const faqs = localize(GENERAL_FAQS);
 
   return (
     <Section
       bg="dark-blue"
-      padding="large"
+      padding={compact ? 'normal' : 'large'}
       id="faq"
       className="artavel-faq-section bg-[radial-gradient(circle_at_20%_20%,rgba(54,105,156,0.24),transparent_32%),radial-gradient(circle_at_82%_72%,rgba(125,188,94,0.20),transparent_30%),#0B2234]"
     >

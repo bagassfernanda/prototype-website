@@ -1,7 +1,7 @@
 import { HowWeWorkClient } from '../_client-pages/HowWeWorkClient';
-import { createPageMetadata } from '../seo';
+import { createLocalizedPageMetadata } from '../seo';
 
-export const metadata = createPageMetadata({
+export const generateMetadata = () => createLocalizedPageMetadata({
   title: 'Cara Kami Bekerja - PT Artavel',
   description:
     'Pendekatan kerja Artavel mulai dari discovery, desain solusi, implementasi, pelatihan, hingga dukungan berkelanjutan.',

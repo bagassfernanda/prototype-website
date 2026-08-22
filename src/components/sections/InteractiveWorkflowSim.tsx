@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Play, CheckCircle2, ShieldCheck, Clock, FileText } from 'lucide-react';
 import { Section } from '../layout/Section';
 import { Container } from '../layout/Container';
@@ -10,6 +10,7 @@ export const InteractiveWorkflowSim: React.FC = () => {
   const { text } = useLanguage();
   const [currentStep, setCurrentStep] = useState<number>(-1);
   const [isSimulating, setIsSimulating] = useState(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const steps = [
     {
@@ -38,15 +39,30 @@ export const InteractiveWorkflowSim: React.FC = () => {
     }
   ];
 
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, []);
+
   const runSimulation = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
     setIsSimulating(true);
     setCurrentStep(0);
 
     let step = 0;
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       step += 1;
       if (step >= steps.length) {
-        clearInterval(interval);
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
         setCurrentStep(steps.length);
         setIsSimulating(false);
       } else {
@@ -105,7 +121,7 @@ export const InteractiveWorkflowSim: React.FC = () => {
                   direction="scale"
                 >
                   <div
-                    className={`h-full p-4 rounded-2xl border transition-all ${
+                    className={`flex h-full flex-col rounded-2xl border p-4 transition-all ${
                       isActive
                         ? 'bg-white border-[#36699C] shadow-md ring-2 ring-[#36699C]/20 scale-102'
                         : isDone
@@ -128,17 +144,17 @@ export const InteractiveWorkflowSim: React.FC = () => {
 	                      {text(s.title)}
                     </h3>
 
-                    <p className="text-xs text-[#5C6B79] leading-relaxed mb-3">
+                    <p className="flex-1 text-xs leading-relaxed text-[#5C6B79]">
 	                      {text(s.desc)}
                     </p>
 
                     <span
-                      className={`inline-block text-[11px] font-bold px-2 py-0.5 rounded ${
+                      className={`artavel-workflow-status mt-4 inline-block self-start rounded px-2 py-0.5 text-[11px] font-bold ${
                         isDone
-                          ? 'bg-[#568F3E] text-white'
+                          ? 'artavel-workflow-status-done bg-[#568F3E] text-white'
                           : isActive
-                          ? 'bg-[#36699C] text-white'
-                          : 'bg-[#DBE4EB] text-[#5C6B79]'
+                          ? 'artavel-workflow-status-active bg-[#36699C] text-white'
+                          : 'artavel-workflow-status-idle bg-[#DBE4EB] text-[#5C6B79]'
                       }`}
                     >
 	                      {isDone ? '✓ ' + text(s.status) : text(s.status)}

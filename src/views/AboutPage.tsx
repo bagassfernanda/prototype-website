@@ -6,6 +6,7 @@ import { Breadcrumb } from '../components/layout/Breadcrumb';
 import { Card } from '../components/ui/Card';
 import { PlaceholderNotice } from '../components/ui/PlaceholderNotice';
 import { FinalCTASection } from '../components/sections/FinalCTASection';
+import { ProfileVideoSection } from '../components/sections/ProfileVideoSection';
 import { MetaInjector } from '../components/seo/MetaInjector';
 import { Award, CheckCircle2, HeartHandshake, ShieldCheck, Target } from 'lucide-react';
 import { useLanguage } from '../components/i18n/LanguageProvider';
@@ -41,6 +42,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           </div>
         </Container>
       </Section>
+
+      <ProfileVideoSection />
 
       {/* Profil & Brand Essence */}
       <Section bg="white" padding="normal">

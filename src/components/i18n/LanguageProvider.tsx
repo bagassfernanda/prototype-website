@@ -2,8 +2,9 @@
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { translateTextValue } from '../../content/i18nText';
+import { LANGUAGE_COOKIE, isLocale, type Locale } from '../../utils/i18nRouting';
 
-export type Language = 'id' | 'en';
+export type Language = Locale;
 
 type TranslationKey =
   | 'nav.solutions'
@@ -15,21 +16,11 @@ type TranslationKey =
   | 'nav.contact'
   | 'nav.cta'
   | 'hero.badge.public'
-  | 'hero.badge.security'
-  | 'hero.badge.infrastructure'
   | 'hero.headline.main'
   | 'hero.headline.green'
-  | 'hero.headline.blue'
   | 'hero.description'
   | 'hero.cta.primary'
   | 'hero.cta.secondary'
-  | 'hero.point.security'
-  | 'hero.point.apps'
-  | 'hero.point.infrastructure'
-  | 'hero.controls.previous'
-  | 'hero.controls.next'
-  | 'hero.controls.pause'
-  | 'hero.controls.play'
   | 'common.language';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
@@ -38,55 +29,35 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     'nav.sectors': 'Sektor',
     'nav.caseStudies': 'Studi Kasus',
     'nav.howWeWork': 'Cara Kami Bekerja',
-    'nav.about': 'Tentang Artavel',
+    'nav.about': 'Tentang',
     'nav.insights': 'Wawasan',
     'nav.contact': 'Kontak',
-    'nav.cta': 'Konsultasikan Kebutuhan',
-    'hero.badge.public': 'Pelayanan Publik Digital',
-    'hero.badge.security': 'Keamanan Data & Dokumen',
-    'hero.badge.infrastructure': 'CCTV, IoT & Infrastruktur',
-    'hero.headline.main': 'Menata layanan publik.',
-    'hero.headline.green': 'Melindungi data.',
-    'hero.headline.blue': 'Menghubungkan teknologi.',
+    'nav.cta': 'Konsultasi',
+    'hero.badge.public': 'AI • Analytics • IoT • Security',
+    'hero.headline.main': 'Solusi Digital Terintegrasi',
+    'hero.headline.green': 'untuk Bisnis & Organisasi',
     'hero.description':
-      'PT Artavel membantu instansi dan organisasi membangun aplikasi pelayanan, kearsipan elektronik, keamanan data, CCTV & IoT, website, UI/UX, dan otomasi dokumen yang formal, terukur, dan siap dikembangkan.',
+      'Artavel menghadirkan solusi teknologi terintegrasi untuk pendidikan, retail, pemerintahan, dan enterprise.',
     'hero.cta.primary': 'Konsultasikan Kebutuhan',
     'hero.cta.secondary': 'Jelajahi Solusi',
-    'hero.point.security': 'Keamanan Data & Audit Trail',
-    'hero.point.apps': 'Aplikasi, Web & UI/UX',
-    'hero.point.infrastructure': 'CCTV, IoT & Integrasi Sistem',
-    'hero.controls.previous': 'Tampilkan slide sebelumnya',
-    'hero.controls.next': 'Tampilkan slide berikutnya',
-    'hero.controls.pause': 'Hentikan slide otomatis',
-    'hero.controls.play': 'Jalankan slide otomatis',
     'common.language': 'Bahasa'
   },
   en: {
     'nav.solutions': 'Solutions',
-    'nav.sectors': 'Sectors',
+    'nav.sectors': 'Industries',
     'nav.caseStudies': 'Case Studies',
     'nav.howWeWork': 'How We Work',
-    'nav.about': 'About Artavel',
+    'nav.about': 'About',
     'nav.insights': 'Insights',
     'nav.contact': 'Contact',
-    'nav.cta': 'Discuss Your Needs',
-    'hero.badge.public': 'Digital Public Services',
-    'hero.badge.security': 'Data & Document Security',
-    'hero.badge.infrastructure': 'CCTV, IoT & Infrastructure',
-    'hero.headline.main': 'Structuring public services.',
-    'hero.headline.green': 'Protecting data.',
-    'hero.headline.blue': 'Connecting technology.',
+    'nav.cta': 'Consult',
+    'hero.badge.public': 'AI • Analytics • IoT • Security',
+    'hero.headline.main': 'Integrated Digital Solutions',
+    'hero.headline.green': 'for Businesses & Organizations',
     'hero.description':
-      'PT Artavel helps institutions and organizations build service applications, electronic archives, data security, CCTV & IoT, websites, UI/UX, and document automation that are formal, measurable, and ready to scale.',
-    'hero.cta.primary': 'Discuss Your Needs',
+      'Artavel delivers integrated technology solutions for education, retail, government, and enterprise.',
+    'hero.cta.primary': 'Discuss Your Requirements',
     'hero.cta.secondary': 'Explore Solutions',
-    'hero.point.security': 'Data Security & Audit Trail',
-    'hero.point.apps': 'Applications, Web & UI/UX',
-    'hero.point.infrastructure': 'CCTV, IoT & System Integration',
-    'hero.controls.previous': 'Show previous slide',
-    'hero.controls.next': 'Show next slide',
-    'hero.controls.pause': 'Pause automatic slides',
-    'hero.controls.play': 'Play automatic slides',
     'common.language': 'Language'
   }
 };
@@ -101,20 +72,44 @@ interface LanguageContextValue {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>('id');
+const getCookieLanguage = () => {
+  if (typeof document === 'undefined') return null;
+  const match = document.cookie
+    .split('; ')
+    .find((item) => item.startsWith(`${LANGUAGE_COOKIE}=`));
+  const cookieValue = match?.split('=')[1];
+  return isLocale(cookieValue) ? cookieValue : null;
+};
+
+const getPathLanguage = () => {
+  if (typeof window === 'undefined') return null;
+  const firstSegment = window.location.pathname.split('/').filter(Boolean)[0];
+  return isLocale(firstSegment) ? firstSegment : null;
+};
+
+const persistLanguage = (nextLanguage: Language) => {
+  window.localStorage.setItem(LANGUAGE_COOKIE, nextLanguage);
+  document.cookie = `${LANGUAGE_COOKIE}=${nextLanguage}; path=/; max-age=31536000; samesite=lax`;
+  document.documentElement.lang = nextLanguage;
+};
+
+export const LanguageProvider: React.FC<{ children: React.ReactNode; initialLanguage?: Language }> = ({
+  children,
+  initialLanguage = 'id'
+}) => {
+  const [language, setLanguageState] = useState<Language>(initialLanguage);
 
   useEffect(() => {
-    const savedLanguage = window.localStorage.getItem('artavel-language');
-    if (savedLanguage === 'id' || savedLanguage === 'en') {
-      setLanguageState(savedLanguage);
-    }
-  }, []);
+    const savedLanguage = window.localStorage.getItem(LANGUAGE_COOKIE);
+    const nextLanguage = getPathLanguage() || getCookieLanguage() || (isLocale(savedLanguage) ? savedLanguage : initialLanguage);
+
+    setLanguageState(nextLanguage);
+    persistLanguage(nextLanguage);
+  }, [initialLanguage]);
 
   const setLanguage = (nextLanguage: Language) => {
     setLanguageState(nextLanguage);
-    window.localStorage.setItem('artavel-language', nextLanguage);
-    document.documentElement.lang = nextLanguage;
+    persistLanguage(nextLanguage);
   };
 
   const value = useMemo<LanguageContextValue>(
