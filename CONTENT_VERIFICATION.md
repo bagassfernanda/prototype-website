@@ -55,11 +55,59 @@ Dokumen ini memuat seluruh butir informasi bisnis, teknis, legal, dan historis y
 
 | No | Nama Instansi / Klien | Sektor | Status Izin Logo (*publicationPermission*) | Status Verifikasi Angka Hasil (*verified*) |
 |----|-----------------------|--------|-------------------------------------------|-------------------------------------------|
-| 5.1 | Dinas PMPTSP Kab. Lamongan | Pemerintah Daerah | 🟡 Perlu Konfirmasi Written Consent | 🟡 Perlu Verifikasi Data Efisiensi |
-| 5.2 | Dinas Kearsipan & Perpustakaan | Pemerintah Daerah | 🟡 Perlu Konfirmasi Written Consent | 🟡 Perlu Verifikasi Data Efisiensi |
-| 5.3 | Instansi BUMD / Swasta | Perusahaan | 🟡 Gunakan Label Anonim jika Belum Izinkan | 🟡 Gunakan Data Kualitatif Tanpa Nominal Asumsi |
+| 5.1 | Dinas PMPTSP Kabupaten di Jawa Timur | Pemerintah Daerah | 🔴 `false` — gunakan nama anonim | 🟡 Menunggu verifikasi |
+| 5.2 | Sekretariat Daerah Kabupaten di Jawa Timur | Pemerintah Daerah | 🔴 `false` — gunakan nama anonim | 🟡 Menunggu verifikasi |
+| 5.3 | BUMD Pengelola Layanan Umum | BUMD / Perusahaan | 🔴 `false` — gunakan nama anonim | 🟡 Menunggu verifikasi |
 
-*Catatan*: Jika `publicationPermission` bernilai `false`, sistem website baru secara otomatis menampilkan sebutan anonim (contoh: *"Instansi Pemerintah Daerah di Jawa Timur"*).
+*Catatan*: Jika `publicationPermission` bernilai `false`, sistem menampilkan `anonymousName`, tidak menampilkan nama klien, lokasi spesifik, atau logo klien.
+
+### 5.1 Case Study 1 — Dinas PMPTSP Kabupaten di Jawa Timur
+
+| Butir Verifikasi | Status Saat Ini | Catatan |
+|------------------|-----------------|---------|
+| Nama klien | 🟡 Menunggu verifikasi | Jangan tampilkan nama aktual tanpa izin publikasi tertulis. |
+| Izin publikasi | 🔴 `false` | Tidak menampilkan nama klien, logo, atau lokasi spesifik. |
+| Lokasi | 🟡 Jawa Timur | Kabupaten belum dipublikasikan. |
+| Produk yang digunakan | 🟡 Perlu konfirmasi | Data situs menggunakan label **Produk Terkait**. |
+| SIPPADU | 🟡 Perlu konfirmasi | Pastikan ruang lingkup penggunaan. |
+| SIANTER | 🟡 Perlu konfirmasi | Pastikan ruang lingkup penggunaan. |
+| Tracking | 🟡 Perlu konfirmasi | Pastikan fitur tracking termasuk implementasi aktual. |
+| Antrean | 🟡 Perlu konfirmasi | Pastikan pengelolaan antrean termasuk implementasi aktual. |
+| TTE | 🟡 Perlu konfirmasi | Jangan tampilkan sebagai implementasi faktual sebelum ada bukti. |
+| SMS | 🟡 Perlu konfirmasi | Jangan tampilkan sebagai integrasi faktual sebelum ada bukti. |
+| WhatsApp | 🟡 Perlu konfirmasi | Jangan tampilkan sebagai integrasi faktual sebelum ada bukti. |
+| Hasil implementasi | 🟡 Menunggu verifikasi | Tidak menampilkan angka atau klaim kuantitatif. |
+| Waktu tunggu | 🟡 Menunggu verifikasi | Perlu data evaluasi resmi. |
+| Testimonial | 🟡 Menunggu verifikasi | Tidak ditampilkan sebelum ada persetujuan dan sumber resmi. |
+
+### 5.2 Case Study 2 — Sekretariat Daerah Kabupaten di Jawa Timur
+
+| Butir Verifikasi | Status Saat Ini | Catatan |
+|------------------|-----------------|---------|
+| Nama instansi | 🟡 Menunggu verifikasi | Gunakan nama anonim sampai izin publikasi diterima. |
+| Volume arsip | 🟡 Menunggu verifikasi | Jangan gunakan nominal atau frasa kuantitatif yang belum dibuktikan. |
+| Archive | 🟡 Perlu konfirmasi | Pastikan produk dan edisi yang digunakan. |
+| Alih media | 🟡 Perlu konfirmasi | Pastikan ruang lingkup layanan alih media. |
+| Klasifikasi arsip | 🟡 Perlu konfirmasi | Pastikan struktur klasifikasi yang diterapkan. |
+| Pedoman ANRI | 🟡 Perlu konfirmasi | Jangan klaim kepatuhan sebelum verifikasi resmi. |
+| Hasil pencarian | 🟡 Menunggu verifikasi | Perlu data evaluasi penelusuran arsip. |
+| Hasil digitalisasi | 🟡 Menunggu verifikasi | Perlu data dan berita acara resmi. |
+| Testimonial | 🟡 Menunggu verifikasi | Tidak ditampilkan sebelum ada persetujuan dan sumber resmi. |
+
+### 5.3 Case Study 3 — BUMD Pengelola Layanan Umum
+
+| Butir Verifikasi | Status Saat Ini | Catatan |
+|------------------|-----------------|---------|
+| Nama BUMD | 🟡 Menunggu verifikasi | Gunakan nama anonim sampai izin publikasi diterima. |
+| Jumlah lokasi | 🟡 Menunggu verifikasi | Jangan tampilkan jumlah lokasi tanpa data resmi. |
+| Archive | 🟡 Perlu konfirmasi | Pastikan produk dan ruang lingkup penggunaan. |
+| Model deployment | 🟡 Menunggu verifikasi | Tidak menyatakan model deployment sebagai fakta. |
+| Private cloud | 🟡 Menunggu verifikasi | Jangan tampilkan sebagai implementasi faktual. |
+| Access control | 🟡 Menunggu verifikasi | Gunakan wording kemampuan umum sampai terkonfirmasi. |
+| Hardening | 🟡 Menunggu verifikasi | Pastikan layanan termasuk ruang lingkup aktual. |
+| Sentralisasi | 🟡 Menunggu verifikasi | Perlu bukti ruang lingkup dan hasil implementasi. |
+| Hasil implementasi | 🟡 Menunggu verifikasi | Tidak menampilkan angka atau klaim kuantitatif. |
+| Testimonial | 🟡 Menunggu verifikasi | Tidak ditampilkan sebelum ada persetujuan dan sumber resmi. |
 
 ---
 

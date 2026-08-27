@@ -2,9 +2,9 @@ import { CaseStudiesClient } from '../_client-pages/CaseStudiesClient';
 import { createLocalizedPageMetadata } from '../seo';
 
 export const generateMetadata = () => createLocalizedPageMetadata({
-  title: 'Studi Kasus Implementasi - PT Artavel',
+  title: 'Studi Kasus Implementasi — PT Artavel',
   description:
-    'Pelajari rekam jejak implementasi solusi Artavel yang dapat dipublikasikan, termasuk proyek layanan digital, dokumen, arsip, dan integrasi proses organisasi.',
+    'Pelajari bagaimana solusi Artavel dapat mendukung pelayanan publik, digitalisasi arsip, pengelolaan dokumen, dan kebutuhan organisasi.',
   path: '/studi-kasus'
 });
 

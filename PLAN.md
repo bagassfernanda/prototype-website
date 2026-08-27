@@ -11,7 +11,7 @@
 1. **Layanan & Produk**:
    - Mention merek master **Smarchlink®** dan sub-produk: **SIPPADU** (Pelayanan Perizinan Terpadu), **TNDE** (Tata Naskah Dinas Elektronik), **Archive** (Sistem Kearsipan Digital / E-Archive), **SIANTER** (Sistem Antrean & Tracking Pemohon).
    - Istilah usang: *"IT Bussiness Solutions"* (typo double 's' pada Bussiness), *"PPN 10%"* (tarif pajak usang, PPN RI saat ini 11%), regulasi *"IMB"* (Izin Mendirikan Bangunan) yang secara nasional sudah bertransformasi menjadi **PBG** (Persetujuan Bangunan Gedung) dan **SLF** (Sertifikat Laik Fungsi).
-   - Terdapat narasi mixing pada studi kasus (misal MPP Kabupaten Lamongan yang keliru tertulis Kabupaten Malang pada copy lama).
+   - Terdapat narasi mixing pada studi kasus yang perlu diselaraskan dengan mode anonim dan status verifikasi konten.
 2. **Kemitraan & Lisensi**:
    - Mengklaim status *"IBM Business Partner"*, *"Webroot Partner"*, *"PMA/PMDN"*.
    - Informasi ini perlu diverifikasi oleh manajemen Artavel sebelum dipublikasikan sebagai klaim resmi di website baru.

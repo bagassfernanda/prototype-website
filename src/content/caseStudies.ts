@@ -1,83 +1,105 @@
-import { CaseStudy } from '../types';
+import type { CaseStudy, CaseStudyResult, CaseStudyVerificationStatus } from '../types';
 
 export const CASE_STUDIES_DATA: CaseStudy[] = [
   {
-    id: 'mpp-kabupaten-lamongan',
-    slug: 'mpp-kabupaten-lamongan',
-    clientName: 'Dinas PMPTSP Kabupaten Lamongan',
-    anonymousClientLabel: 'Dinas PMPTSP Kabupaten di Jawa Timur',
+    slug: 'digitalisasi-pelayanan-perizinan',
+    title: 'Dinas PMPTSP Kabupaten di Jawa Timur',
+    anonymousName: 'Dinas PMPTSP Kabupaten di Jawa Timur',
     publicationPermission: false,
     sector: 'Pemerintah Daerah',
     region: 'Jawa Timur',
-    challenge: 'Meningkatnya volume pemohon perizinan di Mal Pelayanan Publik (MPP) Lamongan yang membutuhkan kepastian alur verifikasi berkas antar-dinas teknis, integrasi sistem antrean loket, serta percepatan penandatanganan dokumen perizinan.',
-    solutionProvided: 'Implementasi terpadu Smarchlink® SIPPADU dan SIANTER (Sistem Antrean & Tracking Pemohon) yang dihubungkan langsung dengan layar panggil loket MPP dan notifikasi status via SMS/WhatsApp.',
+    shortDescription:
+      'Meningkatnya volume permohonan perizinan dan kebutuhan koordinasi antarunit mendorong perlunya sistem pelayanan yang lebih terstruktur, mudah dipantau, dan mendukung proses persetujuan digital.',
+    challenge:
+      'Meningkatnya volume permohonan perizinan membutuhkan proses verifikasi, koordinasi antarunit teknis, pengelolaan antrean, serta penyampaian informasi status pelayanan yang lebih terstruktur.',
+    needs: ['Pelayanan lebih terstruktur', 'Tracking status', 'Pengelolaan antrean', 'Koordinasi proses'],
+    solution:
+      'Implementasi solusi pelayanan terpadu menggunakan Smarchlink® SIPPADU dan SIANTER untuk mendukung pengelolaan permohonan, alur verifikasi, antrean pelayanan, tracking status, serta proses persetujuan dokumen secara digital.',
+    products: ['Smarchlink® SIPPADU', 'Smarchlink® SIANTER'],
+    approach: ['Discovery', 'Configuration', 'Implementation', 'Training', 'Support'],
     results: [
       {
-        value: 'Draf',
-        unit: 'Efisiensi Waktu Tunggu',
-        description: 'Indikator evaluasi layanan MPP yang perlu diverifikasi bersama manajemen dan pihak terkait.',
-        verified: false,
-        source: 'Draf - memerlukan verifikasi manajemen Artavel'
+        status: 'pending',
+        title: 'Efisiensi Proses Pelayanan',
+        description:
+          'Indikator peningkatan efisiensi proses pelayanan masih memerlukan verifikasi berdasarkan data implementasi dan evaluasi resmi.',
+        verified: false
       },
       {
-        value: 'Draf',
-        unit: 'Persetujuan Elektronik',
-        description: 'Penerbitan izin menggunakan Tanda Tangan Elektronik (TTE) resmi sesuai kesiapan instansi.',
+        status: 'pending',
+        title: 'Persetujuan Digital',
+        description:
+          'Pemanfaatan proses persetujuan digital perlu dikonfirmasi berdasarkan ruang lingkup implementasi sebenarnya.',
         verified: false
       }
     ],
-    implementationDuration: 'Draf - perlu verifikasi',
-    productsUsed: ['Smarchlink® SIPPADU', 'Smarchlink® SIANTER'],
-    testimonial: {
-      quote: 'Integrasi sistem perizinan dan antrean lokasi sangat membantu petugas kami dalam melayani warga secara lebih tertata, cepat, dan transparan.',
-      authorName: 'Tim Pengelola Layanan MPP',
-      authorRole: 'Koordinator Layanan Terpadu',
-      verified: false
-    },
-    verified: false
+    verified: false,
+    metadataTitle: 'Digitalisasi Pelayanan Perizinan — Studi Kasus Artavel'
   },
   {
-    id: 'sistem-kearsipan-sekretariat-daerah',
-    slug: 'sistem-kearsipan-sekretariat-daerah',
-    clientName: 'Instansi Pemerintah Daerah',
-    anonymousClientLabel: 'Sekretariat Daerah Kabupaten di Jawa Timur',
-    publicationPermission: false, // Anonymous mode
+    slug: 'digitalisasi-pengelolaan-arsip',
+    title: 'Sekretariat Daerah Kabupaten di Jawa Timur',
+    anonymousName: 'Sekretariat Daerah Kabupaten di Jawa Timur',
+    publicationPermission: false,
     sector: 'Pemerintah Daerah',
     region: 'Jawa Timur',
-    challenge: 'Penumpukan puluhan ribu berkas fisik arsip aktif dan inaktif di ruang penyimpan Sekretariat yang menyebabkan kesulitan penelusuran dokumen keputusan dan surat dinas masa lalu.',
-    solutionProvided: 'Penerapan Smarchlink® Archive (E-Archive) disertai proyek pendampingan alih media (digitalisasi) dan penyusunan struktur klasifikasi arsip sesuai pedoman ANRI.',
+    shortDescription:
+      'Bertambahnya volume arsip fisik aktif dan inaktif menciptakan kebutuhan terhadap proses digitalisasi, pengelompokan, serta pencarian dokumen yang lebih terstruktur.',
+    challenge:
+      'Bertambahnya volume arsip fisik aktif dan inaktif membutuhkan pengelolaan yang lebih terstruktur agar dokumen keputusan, surat dinas, dan arsip administratif dapat ditemukan kembali dengan lebih mudah ketika dibutuhkan.',
+    needs: ['Digitalisasi arsip', 'Metadata', 'Penelusuran dokumen', 'Pengelompokan arsip'],
+    solution:
+      'Penerapan Smarchlink® Archive disertai proses alih media dokumen untuk membantu digitalisasi, pengelompokan, penyusunan metadata, dan penelusuran arsip secara lebih terstruktur.',
+    products: ['Smarchlink® Archive', 'Layanan Alih Media Dokumen'],
+    approach: ['Discovery', 'Configuration', 'Implementation', 'Training', 'Support'],
     results: [
       {
-        value: 'Draf',
-        unit: 'Kecepatan Pencarian',
-        description: 'Indikator waktu pencarian arsip digital yang perlu diverifikasi melalui data implementasi resmi.',
+        status: 'pending',
+        title: 'Kemudahan Penelusuran Arsip',
+        description:
+          'Digitalisasi dan pengelompokan dokumen dirancang untuk membantu pengguna menemukan arsip berdasarkan metadata dan informasi dokumen tanpa bergantung pada pencarian fisik.',
         verified: false
       }
     ],
-    implementationDuration: 'Draf - perlu verifikasi',
-    productsUsed: ['Smarchlink® Archive', 'Layanan Alih Media Dokumen'],
-    verified: false
+    verified: false,
+    metadataTitle: 'Digitalisasi dan Pengelolaan Arsip — Studi Kasus Artavel'
   },
   {
-    id: 'digitalisasi-arsip-bumd',
-    slug: 'digitalisasi-arsip-bumd',
-    clientName: 'Perusahaan Daerah BUMD',
-    anonymousClientLabel: 'BUMD Pengelola Layanan Umum',
+    slug: 'sentralisasi-dokumen-perusahaan',
+    title: 'BUMD Pengelola Layanan Umum',
+    anonymousName: 'BUMD Pengelola Layanan Umum',
     publicationPermission: false,
     sector: 'BUMD / Perusahaan',
     region: 'Jawa Timur',
-    challenge: 'Risiko kehilangan dokumen fisik kontrak kerja sama dan sertifikat aset akibat lokasi penyimpanan yang tersebar di beberapa kantor cabang.',
-    solutionProvided: 'Sentralisasi penyimpanan arsip digital dengan Smarchlink Archive berbasis Cloud Private dan proteksi hak akses Role-Based.',
+    shortDescription:
+      'Penyimpanan dokumen kontrak, sertifikat, dan arsip penting di beberapa lokasi menciptakan kebutuhan terhadap sentralisasi dokumen dan pengaturan akses yang lebih terstruktur.',
+    challenge:
+      'Dokumen kontrak kerja sama, sertifikat aset, dan dokumen administratif lainnya tersimpan pada beberapa lokasi dan unit kerja sehingga membutuhkan mekanisme penyimpanan serta pengendalian akses yang lebih terpusat.',
+    needs: ['Sentralisasi dokumen', 'Pengaturan akses', 'Repository terstruktur', 'Penelusuran dokumen'],
+    solution:
+      'Penerapan Smarchlink® Archive untuk mendukung sentralisasi arsip digital, pengaturan akses berdasarkan peran pengguna, serta pengelolaan dokumen yang lebih terstruktur.',
+    products: ['Smarchlink® Archive', 'Integrasi & Hardening Layanan'],
+    approach: ['Discovery', 'Configuration', 'Implementation', 'Training', 'Support'],
     results: [
       {
-        value: 'Draf',
-        unit: 'Aset Dokumen Terindeks',
-        description: 'Indikator cakupan dokumen yang perlu diverifikasi berdasarkan berita acara implementasi resmi.',
+        status: 'pending',
+        title: 'Sentralisasi Dokumen',
+        description:
+          'Dokumen digital dapat dikelola dalam repository yang lebih terstruktur dengan mekanisme akses yang disesuaikan berdasarkan peran pengguna.',
         verified: false
       }
     ],
-    implementationDuration: 'Draf - perlu verifikasi',
-    productsUsed: ['Smarchlink® Archive', 'Arsitektur Integrasi & Hardening Layanan'],
-    verified: false
+    verified: false,
+    metadataTitle: 'Sentralisasi Dokumen Perusahaan — Studi Kasus Artavel'
   }
 ];
+
+export const getCaseStudyDisplayName = (caseStudy: CaseStudy) =>
+  caseStudy.publicationPermission && caseStudy.clientName
+    ? caseStudy.clientName
+    : caseStudy.anonymousName;
+
+export const getCaseStudyResultStatus = (result: CaseStudyResult): CaseStudyVerificationStatus => {
+  if (result.verified) return result.status;
+  return result.status === 'draft' ? 'draft' : 'pending';
+};

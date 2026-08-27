@@ -17,6 +17,7 @@ type TranslationKey =
   | 'nav.cta'
   | 'hero.badge.public'
   | 'hero.headline.main'
+  | 'hero.headline.blue'
   | 'hero.headline.green'
   | 'hero.description'
   | 'hero.cta.primary'
@@ -35,7 +36,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     'nav.cta': 'Konsultasi',
     'hero.badge.public': 'AI • Analytics • IoT • Security',
     'hero.headline.main': 'Solusi Digital Terintegrasi',
-    'hero.headline.green': 'untuk Bisnis & Organisasi',
+    'hero.headline.blue': 'untuk Bisnis',
+    'hero.headline.green': '& Organisasi',
     'hero.description':
       'Artavel menghadirkan solusi teknologi terintegrasi untuk pendidikan, retail, pemerintahan, dan enterprise.',
     'hero.cta.primary': 'Konsultasikan Kebutuhan',
@@ -53,7 +55,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     'nav.cta': 'Consult',
     'hero.badge.public': 'AI • Analytics • IoT • Security',
     'hero.headline.main': 'Integrated Digital Solutions',
-    'hero.headline.green': 'for Businesses & Organizations',
+    'hero.headline.blue': 'for Business',
+    'hero.headline.green': '& Organizations',
     'hero.description':
       'Artavel delivers integrated technology solutions for education, retail, government, and enterprise.',
     'hero.cta.primary': 'Discuss Your Requirements',

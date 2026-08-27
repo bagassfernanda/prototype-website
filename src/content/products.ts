@@ -308,38 +308,6 @@ export const PRODUCTS_DATA: Product[] = [
           'Satu akun untuk memantau beberapa anak, nilai, kehadiran, tugas, jadwal, tagihan, dan e-wallet.',
         imageSrc: '/products/otoschool/portal-orang-tua.png',
         imageAlt: 'Screenshot portal orang tua otoSchool dari brosur'
-      },
-      {
-        id: 'portal-guru-siswa',
-        title: 'Portal Guru & Siswa',
-        description:
-          'Aktivitas tugas dan pembelajaran digital untuk guru serta siswa sehari-hari.',
-        imageSrc: '/products/otoschool/portal-guru-siswa.png',
-        imageAlt: 'Screenshot portal guru dan siswa otoSchool dari brosur'
-      },
-      {
-        id: 'smart-exam',
-        title: 'SmartExam & Bank Soal',
-        description:
-          'Ujian online, bank soal, dan bantuan AI untuk draf soal yang tetap direview guru.',
-        imageSrc: '/products/otoschool/smart-exam-bank-soal.png',
-        imageAlt: 'Screenshot SmartExam dan bank soal otoSchool dari brosur'
-      },
-      {
-        id: 'raport-digital',
-        title: 'Raport Digital',
-        description:
-          'Raport tersusun dari data nilai, kehadiran, ekstrakurikuler, dan catatan wali kelas.',
-        imageSrc: '/products/otoschool/raport-digital.png',
-        imageAlt: 'Screenshot raport digital otoSchool dari brosur'
-      },
-      {
-        id: 'kalender-akademik',
-        title: 'Kalender Akademik',
-        description:
-          'Agenda sekolah, libur, ujian, dan kegiatan siswa ditampilkan dalam satu kalender.',
-        imageSrc: '/products/otoschool/kalender-akademik.png',
-        imageAlt: 'Screenshot kalender akademik otoSchool dari brosur'
       }
     ],
     integrations: [
@@ -548,38 +516,6 @@ export const PRODUCTS_DATA: Product[] = [
           'Absensi wajah dari satu kios cabang dengan anti-spoof, shift, review manual, dan audit trail.',
         imageSrc: '/products/otopos-fnb/karyawan-absensi.png',
         imageAlt: 'Visual modul karyawan dan absensi otoPOS F&B dari brosur'
-      },
-      {
-        id: 'loyalitas-member',
-        title: 'Loyalitas Member',
-        description:
-          'OTP pelanggan, poin otomatis, promosi, order online, dan kode klaim penukaran.',
-        imageSrc: '/products/otopos-fnb/loyalitas-member.png',
-        imageAlt: 'Visual modul loyalitas member otoPOS F&B dari brosur'
-      },
-      {
-        id: 'inventori-cerdas',
-        title: 'Inventory',
-        description:
-          'Kontrol stok per unit, bahan baku, resep, modifier, dan cabang.',
-        imageSrc: '/products/otopos-fnb/inventori-cerdas.png',
-        imageAlt: 'Visual modul inventori cerdas otoPOS F&B dari brosur'
-      },
-      {
-        id: 'keuangan-aset',
-        title: 'Keuangan & Aset',
-        description:
-          'Biaya operasional, laba-rugi, pajak terpungut, jadwal servis, dan riwayat aset.',
-        imageSrc: '/products/otopos-fnb/keuangan-aset.png',
-        imageAlt: 'Visual modul keuangan dan perawatan aset otoPOS F&B dari brosur'
-      },
-      {
-        id: 'dashboard-performa',
-        title: 'Dashboard Performa',
-        description:
-          'Korelasi omzet, jam kerja, catatan ketepatan waktu, dan performa kasir.',
-        imageSrc: '/products/otopos-fnb/dashboard-performa.png',
-        imageAlt: 'Visual dashboard performa otoPOS F&B dari brosur'
       }
     ],
     integrations: [
@@ -755,22 +691,6 @@ export const PRODUCTS_DATA: Product[] = [
           'Tampilan peta parcel dengan detail objek, status, dan atribut lokasi.',
         imageSrc: '/products/smartmap-gis-analytics/virtualmap-parcel-detail.png',
         imageAlt: 'Frame video VirtualMAP dengan detail objek pajak berbasis peta'
-      },
-      {
-        id: 'jobmap-mobile',
-        title: 'JobMAP & Penugasan Lapangan',
-        description:
-          'Materi profile menampilkan JobMAP sebagai aplikasi penugasan yang terhubung dengan konteks peta.',
-        imageSrc: '/products/smartmap-gis-analytics/jobmap-mobile.png',
-        imageAlt: 'Cuplikan JobMAP dari profile Artavel'
-      },
-      {
-        id: 'pbb-map-form',
-        title: 'PBB Online Terintegrasi Map',
-        description:
-          'Data PBB dan informasi lokasi tampil dalam satu alur layanan berbasis peta.',
-        imageSrc: '/products/smartmap-gis-analytics/pbb-map-form.png',
-        imageAlt: 'Cuplikan PBB Online terintegrasi map dari profile Artavel'
       }
     ],
     integrations: [
@@ -934,22 +854,6 @@ export const PRODUCTS_DATA: Product[] = [
           'Area pantau dapat ditandai untuk membaca aktivitas dalam zona tertentu.',
         imageSrc: '/products/ai-cctv-computer-vision/zone-monitoring.png',
         imageAlt: 'Cuplikan zone monitoring computer vision dari materi Artavel'
-      },
-      {
-        id: 'parking-monitoring',
-        title: 'Parking Zone Monitoring',
-        description:
-          'Visual parking zone monitoring untuk membaca okupansi dan kondisi area parkir.',
-        imageSrc: '/products/ai-cctv-computer-vision/parking-monitoring.png',
-        imageAlt: 'Cuplikan parking zone monitoring dari materi Artavel'
-      },
-      {
-        id: 'people-detection',
-        title: 'People Detection',
-        description:
-          'Deteksi orang pada frame kamera untuk kebutuhan monitoring lapangan.',
-        imageSrc: '/products/ai-cctv-computer-vision/people-detection.png',
-        imageAlt: 'Cuplikan people detection dari materi Artavel'
       }
     ],
     integrations: [
@@ -1132,22 +1036,6 @@ export const PRODUCTS_DATA: Product[] = [
           'Software analytics berbasis web untuk mengolah data footfall dan Wi-Fi analytics.',
         imageSrc: '/products/footfallcam/analytics-software.png',
         imageAlt: 'Cuplikan analytics software FootfallCam dari brosur'
-      },
-      {
-        id: 'analytics-metrics',
-        title: 'Visitor Analytics Metrics',
-        description:
-          'Metrik seperti visitor count, visit duration, returning customer, outside traffic, cross shopping, dan zone analytics.',
-        imageSrc: '/products/footfallcam/analytics-metrics.png',
-        imageAlt: 'Cuplikan metrik analytics FootfallCam dari brosur'
-      },
-      {
-        id: 'installation-zone',
-        title: 'Installation & Zone Detection',
-        description:
-          'Contoh coverage area, single door, multiple entrance, dan zone detection dari brosur.',
-        imageSrc: '/products/footfallcam/installation-zone.png',
-        imageAlt: 'Cuplikan instalasi dan zone detection FootfallCam dari brosur'
       }
     ],
     integrations: [

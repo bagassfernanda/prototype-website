@@ -325,31 +325,48 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, displayPath, onNavi
     return renderDropdownLeaf(child);
   };
 
-  const renderMegaMenuProduct = (child: NavLinkItem, compact = false): React.ReactNode => {
+  const renderMegaMenuProduct = (
+    child: NavLinkItem,
+    compact = false,
+    nested = false
+  ): React.ReactNode => {
     const isChildActive = isNavItemActive(child);
+    const hasNestedChildren = Boolean(child.children?.length);
 
-    return (
+    const productLink = (
       <a
         key={child.id}
         href={child.path}
         onClick={(e) => handleLinkClick(e, child.path)}
         aria-current={isChildActive ? 'page' : undefined}
-        className={`artavel-dropdown-card group relative block rounded-xl border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] ${
-          compact ? 'px-3 py-2.5' : 'px-3 py-2.5'
+        className={`group relative block transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] ${
+          nested
+            ? 'rounded-lg px-2.5 py-2'
+            : hasNestedChildren
+              ? 'rounded-lg px-3 py-2.5'
+              : 'artavel-dropdown-card rounded-xl border px-3 py-2.5'
         } ${
-          isChildActive
-            ? 'artavel-dropdown-card-active border-[#36699C]/30 bg-[#EAF2F8] shadow-sm'
-            : 'border-transparent hover:-translate-y-0.5 hover:bg-[#F2F7FB]'
+          nested
+            ? isChildActive
+              ? 'bg-[#EAF2F8] text-[#173955]'
+              : 'text-[#172536] hover:bg-[#F2F7FB] hover:text-[#36699C]'
+            : hasNestedChildren
+              ? 'text-[#172536] hover:bg-[#F2F7FB] hover:text-[#36699C]'
+              : isChildActive
+                ? 'artavel-dropdown-card-active border-[#36699C]/30 bg-[#EAF2F8] shadow-sm'
+                : 'border-transparent hover:-translate-y-0.5 hover:bg-[#F2F7FB]'
         }`}
       >
         {isChildActive && (
           <span
-            className="absolute inset-y-2.5 left-2 w-1 rounded-full bg-[#36699C]"
+            className={`absolute ${nested || hasNestedChildren ? 'inset-y-2 left-2' : 'inset-y-2.5 left-2'} w-1 rounded-full bg-[#36699C]`}
             aria-hidden="true"
           />
         )}
         <div
-          className={`text-[13px] font-semibold leading-tight transition-colors ${
+          className={`text-[13px] leading-tight transition-colors ${
+            hasNestedChildren ? 'font-bold' : 'font-semibold'
+          } ${
             isChildActive
               ? 'pl-2 text-[#173955]'
               : 'text-[#172536] group-hover:text-[#36699C]'
@@ -367,6 +384,26 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, displayPath, onNavi
           </div>
         )}
       </a>
+    );
+
+    if (!hasNestedChildren) {
+      return productLink;
+    }
+
+    return (
+      <div
+        key={child.id}
+        className={`artavel-dropdown-card relative flex min-w-0 flex-col rounded-xl border p-1.5 transition-all duration-200 ${
+          isChildActive
+            ? 'artavel-dropdown-card-active border-[#36699C]/30 bg-[#EAF2F8] shadow-sm'
+            : 'border-transparent hover:bg-[#F2F7FB]'
+        }`}
+      >
+        {productLink}
+        <div className="flex min-w-0 flex-col gap-0.5 px-1 pb-1 pl-4">
+          {child.children?.map((nestedChild) => renderMegaMenuProduct(nestedChild, compact, true))}
+        </div>
+      </div>
     );
   };
 

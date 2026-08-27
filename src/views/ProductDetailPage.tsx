@@ -70,6 +70,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ slug, onNa
   const product = localize(getProductBySlug(slug) || PRODUCTS_DATA[0]) as Product;
   const IconComponent = getProductIcon(product.iconName);
   const hasDemoUrl = Boolean(product.demoUrl);
+  const visibleShowcase = product.showcase.slice(0, 2);
   const showcaseTitle =
     product.id === 'otoschool'
       ? 'Lihat otoSchool Secara Langsung'
@@ -86,17 +87,17 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ slug, onNa
                 : 'Lihat Produk Secara Langsung';
   const showcaseDescription =
     product.id === 'otoschool'
-      ? 'Bukan sekadar konsep. Lihat bagaimana otoSchool digunakan dalam aktivitas sekolah sehari-hari.'
+      ? 'Lihat contoh tampilan utama dan satu tampilan pendukung otoSchool tanpa mengekspos seluruh antarmuka aplikasi.'
       : product.id === 'otopos-fnb'
-        ? 'Lihat bagaimana modul utama otoPOS F&B menjawab kebutuhan kasir, workforce, inventory, keuangan, aset, dan performa.'
+        ? 'Lihat contoh tampilan utama dan satu tampilan pendukung otoPOS F&B.'
         : product.id === 'smartmap-gis-analytics'
-          ? 'Cuplikan dari materi Artavel menunjukkan VirtualMAP, JobMAP, PBB berbasis map, dan detail objek berbasis lokasi.'
+          ? 'Lihat contoh tampilan utama dan satu tampilan pendukung SmartMap & GIS Analytics.'
           : product.id === 'ai-cctv-computer-vision'
-            ? 'Cuplikan dari materi Artavel menunjukkan people counting, zone monitoring, parking monitoring, dan people detection.'
+            ? 'Lihat contoh tampilan utama dan satu tampilan pendukung AI CCTV & Computer Vision.'
             : product.id === 'footfallcam'
-              ? 'Cuplikan brosur menampilkan perangkat counter, analytics software, metrik visitor analytics, dan instalasi.'
+              ? 'Lihat contoh tampilan utama dan satu tampilan pendukung FootfallCam.'
               : product.id === 'opentext-cybersecurity'
-                ? 'Cuplikan materi Artavel menampilkan OpenText sebagai partner technology untuk endpoint security.'
+                ? 'Lihat satu cuplikan materi OpenText sebagai partner technology untuk endpoint security.'
                 : 'Tinjau tampilan dan kapabilitas produk yang relevan untuk kebutuhan organisasi Anda.';
 
   return (
@@ -394,42 +395,47 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ slug, onNa
         </Container>
       </Section>
 
-      <Section bg="white" padding="normal" id="showcase-produk">
-        <Container>
-          <ScrollReveal className="text-center max-w-3xl mx-auto mb-12" direction="scale">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#172536] font-heading leading-tight">
-              {text(showcaseTitle)}
-            </h2>
-            <p className="mt-4 text-base sm:text-lg text-[#5C6B79]">
-              {text(showcaseDescription)}
-            </p>
-          </ScrollReveal>
+      {visibleShowcase.length > 0 && (
+        <Section bg="white" padding="normal" id="showcase-produk">
+          <Container>
+            <ScrollReveal className="text-center max-w-3xl mx-auto mb-12" direction="scale">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#172536] font-heading leading-tight">
+                {text(showcaseTitle)}
+              </h2>
+              <p className="mt-4 text-base sm:text-lg text-[#5C6B79]">
+                {text(showcaseDescription)}
+              </p>
+              <p className="mt-3 text-xs font-medium text-[#5C6B79]">
+                {text('Tampilan yang ditampilkan dibatasi pada cuplikan utama dan satu tampilan pendukung untuk menjaga privasi informasi aplikasi.')}
+              </p>
+            </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {product.showcase.map((item, index) => (
-              <Card key={item.id} padding="none" revealDelay={index * 80} className="overflow-hidden">
-                <div className="relative aspect-[16/10] w-full bg-[#F7F9FB]">
-                  <Image
-                    src={item.imageSrc}
-                    alt={item.imageAlt}
-                    fill
-                    sizes="(min-width: 1024px) 45vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-contain"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-bold text-[#172536] font-heading mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-[#5C6B79] leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </Container>
-      </Section>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {visibleShowcase.map((item, index) => (
+                <Card key={item.id} padding="none" revealDelay={index * 80} className="overflow-hidden">
+                  <div className="relative aspect-[16/10] w-full bg-[#F7F9FB]">
+                    <Image
+                      src={item.imageSrc}
+                      alt={item.imageAlt}
+                      fill
+                      sizes="(min-width: 1024px) 45vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-contain"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-lg font-bold text-[#172536] font-heading mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-[#5C6B79] leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </Container>
+        </Section>
+      )}
 
       <Section bg="surface" padding="normal">
         <Container>

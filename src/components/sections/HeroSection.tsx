@@ -55,32 +55,34 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
       style={{ backgroundImage: `url(${HERO_POSTER})` }}
     >
       <div
-        className="relative z-0 h-[clamp(18rem,52svh,30rem)] bg-[#071927] sm:h-[clamp(20rem,56svh,32rem)] md:h-[clamp(24rem,58svh,38rem)] lg:absolute lg:inset-0 lg:h-auto"
+        className="relative z-0 h-[clamp(18rem,52svh,30rem)] overflow-hidden bg-[#071927] sm:h-[clamp(20rem,56svh,32rem)] md:h-[clamp(24rem,58svh,38rem)] lg:absolute lg:inset-0 lg:h-auto"
         aria-hidden="true"
       >
-        <video
-          ref={videoRef}
-          autoPlay={videoAutoplay}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster={HERO_POSTER}
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover object-[42%_center] md:object-[42%_center] lg:object-[44%_center]"
-        >
-          <source src={HERO_VIDEO} type="video/mp4" />
-        </video>
+        <div className="absolute inset-0 translate-y-10 overflow-hidden lg:translate-y-0">
+          <video
+            ref={videoRef}
+            autoPlay={videoAutoplay}
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster={HERO_POSTER}
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover object-[50%_center] lg:object-[44%_center]"
+          >
+            <source src={HERO_VIDEO} type="video/mp4" />
+          </video>
 
-        <div
-          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,18,31,0.08)_0%,rgba(5,18,31,0.42)_100%)] lg:bg-[linear-gradient(90deg,rgba(5,18,31,0.84)_0%,rgba(8,32,49,0.62)_48%,rgba(7,25,39,0.28)_100%)]"
-          aria-hidden="true"
-        />
-        <div
-          className="absolute inset-0 bg-[linear-gradient(135deg,rgba(5,18,31,0.12),rgba(54,105,156,0.04)_48%,rgba(125,188,94,0.08))] lg:bg-[linear-gradient(135deg,rgba(5,18,31,0.30),rgba(54,105,156,0.08)_48%,rgba(125,188,94,0.10))]"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#071927]/70 to-transparent lg:h-36 lg:from-[#071927]/90" aria-hidden="true" />
+          <div
+            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,18,31,0.08)_0%,rgba(5,18,31,0.42)_100%)] lg:bg-[linear-gradient(90deg,rgba(5,18,31,0.84)_0%,rgba(8,32,49,0.62)_48%,rgba(7,25,39,0.28)_100%)]"
+            aria-hidden="true"
+          />
+          <div
+            className="absolute inset-0 bg-[linear-gradient(135deg,rgba(5,18,31,0.12),rgba(54,105,156,0.04)_48%,rgba(125,188,94,0.08))] lg:bg-[linear-gradient(135deg,rgba(5,18,31,0.30),rgba(54,105,156,0.08)_48%,rgba(125,188,94,0.10))]"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#071927]/70 to-transparent lg:h-36 lg:from-[#071927]/90" aria-hidden="true" />
+        </div>
       </div>
 
       <motion.div
@@ -101,8 +103,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
             className="artavel-text-balance max-w-[34rem] text-4xl font-extrabold leading-[1.06] tracking-normal sm:text-5xl md:text-6xl lg:max-w-[36rem] lg:text-5xl xl:text-6xl 2xl:text-7xl"
           >
             <span className="block font-heading text-white">{t('hero.headline.main')}</span>
-            <span className="block font-heading font-black tracking-normal text-[#8FD871] drop-shadow-[0_8px_24px_rgba(125,188,94,0.20)]">
-              {t('hero.headline.green')}
+            <span className="block font-heading font-black tracking-normal">
+              <span className="text-[#8BC4FF] drop-shadow-[0_8px_24px_rgba(139,196,255,0.18)]">
+                {t('hero.headline.blue')}
+              </span>{' '}
+              <span className="text-[#A8E08F] drop-shadow-[0_8px_24px_rgba(168,224,143,0.18)]">
+                {t('hero.headline.green')}
+              </span>
             </span>
           </h1>
 

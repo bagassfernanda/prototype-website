@@ -30,13 +30,9 @@ export const generateMetadata = async ({ params }: CaseStudyRouteProps) => {
     });
   }
 
-  const displayName = caseStudy.publicationPermission
-    ? caseStudy.clientName
-    : caseStudy.anonymousClientLabel;
-
   return createPageMetadata({
-    title: `${translateTextValue(displayName, locale)} - ${translateTextValue('Studi Kasus PT Artavel', locale)}`,
-    description: translateTextValue(caseStudy.challenge, locale),
+    title: translateTextValue(caseStudy.metadataTitle, locale),
+    description: translateTextValue(caseStudy.shortDescription, locale),
     path: `/studi-kasus/${caseStudy.slug}`,
     locale
   });

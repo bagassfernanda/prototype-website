@@ -144,34 +144,34 @@ export interface Sector {
   expectedImpacts: string[];
 }
 
-export interface CaseStudyMetric {
-  value: string;
-  unit: string;
+export type CaseStudyVerificationStatus = 'verified' | 'pending' | 'draft';
+
+export interface CaseStudyResult {
+  status: CaseStudyVerificationStatus;
+  value?: string;
+  title: string;
   description: string;
-  verified: boolean;
   source?: string;
+  verified: boolean;
 }
 
 export interface CaseStudy {
-  id: string;
   slug: string;
-  clientName: string;
-  anonymousClientLabel: string;
-  publicationPermission: boolean; // if false, use anonymousClientLabel
+  title: string;
+  clientName?: string;
+  anonymousName: string;
   sector: string;
   region: string;
+  shortDescription: string;
   challenge: string;
-  solutionProvided: string;
-  results: CaseStudyMetric[];
-  implementationDuration: string;
-  productsUsed: string[];
-  testimonial?: {
-    quote: string;
-    authorName: string;
-    authorRole: string;
-    verified: boolean;
-  };
+  needs: string[];
+  solution: string;
+  products: string[];
+  approach?: string[];
+  results: CaseStudyResult[];
+  publicationPermission: boolean;
   verified: boolean;
+  metadataTitle: string;
 }
 
 export interface InsightArticle {

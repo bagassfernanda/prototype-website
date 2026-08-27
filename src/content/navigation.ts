@@ -67,8 +67,10 @@ export const MAIN_NAVIGATION: NavLinkItem[] = [
         isGroup: true,
         children: [
           createProductNavItem('smartmap-gis-analytics'),
-          createProductNavItem('ai-cctv-computer-vision'),
-          createProductNavItem('footfallcam')
+          {
+            ...createProductNavItem('ai-cctv-computer-vision'),
+            children: [createProductNavItem('footfallcam')]
+          }
         ]
       },
       {

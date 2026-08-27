@@ -193,10 +193,14 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
     </div>
   );
 
-  const renderMobileSubmenuItem = (child: NavLinkItem, depth = 0): React.ReactNode => {
+  const renderMobileSubmenuItem = (
+    child: NavLinkItem,
+    depth = 0,
+    nested = false
+  ): React.ReactNode => {
     const hasNestedChildren = child.children && child.children.length > 0;
 
-    if (hasNestedChildren) {
+    if (hasNestedChildren && child.isGroup) {
       return (
         <div key={child.id} className="flex flex-col gap-1">
           <div
@@ -217,7 +221,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
     const isAllProductsLink = child.id === 'nav-produk-semua';
     const shouldShowMeta = Boolean(child.meta && (!child.id.startsWith('nav-produk-') || isAllProductsLink));
 
-    return (
+    const link = (
       <a
         key={child.id}
         href={child.path}
@@ -226,12 +230,24 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
           handleLinkClick(child.path);
         }}
         aria-current={isChildActive ? 'page' : undefined}
-        className={`relative rounded-lg border px-3 py-2 text-sm font-medium transition-all duration-200 ${
-          isAllProductsLink
-            ? `artavel-mobile-submenu-all-products border-[#36699C]/25 bg-[#EAF2F8] text-[#173955] shadow-sm ${isChildActive ? 'artavel-dropdown-card-active' : ''}`
-            : isChildActive
-            ? 'artavel-dropdown-card-active border-[#36699C]/25 bg-white text-[#173955] shadow-sm'
-            : 'border-transparent text-[#5C6B79] hover:bg-white hover:text-[#172536]'
+        className={`relative block text-sm font-medium transition-all duration-200 ${
+          nested
+            ? 'rounded-md px-2.5 py-2'
+            : hasNestedChildren
+              ? 'rounded-md px-3 py-2'
+              : 'rounded-lg border px-3 py-2'
+        } ${
+          nested
+            ? isChildActive
+              ? 'bg-[#EAF2F8] text-[#173955]'
+              : 'text-[#5C6B79] hover:bg-white hover:text-[#172536]'
+            : hasNestedChildren
+              ? 'text-[#172536] hover:bg-white hover:text-[#244F78]'
+              : isAllProductsLink
+                ? `artavel-mobile-submenu-all-products border-[#36699C]/25 bg-[#EAF2F8] text-[#173955] shadow-sm ${isChildActive ? 'artavel-dropdown-card-active' : ''}`
+                : isChildActive
+                  ? 'artavel-dropdown-card-active border-[#36699C]/25 bg-white text-[#173955] shadow-sm'
+                  : 'border-transparent text-[#5C6B79] hover:bg-white hover:text-[#172536]'
         }`}
       >
         {isChildActive && (
@@ -263,6 +279,26 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
         )}
       </a>
     );
+
+    if (hasNestedChildren) {
+      return (
+        <div
+          key={child.id}
+          className={`flex min-w-0 flex-col rounded-lg border p-1 transition-all duration-200 ${
+            isChildActive
+              ? 'artavel-dropdown-card-active border-[#36699C]/25 bg-white shadow-sm'
+              : 'border-[#DBE4EB]/70 bg-[#F7F9FB]'
+          }`}
+        >
+          {link}
+          <div className="flex min-w-0 flex-col gap-0.5 px-1 pb-1 pl-3">
+            {child.children?.map((nestedChild) => renderMobileSubmenuItem(nestedChild, depth + 1, true))}
+          </div>
+        </div>
+      );
+    }
+
+    return link;
   };
 
   return (
