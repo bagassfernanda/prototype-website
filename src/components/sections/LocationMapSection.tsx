@@ -35,7 +35,7 @@ export const LocationMapSection: React.FC = () => {
                 {text('Lokasi Kantor Artavel')}
               </p>
               <h2 className="mt-3 font-heading text-3xl font-black leading-tight text-[#172536] sm:text-4xl">
-                {text('Kantor resmi PT Artavel')}
+                {text('KANTOR ARTAVEL')}
               </h2>
               <p className="mt-4 text-base leading-relaxed text-[#5C6B79]">
                 {text('Gunakan peta ini untuk melihat posisi kantor Artavel dan membuka navigasi langsung dari perangkat Anda.')}

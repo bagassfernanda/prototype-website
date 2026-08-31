@@ -476,7 +476,7 @@ export const EN_TEXT: Record<string, string> = {
   'Jam layanan resmi Artavel adalah Senin sampai Jumat, pukul 08.00 sampai 16.00 WIB. Permintaan melalui formulir akan ditinjau oleh tim pada jam kerja.': 'Artavel official service hours are Monday to Friday, 08:00 to 16:00 WIB. Requests submitted through the form are reviewed during business hours.',
 
   'Lokasi Kantor Artavel': 'Artavel Office Location',
-  'Kantor resmi PT Artavel': 'PT Artavel Official Office',
+  'KANTOR ARTAVEL': 'ARTAVEL OFFICE',
   'Gunakan peta ini untuk melihat posisi kantor Artavel dan membuka navigasi langsung dari perangkat Anda.': 'Use this map to view Artavel office location and open navigation directly from your device.',
   'Alamat': 'Address',
   'Jam Buka': 'Opening Hours',
