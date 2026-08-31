@@ -37,12 +37,16 @@ const SiteShellContent: React.FC<{ children: React.ReactNode }> = ({ children })
       const targetInternalPath = getInternalPathname(targetPath);
       const targetDisplayPath = normalizeDisplayPath(targetPath);
       const currentDisplayPath = normalizeDisplayPath(displayPathname);
+      const currentLocale = getLocaleFromPathname(displayPathname) ?? language;
+      const targetLocale = getLocaleFromPathname(targetPath);
+      const isLocaleSwitch =
+        targetInternalPath === pathname && targetLocale !== null && targetLocale !== currentLocale;
 
       if (targetInternalPath === pathname && targetDisplayPath === currentDisplayPath) {
         scrollToPageTop();
         return;
       }
-      router.push(targetPath);
+      router.push(targetPath, { scroll: !isLocaleSwitch });
     },
     [displayPathname, language, pathname, router, scrollToPageTop]
   );
