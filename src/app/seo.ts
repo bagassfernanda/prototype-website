@@ -1,10 +1,7 @@
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
 import { translateTextValue } from '../content/i18nText';
 import {
   DEFAULT_LOCALE,
-  LOCALE_REQUEST_HEADER,
-  isLocale,
   toLocalizedPath,
   type Locale
 } from '../utils/i18nRouting';
@@ -56,15 +53,10 @@ export const createPageMetadata = ({
   };
 };
 
-export const getRequestLocale = async (): Promise<Locale> => {
-  const requestHeaders = await headers();
-  const requestLocale = requestHeaders.get(LOCALE_REQUEST_HEADER);
-  return isLocale(requestLocale) ? requestLocale : DEFAULT_LOCALE;
-};
-
-export const createLocalizedPageMetadata = async (input: Omit<PageMetadataInput, 'locale'>) => {
-  const locale = await getRequestLocale();
-
+export const createLocalizedPageMetadata = (
+  input: Omit<PageMetadataInput, 'locale'>,
+  locale: Locale = DEFAULT_LOCALE
+) => {
   return createPageMetadata({
     ...input,
     title: translateTextValue(input.title, locale),

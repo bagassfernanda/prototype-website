@@ -2,36 +2,15 @@ import { notFound } from 'next/navigation';
 import { SectorDetailClient } from '../../_client-pages/SectorDetailClient';
 import { SECTORS_DATA } from '../../../content/sectors';
 import { translateTextValue } from '../../../content/i18nText';
-import { createPageMetadata, getRequestLocale } from '../../seo';
+import { createPageMetadata } from '../../seo';
+import { DEFAULT_LOCALE } from '../../../utils/i18nRouting';
+import { resolveSectorSlug, SECTOR_SLUG_ALIASES } from '../../../utils/routeAliases';
 
 interface SectorRouteProps {
   params: Promise<{
     slug: string;
   }>;
 }
-
-const SECTOR_SLUG_ALIASES: Record<string, string> = {
-  pemerintahan: 'pemerintah-layanan-publik',
-  'pemerintah-daerah': 'pemerintah-layanan-publik',
-  'instansi-publik': 'pemerintah-layanan-publik',
-  pemerintah: 'pemerintah-layanan-publik',
-  'layanan-publik': 'pemerintah-layanan-publik',
-  'layanan-public': 'pemerintah-layanan-publik',
-  'layanan-terpadu': 'pemerintah-layanan-publik',
-  'pusat-layanan': 'pemerintah-layanan-publik',
-  mpp: 'pemerintah-layanan-publik',
-  organisasi: 'enterprise-organisasi',
-  perusahaan: 'enterprise-organisasi',
-  'organisasi-dan-perusahaan': 'enterprise-organisasi',
-  'organisasi-perusahaan': 'enterprise-organisasi',
-  bumd: 'enterprise-organisasi',
-  enterprise: 'enterprise-organisasi',
-  'enterprise-organizations': 'enterprise-organisasi',
-  education: 'pendidikan',
-  retail: 'retail-fnb'
-};
-
-const resolveSectorSlug = (slug: string) => SECTOR_SLUG_ALIASES[slug] ?? slug;
 
 export const generateStaticParams = () => {
   return [
@@ -44,9 +23,11 @@ export const generateStaticParams = () => {
   ];
 };
 
+export const dynamicParams = false;
+
 export const generateMetadata = async ({ params }: SectorRouteProps) => {
   const { slug } = await params;
-  const locale = await getRequestLocale();
+  const locale = DEFAULT_LOCALE;
   const resolvedSlug = resolveSectorSlug(slug);
   const sector = SECTORS_DATA.find((item) => item.slug === resolvedSlug);
 

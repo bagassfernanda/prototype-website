@@ -1,9 +1,10 @@
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { ProductDetailClient } from '../../_client-pages/ProductDetailClient';
 import { getProductBySlug, PRODUCTS_DATA } from '../../../content/products';
 import { translateTextValue } from '../../../content/i18nText';
-import { toLocalizedPath } from '../../../utils/i18nRouting';
-import { createPageMetadata, getRequestLocale } from '../../seo';
+import { DEFAULT_LOCALE, toLocalizedPath } from '../../../utils/i18nRouting';
+import { ClientRedirect } from '../../../components/layout/ClientRedirect';
+import { createPageMetadata } from '../../seo';
 
 interface ProductRouteProps {
   params: Promise<{
@@ -16,9 +17,11 @@ export const generateStaticParams = () =>
     slug: product.slug
   }));
 
+export const dynamicParams = false;
+
 export const generateMetadata = async ({ params }: ProductRouteProps) => {
   const { slug } = await params;
-  const locale = await getRequestLocale();
+  const locale = DEFAULT_LOCALE;
   const product = getProductBySlug(slug);
 
   if (!product) {
@@ -40,7 +43,6 @@ export const generateMetadata = async ({ params }: ProductRouteProps) => {
 
 export default async function ProductDetail({ params }: ProductRouteProps) {
   const { slug } = await params;
-  const locale = await getRequestLocale();
   const product = getProductBySlug(slug);
 
   if (!product) {
@@ -48,7 +50,7 @@ export default async function ProductDetail({ params }: ProductRouteProps) {
   }
 
   if (product.redirectPath) {
-    redirect(toLocalizedPath(product.redirectPath, locale));
+    return <ClientRedirect href={toLocalizedPath(product.redirectPath, DEFAULT_LOCALE)} />;
   }
 
   return <ProductDetailClient slug={slug} />;

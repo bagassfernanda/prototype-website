@@ -86,7 +86,18 @@ const normalizeDisplayPath = (path: string) => {
 };
 
 export const SiteShell: React.FC<SiteShellProps> = ({ children, initialLanguage }) => (
-  <LanguageProvider initialLanguage={initialLanguage}>
-    <SiteShellContent>{children}</SiteShellContent>
-  </LanguageProvider>
+  <SiteShellLocale initialLanguage={initialLanguage}>
+    {children}
+  </SiteShellLocale>
 );
+
+const SiteShellLocale: React.FC<SiteShellProps> = ({ children, initialLanguage }) => {
+  const pathname = usePathname() || '/';
+  const pathLocale = getLocaleFromPathname(pathname);
+
+  return (
+    <LanguageProvider initialLanguage={pathLocale ?? initialLanguage}>
+      <SiteShellContent>{children}</SiteShellContent>
+    </LanguageProvider>
+  );
+};

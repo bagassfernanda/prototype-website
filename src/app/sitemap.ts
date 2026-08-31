@@ -6,6 +6,8 @@ import { SECTORS_DATA } from '../content/sectors';
 import { SOLUTIONS_DATA } from '../content/solutions';
 import { toLocalizedPath, type Locale } from '../utils/i18nRouting';
 
+export const dynamic = 'force-static';
+
 const SITE_URL = 'https://artavel.co.id';
 const LAST_MODIFIED = new Date('2026-08-21');
 

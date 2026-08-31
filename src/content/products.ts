@@ -81,7 +81,6 @@ export const PRODUCTS_DATA: Product[] = [
     technologyTags: ['AI', 'Analytics', 'Education'],
     statusLabel: 'Siap Demo',
     detailPath: '/produk/otoschool',
-    brochureHref: '/brochures/otoschool.pdf',
     demoUrl: OTOSCHOOL_DEMO_URL,
     demoConfigKey: 'OTOSCHOOL_DEMO_URL',
     targetUsers: [
@@ -374,7 +373,6 @@ export const PRODUCTS_DATA: Product[] = [
     technologyTags: ['Analytics', 'Retail', 'Smart Workforce'],
     statusLabel: 'Siap Demo',
     detailPath: '/produk/otopos-fnb',
-    brochureHref: '/brochures/otopos-fnb.pdf',
     demoUrl: OTOPOS_DEMO_URL,
     demoConfigKey: 'OTOPOS_DEMO_URL',
     targetUsers: [
@@ -582,7 +580,6 @@ export const PRODUCTS_DATA: Product[] = [
     ownership: 'artavel-solution',
     technologyTags: ['GIS', 'Analytics', 'SmartMap'],
     detailPath: '/produk/smartmap-gis-analytics',
-    brochureHref: '/brochures/artavel-it-profile.pdf',
     targetUsers: [
       'Bapenda atau badan pajak daerah',
       'Dinas teknis yang membutuhkan data spasial',
@@ -751,7 +748,6 @@ export const PRODUCTS_DATA: Product[] = [
     ownership: 'artavel-solution',
     technologyTags: ['AI', 'Computer Vision', 'IoT'],
     detailPath: '/produk/ai-cctv-computer-vision',
-    brochureHref: '/brochures/artavel-it-profile.pdf',
     targetUsers: [
       'Pengelola gedung dan fasilitas publik',
       'Retail, mall, dan pusat keramaian',
@@ -914,7 +910,6 @@ export const PRODUCTS_DATA: Product[] = [
     ownership: 'partner-technology',
     technologyTags: ['Analytics', 'IoT', 'Computer Vision'],
     detailPath: '/produk/footfallcam',
-    brochureHref: '/brochures/footfallcam.pdf',
     targetUsers: [
       'Retail chains',
       'Shopping malls',
@@ -1096,7 +1091,6 @@ export const PRODUCTS_DATA: Product[] = [
     ownership: 'partner-technology',
     technologyTags: ['Security', 'EDR', 'Awareness Training'],
     detailPath: '/produk/opentext-cybersecurity',
-    brochureHref: '/brochures/artavel-it-profile.pdf',
     targetUsers: [
       'Organisasi dengan banyak endpoint dan pengguna',
       'Tim IT dan security',
@@ -1321,7 +1315,6 @@ export const PRODUCTS_DATA: Product[] = [
     ownership: 'artavel-product',
     technologyTags: ['Digital Government', 'Workflow'],
     detailPath: '/produk/tnde',
-    brochureHref: '/brochures/tnde-jatim.pdf',
     redirectPath: '/solusi/tata-naskah-dinas-elektronik#simulasi-alur',
     targetUsers: [],
     challenges: [],
@@ -1355,7 +1348,6 @@ export const PRODUCTS_DATA: Product[] = [
     ownership: 'artavel-product',
     technologyTags: ['Digital Government', 'Analytics'],
     detailPath: '/produk/sianter',
-    brochureHref: '/brochures/sianter.pdf',
     redirectPath: '/solusi/sistem-antrean-dan-tracking',
     targetUsers: [],
     challenges: [],

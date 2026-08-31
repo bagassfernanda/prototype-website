@@ -1,40 +1,61 @@
 # DEPLOYMENT.md — Panduan Deployment PT Artavel Website
 
-## 1. Lingkungan Runtime & Server Requirements
-- **Node.js**: versi >= 18.0.0 (LTS direkomendasikan v20+).
-- **Port Ingress**: Port 3000 (0.0.0.0).
-- **Environment Production**: Container Cloud Run / Docker Container / Nginx Reverse Proxy.
+## 1. Lingkungan Runtime
 
-## 2. Langkah Build & Jalankan Production
+Development membutuhkan Node.js `>=20.11.0` sesuai `package.json`. Production menggunakan hasil static export dan tidak membutuhkan Node.js, npm, `next start`, PM2, atau server aplikasi.
+
+## 2. Build Static Production
+
 ```bash
-# 1. Install seluruh dependensi
 npm install
-
-# 2. Jalankan pemeriksaan tipe data dan linter
 npm run typecheck
 npm run lint
-
-# 3. Jalankan pengujian otomatis
 npm run test
-
-# 4. Buat bundel produksi
 npm run build
-
-# 5. Jalankan server pratinjau produksi
-npm run preview
 ```
 
-## 3. Security Headers Configuration (Nginx / Express Proxy)
-Aplikasi dikonfigurasi dengan header keamanan tingkat lanjut:
-```http
-Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'self';
-X-Content-Type-Options: nosniff
-X-Frame-Options: SAMEORIGIN
-Referrer-Policy: strict-origin-when-cross-origin
-Permissions-Policy: camera=(), microphone=(), geolocation=()
-Strict-Transport-Security: max-age=31536000; includeSubDomains
+Upload **isi directory `out/`** ke document root hosting static.
+
+`npm run preview` dan `npm start` tetap tersedia hanya untuk preview lokal dengan Next.js. Keduanya bukan bagian dari deployment production static.
+
+## 3. Apache / cPanel
+
+Upload isi `out/` ke `public_html` atau document root. Karena `trailingSlash: true`, halaman tersedia sebagai directory dengan `index.html` dan Apache dapat melayani URL nested tanpa rewrite Node.js.
+
+Header keamanan berikut dapat diterapkan di konfigurasi hosting jika modul `mod_headers` tersedia:
+
+```apache
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
 ```
 
-## 4. Troubleshooting
-- **Build Gagal karena TypeScript Error**: Pastikan seluruh tipe data pada `src/types/` telah didefinisikan secara eksplisit.
-- **Port Busy Error**: Pastikan tidak ada proses Node lain yang berjalan pada Port 3000.
+## 4. Nginx
+
+Contoh konfigurasi static:
+
+```nginx
+server {
+    listen 80;
+    server_name artavel.co.id;
+    root /var/www/artavel;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+    }
+}
+```
+
+## 5. Troubleshooting
+
+- **Build gagal karena TypeScript**: jalankan `npm run typecheck` dan periksa tipe di `src/types/`.
+- **Route 404 setelah upload**: pastikan yang di-upload adalah seluruh isi `out/`, termasuk folder `_next`, file `.txt` payload Next.js, serta folder route.
+- **Form kontak**: form membuka draft email/WhatsApp melalui browser; tidak ada endpoint API internal yang perlu dijalankan.

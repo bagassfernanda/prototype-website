@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import React from 'react';
 import Script from 'next/script';
-import { headers } from 'next/headers';
 import { SiteShell } from '../components/layout/SiteShell';
 import { siteMetadataBase } from './seo';
-import { DEFAULT_LOCALE, LOCALE_REQUEST_HEADER, isLocale } from '../utils/i18nRouting';
+import { DEFAULT_LOCALE } from '../utils/i18nRouting';
 import '../index.css';
 
 export const metadata: Metadata = {
@@ -30,13 +29,9 @@ export const metadata: Metadata = {
   }
 };
 
-export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const requestHeaders = await headers();
-  const requestLocale = requestHeaders.get(LOCALE_REQUEST_HEADER);
-  const initialLanguage = isLocale(requestLocale) ? requestLocale : DEFAULT_LOCALE;
-
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang={initialLanguage} data-scroll-behavior="smooth" data-theme="light" data-theme-mode="auto" suppressHydrationWarning>
+    <html lang={DEFAULT_LOCALE} data-scroll-behavior="smooth" data-theme="light" data-theme-mode="auto" suppressHydrationWarning>
       <head>
         <Script
           id="artavel-theme-init"
@@ -45,6 +40,10 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             __html: `
               (function () {
                 try {
+                  var pathLocale = window.location.pathname.split('/').filter(Boolean)[0];
+                  if (pathLocale === 'id' || pathLocale === 'en') {
+                    document.documentElement.lang = pathLocale;
+                  }
                   var mode = window.localStorage.getItem('artavel-theme-mode') || 'auto';
                   if (mode !== 'auto' && mode !== 'light' && mode !== 'dark') mode = 'auto';
                   var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -65,7 +64,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         />
       </head>
       <body>
-        <SiteShell initialLanguage={initialLanguage}>{children}</SiteShell>
+        <SiteShell initialLanguage={DEFAULT_LOCALE}>{children}</SiteShell>
       </body>
     </html>
   );

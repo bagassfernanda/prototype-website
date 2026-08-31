@@ -111,7 +111,6 @@ export interface Product {
   technologyTags: string[];
   statusLabel?: string;
   detailPath: string;
-  brochureHref?: string;
   demoUrl?: string;
   demoConfigKey?: string;
   targetUsers: string[];

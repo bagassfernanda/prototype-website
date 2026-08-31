@@ -30,7 +30,7 @@ export const COMPANY_PROFILE = {
     label: 'Alamat resmi PT Artavel'
   },
   contact: {
-    email: 'cs@artavel.co.id',
+    email: 'admin@artavel.co.id',
     phone: '+6231 7533334',
     whatsapp: '+6231 7533334',
     website: 'artavel.co.id',

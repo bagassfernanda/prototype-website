@@ -1,5 +1,6 @@
-import { redirect } from 'next/navigation';
+import { ClientRedirect } from '../../components/layout/ClientRedirect';
+import { toLocalizedPath } from '../../utils/i18nRouting';
 
 export default function LegacyTermsPath() {
-  redirect('/syarat-ketentuan');
+  return <ClientRedirect href={toLocalizedPath('/syarat-ketentuan', 'id')} />;
 }

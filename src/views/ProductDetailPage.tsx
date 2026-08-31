@@ -4,7 +4,6 @@ import {
   ArrowRight,
   Camera,
   CheckCircle2,
-  Download,
   ExternalLink,
   FileCheck2,
   FolderKanban,
@@ -55,9 +54,6 @@ const getProductIcon = (iconName: string): LucideIcon => {
 
 const primaryAnchorClass =
   'artavel-button artavel-button-primary inline-flex min-h-[44px] items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-[#36699C] px-7 py-3.5 text-lg font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#244F78] hover:shadow active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] focus-visible:ring-offset-2';
-
-const outlineAnchorClass =
-  'artavel-button artavel-button-outline inline-flex min-h-[44px] items-center justify-center gap-2 whitespace-nowrap rounded-lg border-2 border-[#36699C] bg-transparent px-7 py-3.5 text-lg font-semibold text-[#36699C] transition-all duration-200 hover:bg-[#36699C] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#36699C] focus-visible:ring-offset-2';
 
 const ownershipLabelMap: Record<Product['ownership'], string> = {
   'artavel-product': 'Artavel Product',
@@ -203,20 +199,6 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ slug, onNa
                   </Button>
                 )}
 
-                {product.brochureHref && (
-                  <a
-                    href={product.brochureHref}
-                    download
-                    className={outlineAnchorClass}
-                  >
-                    <Download className="w-5 h-5" aria-hidden="true" />
-                    <span>
-                      {language === 'en'
-                        ? `Download ${product.name} Brochure`
-                        : `Unduh Brosur ${product.name}`}
-                    </span>
-                  </a>
-                )}
               </div>
 
               {!hasDemoUrl && product.demoConfigKey && (

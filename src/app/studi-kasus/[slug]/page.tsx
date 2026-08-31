@@ -2,7 +2,8 @@ import { notFound } from 'next/navigation';
 import { CaseStudyDetailClient } from '../../_client-pages/CaseStudyDetailClient';
 import { CASE_STUDIES_DATA } from '../../../content/caseStudies';
 import { translateTextValue } from '../../../content/i18nText';
-import { createPageMetadata, getRequestLocale } from '../../seo';
+import { createPageMetadata } from '../../seo';
+import { DEFAULT_LOCALE } from '../../../utils/i18nRouting';
 
 interface CaseStudyRouteProps {
   params: Promise<{
@@ -16,9 +17,11 @@ export const generateStaticParams = () => {
   }));
 };
 
+export const dynamicParams = false;
+
 export const generateMetadata = async ({ params }: CaseStudyRouteProps) => {
   const { slug } = await params;
-  const locale = await getRequestLocale();
+  const locale = DEFAULT_LOCALE;
   const caseStudy = CASE_STUDIES_DATA.find((item) => item.slug === slug);
 
   if (!caseStudy) {

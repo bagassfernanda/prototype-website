@@ -29,6 +29,23 @@ npm run dev
 # Website berjalan pada http://localhost:3000
 ```
 
+## 🚀 Production Static Deployment
+
+Website production dibuat sebagai pure static export. Node.js hanya diperlukan di komputer developer untuk instalasi dependensi, development, dan proses build.
+
+```bash
+# Install dependensi dan jalankan development
+npm install
+npm run dev
+
+# Buat static export production
+npm run build
+```
+
+Hasil build berada di directory `out/`. Upload seluruh isi `out/` ke document root Apache/cPanel, Nginx, atau static hosting. Node.js **TIDAK diperlukan** di server production; jangan gunakan `npm start`, `next start`, atau PM2 untuk deployment static.
+
+Detail audit, daftar route, hasil smoke test, dan instruksi deployment tersedia di [`STATIC_DEPLOYMENT_AUDIT.md`](./STATIC_DEPLOYMENT_AUDIT.md).
+
 ---
 
 ## 🧪 Perintah Pengujian & Quality Assurance
@@ -56,5 +73,6 @@ npm run build
 - [`CONTENT_VERIFICATION.md`](./CONTENT_VERIFICATION.md) — Daftar poin konfirmasi konten untuk manajemen Artavel.
 - [`BRAND_GUIDE.md`](./BRAND_GUIDE.md) — Panduan sistem desain, warna, dan tipografi.
 - [`SEO_GUIDE.md`](./SEO_GUIDE.md) — Strategi SEO, Meta Tag, dan Structured Data Schema.
-- [`DEPLOYMENT.md`](./DEPLOYMENT.md) — Konfigurasi server, security headers, dan CI/CD.
+- [`DEPLOYMENT.md`](./DEPLOYMENT.md) — Instruksi static deployment dan security headers.
+- [`STATIC_DEPLOYMENT_AUDIT.md`](./STATIC_DEPLOYMENT_AUDIT.md) — Hasil audit dan panduan pure static deployment.
 - [`ACCESSIBILITY.md`](./ACCESSIBILITY.md) — Panduan standar aksesibilitas WCAG 2.2 AA.

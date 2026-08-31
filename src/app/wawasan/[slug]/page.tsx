@@ -2,7 +2,8 @@ import { notFound } from 'next/navigation';
 import { InsightDetailClient } from '../../_client-pages/InsightDetailClient';
 import { ALL_INSIGHTS_DATA, getLocalizedInsights } from '../../../content/insights';
 import { translateTextValue } from '../../../content/i18nText';
-import { createPageMetadata, getRequestLocale } from '../../seo';
+import { createPageMetadata } from '../../seo';
+import { DEFAULT_LOCALE } from '../../../utils/i18nRouting';
 
 interface InsightRouteProps {
   params: Promise<{
@@ -16,9 +17,11 @@ export const generateStaticParams = () => {
   }));
 };
 
+export const dynamicParams = false;
+
 export const generateMetadata = async ({ params }: InsightRouteProps) => {
   const { slug } = await params;
-  const locale = await getRequestLocale();
+  const locale = DEFAULT_LOCALE;
   const article = getLocalizedInsights(locale).find((item) => item.slug === slug);
 
   if (!article) {

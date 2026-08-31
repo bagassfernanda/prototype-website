@@ -12,7 +12,7 @@ Dokumen ini memuat seluruh butir informasi bisnis, teknis, legal, dan historis y
 | 1.2 | Tahun Berdiri | 2012 (Perkiraan) | 🟡 Perlu Konfirmasi | Tanggal/tahun pasti berdirinya PT Artavel. |
 | 1.3 | Alamat Kantor Utama | Jl. Artavel No. X, Malang / Surabaya, Jawa Timur | 🟡 Perlu Konfirmasi | Alamat lengkap beserta Kode Pos & Titik Google Maps. |
 | 1.4 | Telepon Resmi | (0341) XXXXXXX / +62 81X-XXXX-XXXX | 🟡 Perlu Konfirmasi | Nomor fixed line & nomor kontak resmi. |
-| 1.5 | Email Official | info@artavel.co.id / layanan@artavel.co.id | 🟡 Perlu Konfirmasi | Email tujuan untuk inkuiri umum dan penawaran. |
+| 1.5 | Email Official | admin@artavel.co.id | 🟡 Perlu Konfirmasi | Email tujuan untuk inkuiri umum dan penawaran. |
 | 1.6 | WhatsApp Business | +62 81X-XXXX-XXXX | 🟡 Perlu Konfirmasi | Nomor WhatsApp resmi untuk tombol konsultasi cepat. |
 | 1.7 | Kanal Media Sosial | LinkedIn, Instagram, Facebook, YouTube | 🟡 Perlu Konfirmasi | URL akun resmi Artavel yang masih aktif dikelola. |
 

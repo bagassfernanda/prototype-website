@@ -77,7 +77,7 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onNavigate
               {text('4. Kontak Pengelola Privasi Data')}
             </h2>
             <p>
-              {text('Jika Anda memiliki pertanyaan terkait Kebijakan Privasi ini, Anda dapat menghubungi kami melalui email: ')}<strong className="text-[#36699C]">privacy@artavel.co.id</strong>.
+              {text('Jika Anda memiliki pertanyaan terkait Kebijakan Privasi ini, Anda dapat menghubungi kami melalui email: ')}<strong className="text-[#36699C]">admin@artavel.co.id</strong>.
             </p>
           </div>
         </Container>
